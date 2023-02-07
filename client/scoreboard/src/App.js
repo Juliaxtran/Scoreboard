@@ -26,9 +26,32 @@ function App() {
     const player2 = e.target[1].value;
     const game = e.target[2].value;
     const winner = e.target[3].value;
-
     setMatches([...matches, { player1, player2, game, winner }]);
   };
+
+  const determineWins = () => {
+    let totalGames = matches.length;
+    console.log("Total Games" , totalGames);
+    let wins = {};
+    matches.forEach((match) => {
+      if (wins[match.winner]) {
+        wins[match.winner] += 1;
+      } else {
+        wins[match.winner] = 1;
+      }
+    });
+     console.log("Wins" , wins);
+    let winPercentage = {};
+    for (let player in wins) {
+      winPercentage[player] = Math.floor((wins[player] / totalGames) * 100);
+    }
+    console.log("Win Percentage" , winPercentage);
+
+  };
+
+
+
+
   return (
     <div className="App">
       <h1>Scoreboard</h1>
@@ -120,6 +143,18 @@ function App() {
             </div>
           ))}
         </div>
+        {/* Determine Wins */}
+        <div className="wins">
+          <h2>Wins</h2>
+          <button onClick={determineWins}>
+            Determine Wins
+          </button>
+
+
+
+
+          </div>
+
 
       </div>
     </div>
