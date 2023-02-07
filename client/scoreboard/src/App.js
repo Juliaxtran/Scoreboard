@@ -29,7 +29,78 @@ function App() {
     setMatches([...matches, { player1, player2, game, winner }]);
   };
 
-  const determineWins = () => {
+
+// Copilot's suggestion
+  // const orderPlayersByWins = () => {
+  //   let totalGames = matches.length;
+  //   console.log("Total Games" , totalGames);
+  //   let wins = {};
+  //   matches.forEach((match) => {
+  //     if (wins[match.winner]) {
+  //       wins[match.winner] += 1;
+  //     } else {
+  //       wins[match.winner] = 1;
+  //     }
+  //   });
+  //     console.log("Wins" , wins);
+  //   let winPercentage = {};
+  //   for (let player in wins) {
+  //     winPercentage[player] = Math.floor((wins[player] / totalGames) * 100);
+  //   }
+  //   console.log("Win Percentage" , winPercentage);
+  //   let rank = {};
+  //   for (let player in winPercentage) {
+  //     if (winPercentage[player] >= 50) {
+  //       rank[player] = "A";
+  //     } else if (winPercentage[player] >= 40) {
+  //       rank[player] = "B";
+  //     } else if (winPercentage[player] >= 30) {
+  //       rank[player] = "C";
+  //     } else if (winPercentage[player] >= 20) {
+  //       rank[player] = "D";
+  //     } else if (winPercentage[player] >= 10) {
+  //       rank[player] = "E";
+  //     } else {
+  //       rank[player] = "F";
+  //     }
+  //   }
+  //   console.log("Rank" , rank);
+  //   let orderedPlayers = [];
+  //   for (let player in rank) {
+  //     if (rank[player] === "A") {
+  //       orderedPlayers.push(player);
+  //     }
+  //   }
+  //   for (let player in rank) {
+  //     if (rank[player] === "B") {
+  //       orderedPlayers.push(player);
+  //     }
+  //   }
+  //   for (let player in rank) {
+  //     if (rank[player] === "C") {
+  //       orderedPlayers.push(player);
+  //     }
+  //   }
+  //   for (let player in rank) {
+  //     if (rank[player] === "D") {
+  //       orderedPlayers.push(player);
+  //     }
+  //   }
+  //   for (let player in rank) {
+  //     if (rank[player] === "E") {
+  //       orderedPlayers.push(player);
+  //     }
+  //   }
+  //   for (let player in rank) {
+  //     if (rank[player] === "F") {
+  //       orderedPlayers.push(player);
+  //     }
+  //   }
+  //   console.log("Ordered Players" , orderedPlayers);
+  // };
+
+  // My solution
+  const orderPlayersByWins = () => {
     let totalGames = matches.length;
     console.log("Total Games" , totalGames);
     let wins = {};
@@ -40,14 +111,17 @@ function App() {
         wins[match.winner] = 1;
       }
     });
-     console.log("Wins" , wins);
+      console.log("Wins" , wins);
     let winPercentage = {};
     for (let player in wins) {
-      winPercentage[player] = Math.floor((wins[player] / totalGames) * 100);
+      winPercentage[player] = (wins[player] / totalGames) * 100;
     }
     console.log("Win Percentage" , winPercentage);
-
+    let orderedPlayers = Object.keys(wins).sort((a, b) => wins[b] - wins[a]);
+    console.log("Ordered Players" , orderedPlayers);
   };
+
+
 
 
 
@@ -146,7 +220,7 @@ function App() {
         {/* Determine Wins */}
         <div className="wins">
           <h2>Wins</h2>
-          <button onClick={determineWins}>
+          <button onClick={orderPlayersByWins}>
             Determine Wins
           </button>
 
