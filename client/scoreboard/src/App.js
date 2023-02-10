@@ -30,41 +30,34 @@ function App() {
   };
 
 
+
   const handleMatchSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const player1 = form.elements["player1"] ? form.elements["player1"].value : "";
-    const player2 = form.elements["player2"] ? form.elements["player2"].value : "";
-    const player3 = form.elements["player3"] ? form.elements["player3"].value : "";
-    const player4 = form.elements["player4"] ? form.elements["player4"].value : "";
-    const player5 = form.elements["player5"] ? form.elements["player5"].value : "";
-    const player6 = form.elements["player6"] ? form.elements["player6"].value : "";
+
+    // Create an array to store player values
+    let players = [];
+    for (let i = 1; i <= val.length + 2; i++) {
+      const player = form.elements[`player${i}`] ? form.elements[`player${i}`].value : "";
+      players.push(player);
+    }
 
     const game = form.elements["game"] ? form.elements["game"].value : "";
     const winner = form.elements["winner"] ? form.elements["winner"].value : "";
-    setMatches([...matches, { player1, player2, player3, player4, player5, player6,  game, winner }]);
+
+    // Create a new object with player values
+    let match = {};
+    players.forEach((player, index) => {
+      match[`player${index + 1}`] = player;
+    });
+
+    // Add the game and winner to the match object
+    match.game = game;
+    match.winner = winner;
+
+    setMatches([...matches, match]);
     console.log(matches);
   };
-
-  // const handleMatchSubmit = (e) => {
-  //   e.preventDefault();
-  //   const form = e.target;
-  //   const players = [];
-
-  //   let i = 1;
-  //   while (form.elements[`player${i}`]) {
-  //     players.push(form.elements[`player${i}`].value);
-  //     i++;
-  //   }
-
-  //   const game = form.elements["game"] ? form.elements["game"].value : "";
-  //   const winner = form.elements["winner"] ? form.elements["winner"].value : "";
-
-  //   setMatches([...matches, { players, game, winner }]);
-  //   console.log(matches);
-  // };
-
-
 
   // My solution
   const orderPlayersByWins = () => {
