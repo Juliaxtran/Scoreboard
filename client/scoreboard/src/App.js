@@ -33,19 +33,15 @@ function App() {
   const handleMatchSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const player1 = form.elements["player1"].value;
-    const player2 = form.elements["player2"].value;
-    const player3 = form.elements["player3"].value;
-    const player4 = form.elements["player4"].value;
-    const game = form.elements["game"].value;
-    const winner = form.elements["winner"].value;
+    const player1 = form.elements["player1"] ? form.elements["player1"].value : "";
+    const player2 = form.elements["player2"] ? form.elements["player2"].value : "";
+    const player3 = form.elements["player3"] ? form.elements["player3"].value : "";
+    const player4 = form.elements["player4"] ? form.elements["player4"].value : "";
+    const game = form.elements["game"] ? form.elements["game"].value : "";
+    const winner = form.elements["winner"] ? form.elements["winner"].value : "";
     setMatches([...matches, { player1, player2, player3, player4, game, winner }]);
     console.log(matches);
   };
-
-
-
-
 
 
   // My solution
@@ -137,7 +133,28 @@ function App() {
               ))}
             </select>
 
-            <label>Player 3</label>
+             {/* Add multiple */}
+             <button type='button' onClick={() => handleAdd()}>Add</button>
+            {
+              val.map((v, i) => {
+                return (
+                  <div key={i}>
+                    <label>Player {i + 3}</label>
+                    <select name={`player${i + 3}`}>
+                      {players.map((player, index) => (
+                        <option key={index} value={player.name}>
+                          {player.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )
+              }
+              )
+
+            }
+
+            {/* <label>Player 3</label>
             <select name="player3">
               {players.map((player, index) => (
                 <option key={index} value={player.name}>
@@ -153,7 +170,7 @@ function App() {
                   {player.name}
                 </option>
               ))}
-            </select>
+            </select> */}
 
             <label>Game</label>
             <select name="game">
@@ -186,8 +203,8 @@ function App() {
             <div key={index}>
               <p>Player 1: {match.player1}</p>
               <p>Player 2: {match.player2}</p>
-              <p>Player 3: {match.player3}</p>
-              <p>Player 4: {match.player4}</p>
+              {match.player3 && <p>Player 3: {match.player3}</p>}
+              {match.player4 && <p>Player 4: {match.player4}</p>}
               <p>Game: {match.game}</p>
               <p>Winner: {match.winner}</p>
             </div>
