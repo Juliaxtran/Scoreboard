@@ -7,11 +7,11 @@ function App() {
   let [players, setPlayers] = useState([]);
   let [games, setGames] = useState([]);
   let [matches, setMatches] = useState([]);
-  let [val, setVal] = useState([]);
+  let [playerVal, setPlayerVal] = useState([]);
 
   const handleAdd = () => {
-    const abc = [...val, []]
-    setVal(abc)
+    const abc = [...playerVal, []]
+    setPlayerVal(abc)
   };
 
 
@@ -37,7 +37,7 @@ function App() {
 
     // Create an array to store player values
     let players = [];
-    for (let i = 1; i <= val.length + 2; i++) {
+    for (let i = 1; i <= playerVal.length + 2; i++) {
       const player = form.elements[`player${i}`] ? form.elements[`player${i}`].value : "";
       players.push(player);
     }
@@ -151,7 +151,7 @@ function App() {
             {/* Add multiple */}
             <button type='button' onClick={() => handleAdd()}>Add</button>
             {
-              val.map((v, i) => {
+              playerVal.map((v, i) => {
                 return (
                   <div key={i}>
                     <label>Player {i + 3}</label>
