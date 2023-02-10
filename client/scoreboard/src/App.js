@@ -246,7 +246,13 @@ function App() {
                 return null;
               })}
               <p>Game: {match.game}</p>
-              <p>Winner: {match.winner}</p>
+              <p>Winner: {match.winner1}</p>
+              {Object.keys(match).map((winner, winnerIndex) => {
+                if (winner.includes("winner") && winner !== "winner1") {
+                  return <p key={winnerIndex}>Winner {winnerIndex - 3}: {match[winner]}</p>;
+                }
+                return null;
+              })}
             </div>
           ))}
         </div>
