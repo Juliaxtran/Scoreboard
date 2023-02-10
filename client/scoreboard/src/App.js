@@ -29,6 +29,21 @@ function App() {
     e.target[0].value = '';
   };
 
+
+  // const handleMatchSubmit = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const player1 = form.elements["player"][0].value;
+  //   const player2 = form.elements["player"][1].value;
+  //   const player3 = form.elements["player"][2].value;
+  //   const player4 = form.elements["player"][3].value;
+  //   const game = form.elements["game"].value;
+  //   const winner = form.elements["winner"].value;
+  //   setMatches([...matches, { player1, player2, player3, player4, game, winner }]);
+  //   console.log(matches);
+  // };
+
+
   const handleMatchSubmit = (e) => {
     e.preventDefault();
     const player1 = e.target[0].value;
@@ -180,7 +195,7 @@ function App() {
           <h2>Matches</h2>
           <form className='matches' onSubmit={handleMatchSubmit}>
             <label>Player 1</label>
-            <select>
+            <select name='player'>
               {players.map((player, index) => (
                 <option key={index} value={player.name}>
                   {player.name}
@@ -188,7 +203,7 @@ function App() {
               ))}
             </select>
             <label>Player 2</label>
-            <select>
+            <select name='player'>
               {players.map((player, index) => (
                 <option key={index} value={player.name}>
                   {player.name}
@@ -202,7 +217,7 @@ function App() {
                 return (
                   <div key={i}>
                     <label>Player {i + 3}</label>
-                    <select>
+                    <select name='player'>
                       {players.map((player, index) => (
                         <option key={index} value={player.name}>
                           {player.name}
@@ -216,7 +231,7 @@ function App() {
 
             }
             <label>Game</label>
-            <select>
+            <select name='game'>
               {games.map((game, index) => (
                 <option key={index} value={game.name}>
                   {game.name}
@@ -224,7 +239,7 @@ function App() {
               ))}
             </select>
             <label>Winner</label>
-            <select>
+            <select name='winner'>
               {players.map((player, index) => (
                 <option key={index} value={player.name}>
                   {player.name}
@@ -234,6 +249,9 @@ function App() {
             <button type="submit">Add Match</button>
           </form>
         </div>
+
+
+
         {/* Show matches */}
         <div className="matches-list">
           <h2>Matches</h2>
