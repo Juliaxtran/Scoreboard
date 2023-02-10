@@ -37,11 +37,33 @@ function App() {
     const player2 = form.elements["player2"] ? form.elements["player2"].value : "";
     const player3 = form.elements["player3"] ? form.elements["player3"].value : "";
     const player4 = form.elements["player4"] ? form.elements["player4"].value : "";
+    const player5 = form.elements["player5"] ? form.elements["player5"].value : "";
+    const player6 = form.elements["player6"] ? form.elements["player6"].value : "";
+
     const game = form.elements["game"] ? form.elements["game"].value : "";
     const winner = form.elements["winner"] ? form.elements["winner"].value : "";
-    setMatches([...matches, { player1, player2, player3, player4, game, winner }]);
+    setMatches([...matches, { player1, player2, player3, player4, player5, player6,  game, winner }]);
     console.log(matches);
   };
+
+  // const handleMatchSubmit = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const players = [];
+
+  //   let i = 1;
+  //   while (form.elements[`player${i}`]) {
+  //     players.push(form.elements[`player${i}`].value);
+  //     i++;
+  //   }
+
+  //   const game = form.elements["game"] ? form.elements["game"].value : "";
+  //   const winner = form.elements["winner"] ? form.elements["winner"].value : "";
+
+  //   setMatches([...matches, { players, game, winner }]);
+  //   console.log(matches);
+  // };
+
 
 
   // My solution
@@ -133,8 +155,8 @@ function App() {
               ))}
             </select>
 
-             {/* Add multiple */}
-             <button type='button' onClick={() => handleAdd()}>Add</button>
+            {/* Add multiple */}
+            <button type='button' onClick={() => handleAdd()}>Add</button>
             {
               val.map((v, i) => {
                 return (
@@ -154,23 +176,6 @@ function App() {
 
             }
 
-            {/* <label>Player 3</label>
-            <select name="player3">
-              {players.map((player, index) => (
-                <option key={index} value={player.name}>
-                  {player.name}
-                </option>
-              ))}
-            </select>
-
-            <label>Player 4</label>
-            <select name="player4">
-              {players.map((player, index) => (
-                <option key={index} value={player.name}>
-                  {player.name}
-                </option>
-              ))}
-            </select> */}
 
             <label>Game</label>
             <select name="game">
@@ -203,13 +208,18 @@ function App() {
             <div key={index}>
               <p>Player 1: {match.player1}</p>
               <p>Player 2: {match.player2}</p>
-              {match.player3 && <p>Player 3: {match.player3}</p>}
-              {match.player4 && <p>Player 4: {match.player4}</p>}
+              {Object.keys(match).map((player, playerIndex) => {
+                if (player.includes("player") && player !== "player1" && player !== "player2") {
+                  return <p key={playerIndex}>Player {playerIndex + 1}: {match[player]}</p>;
+                }
+                return null;
+              })}
               <p>Game: {match.game}</p>
               <p>Winner: {match.winner}</p>
             </div>
           ))}
         </div>
+
         {/* Determine Wins */}
         <div className="wins">
           <h2>Wins</h2>
