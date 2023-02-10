@@ -7,6 +7,15 @@ function App() {
   let [players, setPlayers] = useState([]);
   let [games, setGames] = useState([]);
   let [matches, setMatches] = useState([]);
+  let [val, setVal] = useState([]);
+
+  const handleAdd = () => {
+    const abc = [...val, []]
+    setVal(abc)
+  };
+
+
+
 
   const handlePlayerSubmit = (e) => {
     e.preventDefault();
@@ -186,6 +195,26 @@ function App() {
                 </option>
               ))}
             </select>
+            {/* Add multiple */}
+            <button type='button' onClick={() => handleAdd()}>Add</button>
+            {
+              val.map((v, i) => {
+                return (
+                  <div key={i}>
+                    <label>Player {i + 3}</label>
+                    <select>
+                      {players.map((player, index) => (
+                        <option key={index} value={player.name}>
+                          {player.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )
+              }
+              )
+
+            }
             <label>Game</label>
             <select>
               {games.map((game, index) => (
