@@ -63,11 +63,12 @@ function App() {
       match[`player${index + 1}`] = player;
     });
 
-    // Add the game and winner to the match object
+    // Create a new object with winner values
     winners.forEach((winner, index) => {
       match[`winner${index + 1}`] = winner;
     });
 
+    // Game value
     match.game = game;
 
 
@@ -76,15 +77,22 @@ function App() {
   };
 
   // My solution
+
+
   const orderPlayersByWins = () => {
     let totalGames = matches.length;
     console.log("Total Games", totalGames);
     let wins = {};
     matches.forEach((match) => {
-      if (wins[match.winner]) {
-        wins[match.winner] += 1;
-      } else {
-        wins[match.winner] = 1;
+      for (let i = 1; i <= winnerVal.length + 1; i++) {
+        const winner = match[`winner${i}`];
+        if (winner) {
+          if (wins[winner]) {
+            wins[winner] += 1;
+          } else {
+            wins[winner] = 1;
+          }
+        }
       }
     });
     console.log("Wins", wins);
@@ -96,9 +104,6 @@ function App() {
     let orderedPlayers = Object.keys(wins).sort((a, b) => wins[b] - wins[a]);
     console.log("Ordered Players", orderedPlayers);
   };
-
-
-
 
 
 
@@ -198,7 +203,7 @@ function App() {
             <label>Winner</label>
             <select name="winner1">
               {players.map((player, index) => (
-                <option key={index}  value={player.name}>
+                <option key={index} value={player.name}>
                   {player.name}
                 </option>
               ))}
@@ -249,7 +254,7 @@ function App() {
               <p>Winner: {match.winner1}</p>
               {Object.keys(match).map((winner, winnerIndex) => {
                 if (winner.includes("winner") && winner !== "winner1") {
-                  return <p key={winnerIndex}>Winner {winnerIndex - 3}: {match[winner]}</p>;
+                  return <p key={winnerIndex}>Winner {winnerIndex - 1}: {match[winner]}</p>;
                 }
                 return null;
               })}
