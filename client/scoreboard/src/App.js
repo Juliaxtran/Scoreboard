@@ -8,10 +8,16 @@ function App() {
   let [games, setGames] = useState([]);
   let [matches, setMatches] = useState([]);
   let [playerVal, setPlayerVal] = useState([]);
+  let [winnerVal, setWinnerVal] = useState([]);
 
-  const handleAdd = () => {
+  const handleAddPlayer = () => {
     const abc = [...playerVal, []]
     setPlayerVal(abc)
+  };
+
+  const handleAddWinner = () => {
+    const abc = [...winnerVal, []]
+    setWinnerVal(abc)
   };
 
 
@@ -42,8 +48,14 @@ function App() {
       players.push(player);
     }
 
+    let winners = [];
+    for (let i = 1; i <= winnerVal.length + 1; i++) {
+      const winner = form.elements[`winner${i}`] ? form.elements[`winner${i}`].value : "";
+      winners.push(winner);
+    }
+
     const game = form.elements["game"] ? form.elements["game"].value : "";
-    const winner = form.elements["winner"] ? form.elements["winner"].value : "";
+
 
     // Create a new object with player values
     let match = {};
@@ -52,8 +64,12 @@ function App() {
     });
 
     // Add the game and winner to the match object
+    winners.forEach((winner, index) => {
+      match[`winner${index + 1}`] = winner;
+    });
+
     match.game = game;
-    match.winner = winner;
+
 
     setMatches([...matches, match]);
     console.log(matches);
@@ -149,7 +165,7 @@ function App() {
             </select>
 
             {/* Add multiple */}
-            <button type='button' onClick={() => handleAdd()}>Add</button>
+            <button type='button' onClick={() => handleAddPlayer()}>Add</button>
             {
               playerVal.map((v, i) => {
                 return (
@@ -180,13 +196,35 @@ function App() {
             </select>
 
             <label>Winner</label>
-            <select name="winner">
+            <select name="winner1">
               {players.map((player, index) => (
-                <option key={index} value={player.name}>
+                <option key={index}  value={player.name}>
                   {player.name}
                 </option>
               ))}
             </select>
+
+            {/* Handle multiple Winners */}
+
+            <button type='button' onClick={() => handleAddWinner()}>Add</button>
+            {
+              winnerVal.map((v, i) => {
+                return (
+                  <div key={i}>
+                    <label>Winner {i + 2}</label>
+                    <select name={`winner${i + 2}`}>
+                      {players.map((player, index) => (
+                        <option key={index} value={player.name}>
+                          {player.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )
+              }
+              )
+
+            }
 
             <button type="submit">Add Match</button>
           </form>
