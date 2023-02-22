@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const playerRoutes = require('./routes/player');
+const groupRoutes = require('./routes/group');
 const dotenv = require('dotenv');
 
 
@@ -27,6 +28,7 @@ const connect = async () => {
 
 //Use Routes
 app.use('/player', playerRoutes);
+app.use('/group', groupRoutes);
 
 
 app.get('/', (req, res) => {

@@ -35,4 +35,27 @@ router.post('/', async (req, res) => {
 
 });
 
+// Connect player to group
+router.post('/:id/connect', async (req, res) => {
+  const groupId = req.body.groupId;
+
+  try {
+    const player = await Player.findById(req.params.id);
+    if (!player) {
+      return res.status(404).json({ message: 'Cannot find player' });
+    }
+
+    const group = await Group.findById(groupId);
+    if (!group) {
+      return res.status(404).json({ message: 'Cannot find group' });
+    }
+
+    player.group = group._id;
+    const updatedPlayer = await player.save();
+    res.json(updatedPlayer);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 module.exports = router;
