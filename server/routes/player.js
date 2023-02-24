@@ -1,6 +1,7 @@
 
 const router = require('express').Router();
 const Player = require('../models/player');
+const Group = require('../models/group');
 
 
 // Player Routes
@@ -45,13 +46,14 @@ router.post('/:id/connect', async (req, res) => {
       return res.status(404).json({ message: 'Cannot find player' });
     }
 
-    const group = await Group.findById(groupId);
+    const group = await Group.findByIdAndUpdate(groupId, { $push: { players: player._id } });
     if (!group) {
       return res.status(404).json({ message: 'Cannot find group' });
     }
 
     player.group = group._id;
     const updatedPlayer = await player.save();
+
     res.json(updatedPlayer);
   } catch (err) {
     res.status(400).json({ message: err.message });

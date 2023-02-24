@@ -7,6 +7,9 @@ const Group = require('../models/group');
 
 router.get('/', async (req, res) => {
   try {
+
+    const groups = await Group.find();
+    res.json(groups);
     res.send('Group page')
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -41,7 +44,23 @@ router.post('/', async (req, res) => {
 
   }
 
-
 });
+
+router.get('/:id', async (req, res) => {
+ try {
+    const group = await Group.findById(req.params.id);
+    if (!group) {
+      return res.status(404).json({ message: 'Cannot find group' });
+    }
+    res.json(group);
+ }
+  catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// add player to group
+
+
 
 module.exports = router;
