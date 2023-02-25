@@ -3,8 +3,9 @@ const router = require('express').Router();
 const Group = require('../models/group');
 
 
-// Player Routes
-
+// Group Routes
+//GET: All groups 
+// /group
 router.get('/', async (req, res) => {
   try {
 
@@ -24,8 +25,7 @@ router.get('/', async (req, res) => {
 //   matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Match' }]
 // });
 
-// Create a new group
-
+// POST: Create a new group
 router.post('/', async (req, res) => {
  const name = req.body.name;
  const player = req.body.player;
@@ -46,6 +46,8 @@ router.post('/', async (req, res) => {
 
 });
 
+// GET: A group specified by an id
+// /group/:id
 router.get('/:id', async (req, res) => {
  try {
     const group = await Group.findById(req.params.id);
@@ -59,7 +61,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// add player to group
+// POST: add player to group
+// /group/:id/player/:id ? 
+
+//PUT: Update Group
+
+
+//DELETE: Delete group
 
 
 
