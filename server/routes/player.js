@@ -1,4 +1,4 @@
-
+l
 const router = require('express').Router();
 const Player = require('../models/player');
 const Group = require('../models/group');
@@ -113,7 +113,7 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
-});
+e});
 
 
 
