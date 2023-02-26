@@ -32,7 +32,7 @@ app.use('/group', groupRoutes);
 
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World!');
 })
 
 
@@ -42,4 +42,4 @@ app.listen(port,
     connect();
     console.log(`Server started on port ${port}`)
   }
-  );
+);

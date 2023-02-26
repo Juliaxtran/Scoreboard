@@ -5,7 +5,6 @@ const Group = require('../models/group');
 
 
 // Player Routes
-
 router.get('/', async (req, res) => {
   try {
     res.send('Players page')
@@ -17,7 +16,6 @@ router.get('/', async (req, res) => {
 
 
 // Create a new player
-
 router.post('/', async (req, res) => {
   const player = new Player({
     name: req.body.name,
@@ -35,6 +33,7 @@ router.post('/', async (req, res) => {
   }
 
 });
+
 
 // Connect player to group
 router.post('/:id/connect', async (req, res) => {
@@ -55,6 +54,36 @@ router.post('/:id/connect', async (req, res) => {
     const updatedPlayer = await player.save();
 
     res.json(updatedPlayer);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+//GET: A player specified by an id => /player/:id
+router.get('/:id', async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id);
+    if (!player) {
+      return res.status(404).json({ message: 'Cannot find player' });
+    }
+    res.json(player);
+  }
+  catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
+//Delete a player specified by an id => /player/:id
+router.delete('/:id', async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id);
+    if (!player) {
+      return res.status(404).json({ message: 'Cannot find player' });
+    }
+    await player.remove();
+    res.json({ message: 'Player deleted' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
