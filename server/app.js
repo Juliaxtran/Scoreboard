@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const playerRoutes = require('./routes/player');
 const groupRoutes = require('./routes/group');
 const matchRoutes = require('./routes/match');
+const gameRoutes = require('./routes/game');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
@@ -32,6 +33,8 @@ const connect = async () => {
 app.use('/player', playerRoutes);
 app.use('/group', groupRoutes);
 app.use('/match', matchRoutes);
+app.use('/game', gameRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
