@@ -27,8 +27,8 @@ router.get('/', async (req, res) => {
 
 // POST: Create a new group
 router.post('/', async (req, res) => {
- const name = req.body.name;
- const player = req.body.player;
+  const name = req.body.name;
+  const player = req.body.player;
 
   const group = new Group({
     name: name,
@@ -49,13 +49,13 @@ router.post('/', async (req, res) => {
 // GET: A group specified by an id
 // /group/:id
 router.get('/:id', async (req, res) => {
- try {
+  try {
     const group = await Group.findById(req.params.id);
     if (!group) {
       return res.status(404).json({ message: 'Cannot find group' });
     }
     res.json(group);
- }
+  }
   catch (err) {
     res.status(400).json({ message: err.message });
   }
