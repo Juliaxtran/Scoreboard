@@ -75,6 +75,32 @@ router.get('/:id', async (req, res) => {
 });
 
 
+//Update a player specified by an id => /player/:id
+router.put('/:id', async (req, res) => {
+  try {
+    const player = await Player.findById(req.params.id);
+    if (!player) {
+      return res.status(404).json({ message: 'Cannot find player' });
+    }
+    if (req.body.name != null) {
+      player.name = req.body.name;
+    }
+    if (req.body.email != null) {
+      player.email = req.body.email;
+    }
+    if (req.body.password != null) {
+      player.password = req.body.password;
+    }
+
+
+    const updatedPlayer = await player.save();
+    res.json(updatedPlayer);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
 //Delete a player specified by an id => /player/:id
 router.delete('/:id', async (req, res) => {
   try {

@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const playerRoutes = require('./routes/player');
 const groupRoutes = require('./routes/group');
+const matchRoutes = require('./routes/match');
 const dotenv = require('dotenv');
-
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -23,13 +24,14 @@ const connect = async () => {
   }
 }
 
+//CORS for all routes
 
 
 
 //Use Routes
 app.use('/player', playerRoutes);
 app.use('/group', groupRoutes);
-
+app.use('/match', matchRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
