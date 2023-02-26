@@ -6,7 +6,7 @@ const Game = require('../models/game');
 // GET: All games => /game
 router.get('/', async (req, res) => {
     try {
-        const games = await game.find();
+        const games = await Game.find();
         res.json(games);
     } catch (err) {
         res.status(500).json({ message: err.message });
