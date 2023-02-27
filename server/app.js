@@ -6,7 +6,7 @@ const groupRoutes = require('./routes/group');
 const matchRoutes = require('./routes/match');
 const gameRoutes = require('./routes/game');
 const dotenv = require('dotenv');
-const cors = require('cors');
+const session = require('express-session');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -27,7 +27,12 @@ const connect = async () => {
 
 //CORS for all routes
 
-
+app.use(session({
+  secret: 'scoreboard',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 //Use Routes
 app.use('/player', playerRoutes);

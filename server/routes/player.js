@@ -1,4 +1,4 @@
-l
+
 const router = require('express').Router();
 const Player = require('../models/player');
 const Group = require('../models/group');
@@ -16,7 +16,8 @@ router.get('/', async (req, res) => {
 
 
 // Create a new player
-router.post('/', async (req, res) => {
+//Register Route
+router.post('/register', async (req, res) => {
   const player = new Player({
     name: req.body.name,
     email: req.body.email,
@@ -114,6 +115,33 @@ router.delete('/:id', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 e});
+
+//Authentication routes
+//Login Route
+router.post('/login', async (req, res) => {
+  const player = await Player.findOne({ email: req.body.email });
+  if (!player) {
+  
+    return res.status(400).send('Email or password is wrong');
+  }
+  if (req.body.password != player.password) {
+    return res.status(400).send('Email or password is wrong');
+  } 
+  
+     res.cookie('sessionId', req.session.id, {
+      httpOnly: true,
+      maxAge: 3600000 // Cookie expires in 1 hour
+    });
+  res.send('Logged in');
+});
+
+
+//Logout Route
+router.post('/logout', async (req, res) => {
+  req.session.destroy();
+  res.clearCookie('sessionId');
+  res.send('Logged out');
+});
 
 
 
