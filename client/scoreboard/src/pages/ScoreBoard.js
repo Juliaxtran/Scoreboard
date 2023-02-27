@@ -3,7 +3,7 @@ import { Context } from '../context/StateContext';
 
 const ScoreBoard = () => {
 
-  const { players, games, matches, playerVal, orderPlayersByWins, handlePlayerSubmit, handleAdd, handleGameSubmit, handleMatchSubmit } = useContext(Context);
+  const { players, games, matches, playerVal, orderPlayersByWins, handlePlayerSubmit, handleAddPlayer, handleGameSubmit, handleMatchSubmit,  handleAddWinner, winnerVal } = useContext(Context);
 
 
   return (
@@ -67,7 +67,7 @@ const ScoreBoard = () => {
             </select>
 
             {/* Add multiple */}
-            <button type='button' onClick={() => handleAdd()}>Add</button>
+            <button type='button' onClick={() => handleAddPlayer()}>Add</button>
             {
               playerVal.map((v, i) => {
                 return (
@@ -98,13 +98,35 @@ const ScoreBoard = () => {
             </select>
 
             <label>Winner</label>
-            <select name="winner">
+            <select name="winner1">
               {players.map((player, index) => (
                 <option key={index} value={player.name}>
                   {player.name}
                 </option>
               ))}
             </select>
+
+            {/* Handle multiple Winners */}
+
+            <button type='button' onClick={() => handleAddWinner()}>Add</button>
+            {
+              winnerVal.map((v, i) => {
+                return (
+                  <div key={i}>
+                    <label>Winner {i + 2}</label>
+                    <select name={`winner${i + 2}`}>
+                      {players.map((player, index) => (
+                        <option key={index} value={player.name}>
+                          {player.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )
+              }
+              )
+
+            }
 
             <button type="submit">Add Match</button>
           </form>
@@ -126,7 +148,13 @@ const ScoreBoard = () => {
                 return null;
               })}
               <p>Game: {match.game}</p>
-              <p>Winner: {match.winner}</p>
+              <p>Winner: {match.winner1}</p>
+              {Object.keys(match).map((winner, winnerIndex) => {
+                if (winner.includes("winner") && winner !== "winner1") {
+                  return <p key={winnerIndex}>Winner {winnerIndex-2}: {match[winner]}</p>;
+                }
+                return null;
+              })}
             </div>
           ))}
         </div>
@@ -140,6 +168,7 @@ const ScoreBoard = () => {
         </div>
       </div>
     </div>
+
   )
 }
 

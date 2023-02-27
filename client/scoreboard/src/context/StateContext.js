@@ -9,7 +9,17 @@ const StateContext = ({ children }) => {
   const [games, setGames] = useState([]);
   const [matches, setMatches] = useState([]);
   const [playerVal, setPlayerVal] = useState([]);
+  const [winnerVal, setWinnerVal] = useState([]);
 
+  const handleAddPlayer = () => {
+    const abc = [...playerVal, []]
+    setPlayerVal(abc)
+  };
+
+  const handleAddWinner = () => {
+    const abc = [...winnerVal, []]
+    setWinnerVal(abc)
+  };
 
   const handlePlayerSubmit = (e) => {
     e.preventDefault();
@@ -17,40 +27,12 @@ const StateContext = ({ children }) => {
     e.target[0].value = '';
   };
 
-
-  // My solution
-  const orderPlayersByWins = () => {
-    let totalGames = matches.length;
-    console.log("Total Games", totalGames);
-    let wins = {};
-    matches.forEach((match) => {
-      if (wins[match.winner]) {
-        wins[match.winner] += 1;
-      } else {
-        wins[match.winner] = 1;
-      }
-    });
-    console.log("Wins", wins);
-    let winPercentage = {};
-    for (let player in wins) {
-      winPercentage[player] = (wins[player] / totalGames) * 100;
-    }
-    console.log("Win Percentage", winPercentage);
-    let orderedPlayers = Object.keys(wins).sort((a, b) => wins[b] - wins[a]);
-    console.log("Ordered Players", orderedPlayers);
-  };
-
-
-  const handleAdd = () => {
-    const abc = [...playerVal, []]
-    setPlayerVal(abc)
-  };
-
   const handleGameSubmit = (e) => {
     e.preventDefault();
     setGames([...games, { name: e.target[0].value }]);
     e.target[0].value = '';
   };
+
 
 
   const handleMatchSubmit = (e) => {
@@ -63,8 +45,15 @@ const StateContext = ({ children }) => {
       const player = form.elements[`player${i}`] ? form.elements[`player${i}`].value : "";
       players.push(player);
     }
+
+    let winners = [];
+    for (let i = 1; i <= winnerVal.length + 1; i++) {
+      const winner = form.elements[`winner${i}`] ? form.elements[`winner${i}`].value : "";
+      winners.push(winner);
+    }
+
     const game = form.elements["game"] ? form.elements["game"].value : "";
-    const winner = form.elements["winner"] ? form.elements["winner"].value : "";
+
 
     // Create a new object with player values
     let match = {};
@@ -72,12 +61,41 @@ const StateContext = ({ children }) => {
       match[`player${index + 1}`] = player;
     });
 
-    // Add the game and winner to the match object
-    match.game = game;
-    match.winner = winner;
+    // Create a new object with winner values
+    winners.forEach((winner, index) => {
+      match[`winner${index + 1}`] = winner;
+    });
 
+    // Game value
+    match.game = game;
     setMatches([...matches, match]);
     console.log(matches);
+  };
+
+  const orderPlayersByWins = () => {
+    let totalGames = matches.length;
+    console.log("Total Games", totalGames);
+    let wins = {};
+    matches.forEach((match) => {
+      for (let i = 1; i <= winnerVal.length + 1; i++) {
+        const winner = match[`winner${i}`];
+        if (winner) {
+          if (wins[winner]) {
+            wins[winner] += 1;
+          } else {
+            wins[winner] = 1;
+          }
+        }
+      }
+    });
+    console.log("Wins", wins);
+    let winPercentage = {};
+    for (let player in wins) {
+      winPercentage[player] = (wins[player] / totalGames) * 100;
+    }
+    console.log("Win Percentage", winPercentage);
+    let orderedPlayers = Object.keys(wins).sort((a, b) => wins[b] - wins[a]);
+    console.log("Ordered Players", orderedPlayers);
   };
 
   return (
@@ -92,9 +110,11 @@ const StateContext = ({ children }) => {
       setGames,
       setMatches,
       handlePlayerSubmit,
-      handleAdd,
+      handleAddPlayer,
       handleGameSubmit,
-      handleMatchSubmit
+      handleMatchSubmit, 
+      handleAddWinner, 
+      winnerVal
     }}>
       {children}
     </Context.Provider>
