@@ -1,6 +1,7 @@
 *,
 body {
   margin: 0;
+
 }
 
 .App {
@@ -24,4 +25,51 @@ body {
   display: flex;
   flex-direction: column;
   gap: .5em;
+}
+
+.home-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: black;
+  width: 100%;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+ 
+}
+
+.title {
+  font-size: 2.5em;
+  font-family: 'Readex Pro', sans-serif;
+  color: white;
+}
+
+.logo {
+  width: 6em;
+}
+
+
+.primary-button:hover {
+  background: linear-gradient(260deg, rgb(104, 104, 214), lightblue);
+}
+
+.secondary-button {
+  color: rgb(255, 255, 255);
+  background-color: rgb(7, 0, 0);
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  margin: 2em;
+  height: 15%;
+
+}
+
+.secondary-button:hover {
+  color: rgb(48, 48, 48);
+  border: solid 2px lightblue;
 }

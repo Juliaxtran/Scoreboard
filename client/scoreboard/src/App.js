@@ -2,6 +2,7 @@ import './App.css';
 import { StateContext } from './context/StateContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScoreBoard from './pages/ScoreBoard';
+import Dashboard from './pages/Dashboard';
 
 const App = () => {
 
@@ -9,7 +10,8 @@ const App = () => {
     <StateContext>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ScoreBoard />} />
+          <Route path="/test" element={<ScoreBoard />} />
+          <Route path="/" element={<Dashboard />} />
         </Routes>
       </BrowserRouter >
     </StateContext>
