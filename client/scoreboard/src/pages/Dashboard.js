@@ -9,15 +9,14 @@ const Dashboard = () => {
   return (
     <>
       <NavBar />
-      <div>Dashboard</div> 
-      <div className="leaderboard-game-match">
-      <LeaderBoard/>
-      <div className="game-match">
-        <AddButton/>
-    <MatchBoard/>
-      <GameBoard/>
+      <div className="leaderboard-game-match" style={{marginTop:20, marginLeft: 20}}>
+        <LeaderBoard />
+        <div className="game-match">
+          <AddButton />
+          <MatchBoard />
+          <GameBoard />
+        </div>
       </div>
-      </div> 
     </>
   );
 };
