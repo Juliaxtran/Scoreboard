@@ -1,4 +1,5 @@
 import React from "react";
+import AddButton from "../components/AddButton";
 import GameBoard from "../components/GameBoard";
 import LeaderBoard from "../components/LeaderBoard";
 import MatchBoard from "../components/MatchBoard";
@@ -12,6 +13,7 @@ const Dashboard = () => {
       <div className="leaderboard-game-match">
       <LeaderBoard/>
       <div className="game-match">
+        <AddButton/>
     <MatchBoard/>
       <GameBoard/>
       </div>
