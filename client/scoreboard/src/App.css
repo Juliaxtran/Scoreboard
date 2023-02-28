@@ -70,6 +70,9 @@ body {
 }
 
 .secondary-button:hover {
-  color: rgb(48, 48, 48);
-  border: solid 2px lightblue;
+  color: rgb(139, 139, 139);
+}
+
+.leaderboard-game-match{
+  display: flex;
 }
