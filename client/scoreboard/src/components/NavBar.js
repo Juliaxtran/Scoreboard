@@ -24,12 +24,21 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{backgroundColor:'black'}}>
-      <Container maxWidth="xl" >
+    <AppBar position="static" sx={{ backgroundColor: "black" }}>
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <h2>Scoreboard</h2>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          
+          <Typography variant="h5" component="div" sx={{ flexGrow: 3, fontFamily:'JetBrains Mono, monospace' }}>
+            Scoreboard
+          </Typography>
 
+
+          <Typography variant="h6" component="div" sx={{ flexGrow:3,fontFamily:'JetBrains Mono, monospace' }}>
+            Dashboard
+          </Typography>
+
+          {/* Mobile Responsive with Menu Icon  */}
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -44,18 +53,18 @@ function ResponsiveAppBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
@@ -66,12 +75,18 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, }} className='nav-bar-page'>
+       
+          {/* Desktop Responsive */}
+          <Box
+            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+            className="nav-bar-page"
+          >  
+       
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>

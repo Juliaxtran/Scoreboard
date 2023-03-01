@@ -1,8 +1,9 @@
 *,
 body {
   margin: 0;
-
+  font-family: 'JetBrains Mono', monospace;
 }
+
 
 .App {
   text-align: center;
