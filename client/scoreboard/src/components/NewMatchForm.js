@@ -3,6 +3,8 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import {Button, Dialog, DialogActions, TextField, DialogContentText, DialogTitle, DialogContent} from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+
 
 const NewMatchForm = ({}) => {
   const [open, setOpen] = React.useState(false);
@@ -10,6 +12,9 @@ const NewMatchForm = ({}) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+
+  const player = ["Julia", "Patrice", "Ryan"]; 
 
   return (
    <>
@@ -29,7 +34,10 @@ const NewMatchForm = ({}) => {
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography>
         </Box>
-      </Modal> */}<Button
+      </Modal> */}
+      
+      {/* 'Add New Match' Button Component  */}
+      <Button
         size="large"
         variant="contained"
         sx={{ bgcolor: "#edbe02", mr: 2 }}
@@ -37,9 +45,13 @@ const NewMatchForm = ({}) => {
         onClick={handleClickOpen}
       > Add New Match
       </Button>
+    
+      {/* Dialog component  */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Match</DialogTitle>
         <DialogContent>
+
+       
         <TextField
             autoFocus
             margin="dense"
@@ -49,30 +61,31 @@ const NewMatchForm = ({}) => {
             fullWidth
             variant="standard"
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="players"
-            label="Players"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="winner"
-            label="Winner"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
+         
+         <Typography variant='h6' sx={{fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace'}}>Add players</Typography>
+          <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={player}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Select a player" />}
+    />
+             <Typography variant='h6' sx={{fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace'}}>Winner</Typography>
+          <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={player}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Select a winner" />}
+    />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose} color="error" variant='contained'>Submit</Button>
         </DialogActions>
       </Dialog>
+
+
    </>
   )
 }
