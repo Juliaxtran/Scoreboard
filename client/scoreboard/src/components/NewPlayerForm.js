@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Dialog, DialogActions, TextField, DialogContentText, DialogTitle, DialogContent} from '@mui/material';
+import {Button, Dialog, DialogActions, TextField, DialogTitle, DialogContent, Typography, Autocomplete} from '@mui/material';
 
 
 const NewPlayerForm = () => {
@@ -9,9 +9,14 @@ const NewPlayerForm = () => {
     const handleClickOpen = () => {
       setOpen(true);
     };
+
+
+    const group = ["Team Fun", "Team 1", "Team Tornado"]
   
   return (
     <>
+
+    {/* Button Component */}
     <Button
     size="large"
     variant="contained"
@@ -21,52 +26,37 @@ const NewPlayerForm = () => {
   >
     Add New Player
   </Button>
-  {/* <Modal
-    open={open}
-    onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-  >
-    <Box sx={style}>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
-      Add new Player
-      </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </Typography>
-    </Box>
-  </Modal> */}
 
+
+{/* Dialog Component  */}
 <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Player</DialogTitle>
         <DialogContent>
+        <Typography variant='h6' sx={{fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace'}}>Name</Typography>
           <TextField
             autoFocus
-            margin="dense"
             id="name"
-            label="Name"
+           
             type="text"
-            fullWidth
-            variant="standard"
+            variant="outlined"
           />
+          <Typography variant='h6' sx={{fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace'}}>Email</Typography>
           <TextField
             autoFocus
-            margin="dense"
             id="email"
-            label="Email Address"
+   
             type="email"
-            fullWidth
-            variant="standard"
+   fullWidth
+            variant="outlined"
           />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="group"
-            label="Group"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
+           <Typography variant='h6' sx={{fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace'}}>Group</Typography>
+          <Autocomplete
+      disablePortal
+      id="combo-box-demo"
+      options={group}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params} label="Select a Group" />}
+    />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
