@@ -51,6 +51,7 @@ const LeaderBoard = () => {
                     backgroundColor: "lightblue",
                   }}
                 />
+                Profile Info
                 <div className="leader-info">
                   <h1>Julia tran</h1>
                   <h3>Wins: 10</h3>
