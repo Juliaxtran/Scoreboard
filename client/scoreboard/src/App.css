@@ -9,6 +9,7 @@ body {
   text-align: center;
 }
 
+
 .forms {
   display: flex;
   gap: 3em;
@@ -79,6 +80,7 @@ body {
 /* Leaderboard component */
 .leaderboard-game-match{
   display: flex;
+  position: relative;
 }
 
 .leader-box{
@@ -97,6 +99,7 @@ body {
   width: 350;
 }
 
+
 /* Mobile Responsive  */
 @media (max-width: 450px) {
 
@@ -105,6 +108,14 @@ body {
  /* Leaderboard component */ 
 .leaderboard-game-match{
   display: block;
+}
+
+.leaderboard-button{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 /* Match Component */

@@ -65,7 +65,7 @@ const isMobile = useMediaQuery('(max-width:450px)');
                   justifyContent: "center",
                   flexDirection: "column",
                   height: 250,
-                  width: 350,
+                  width: isMobile? 310:350,
                   mr: 2, 
                   mb:6, 
                   mt:2
@@ -82,7 +82,7 @@ const isMobile = useMediaQuery('(max-width:450px)');
                   justifyContent: "center",
                   flexDirection: "column",
                   height: 250,
-                  width: 350,
+                  width: isMobile? 310:350,
                   mr: 2, 
                   mb:6, 
                   mt:2

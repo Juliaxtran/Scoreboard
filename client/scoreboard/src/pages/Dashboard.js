@@ -12,7 +12,9 @@ const Dashboard = () => {
       <div className="leaderboard-game-match" style={{marginTop:20, marginLeft: 20}}>
         <LeaderBoard />
         <div className="game-match">
+          <div className="leaderboard-button">
           <AddButton />
+          </div>
           <MatchBoard />
           <GameBoard />
         </div>

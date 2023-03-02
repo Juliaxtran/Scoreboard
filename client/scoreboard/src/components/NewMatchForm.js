@@ -29,7 +29,7 @@ const NewMatchForm = ({}) => {
       <Button
         size="large"
         variant="contained"
-        sx={{ bgcolor: "#edbe02", mr: 2 }}
+        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
         color="warning"
         onClick={handleClickOpen}
       >

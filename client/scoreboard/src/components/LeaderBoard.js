@@ -17,6 +17,7 @@ const LeaderBoard = () => {
           textAlign: "center",
           "& > :not(style)": {
             m: 1,
+            mt:isMobile?35:0,
             width: isMobile? 335:400,
             height: isMobile?820: 1000,
           },
