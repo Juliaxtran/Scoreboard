@@ -17,7 +17,7 @@ const LeaderBoard = () => {
           },
         }}
       >
-        <Paper sx={{ backgroundColor: "#cdcdcdf5" }} elevation={2}>
+        <Paper sx={{ backgroundColor: "#cdcdcdf5" }} elevation={0}>
           <h1>Leaderboard</h1>
           <Box
             sx={{

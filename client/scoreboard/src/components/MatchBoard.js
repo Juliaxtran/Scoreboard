@@ -25,7 +25,7 @@ const MatchBoard = () => {
             justifyContent: "center",
             textAlign: "center",
           }}
-          elevation={2}
+          elevation={0}
         >
           <div>
             <div>

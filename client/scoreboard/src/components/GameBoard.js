@@ -24,7 +24,7 @@ const GameBoard = () => {
           justifyContent: "flex-start",
           textAlign: "center",
         }}
-        elevation={2}
+        elevation={0}
       >
         <div>
           <div>
