@@ -3,13 +3,11 @@ import { Paper, Avatar, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 
 const LeaderBoard = () => {
-
-  const isMobile = useMediaQuery('(max-width:450px)'); 
+  const isMobile = useMediaQuery("(max-width:450px)");
 
   return (
     <>
-
-    {/* Leaderboard Container/Box */}
+      {/* Leaderboard Container/Box */}
       <Box
         sx={{
           display: "flex",
@@ -17,9 +15,9 @@ const LeaderBoard = () => {
           textAlign: "center",
           "& > :not(style)": {
             m: 1,
-            mt:isMobile?35:0,
-            width: isMobile? 335:400,
-            height: isMobile?820: 1000,
+            mt: isMobile ? 35 : 0,
+            width: isMobile ? 335 : 400,
+            height: isMobile ? 820 : 1000,
           },
         }}
       >
@@ -33,11 +31,10 @@ const LeaderBoard = () => {
               "& > :not(style)": {
                 m: 1,
                 width: 390,
-                height:isMobile?200: 150,
+                height: isMobile ? 200 : 150,
               },
             }}
           >
-
             {/* Profile Container */}
             <Paper>
               <div className="leader-box">
@@ -51,7 +48,7 @@ const LeaderBoard = () => {
                     backgroundColor: "lightblue",
                   }}
                 />
-                Profile Info
+                {/* Profile Info */}
                 <div className="leader-info">
                   <h1>Julia tran</h1>
                   <h3>Wins: 10</h3>
@@ -60,8 +57,10 @@ const LeaderBoard = () => {
                 </div>
               </div>
             </Paper>
+            {/* Profile Container */}
             <Paper>
               <div className="leader-box">
+                {/* Avatar icon */}
                 <Avatar
                   src="/broken-image.jpg"
                   sx={{
@@ -71,6 +70,7 @@ const LeaderBoard = () => {
                     backgroundColor: "lightblue",
                   }}
                 />
+                {/* Profile Info */}
                 <div className="leader-info">
                   <h1>Julia tran</h1>
                   <h3>Wins: 10</h3>
@@ -79,8 +79,10 @@ const LeaderBoard = () => {
                 </div>
               </div>
             </Paper>
+            {/* Profile Container */}
             <Paper>
               <div className="leader-box">
+                {/* Avatar icon */}
                 <Avatar
                   src="/broken-image.jpg"
                   sx={{
@@ -90,6 +92,7 @@ const LeaderBoard = () => {
                     backgroundColor: "lightblue",
                   }}
                 />
+                {/* Profile Info */}
                 <div className="leader-info">
                   <h1>Julia tran</h1>
                   <h3>Wins: 10</h3>
@@ -98,7 +101,6 @@ const LeaderBoard = () => {
                 </div>
               </div>
             </Paper>
-
           </Box>
         </Paper>
       </Box>

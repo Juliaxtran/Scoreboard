@@ -37,7 +37,7 @@ const NewMatchForm = () => {
 
       {/* Dialog component  */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{textAlign:'center'}}> New Match</DialogTitle>
+        <DialogTitle sx={{ textAlign: "center" }}> New Match</DialogTitle>
         <DialogContent>
           {/* Date Text Field */}
           <Typography
@@ -95,8 +95,8 @@ const NewMatchForm = () => {
             )}
           />
 
-                {/* Add new Winner Button */}
-                <IconButton sx={{ color: "purple" }} size="large">
+          {/* Add new Winner Button */}
+          <IconButton sx={{ color: "purple" }} size="large">
             <AddRoundedIcon />
           </IconButton>
           <span style={{ color: "purple" }}>Add a new winner</span>
