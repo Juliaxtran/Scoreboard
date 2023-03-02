@@ -41,6 +41,7 @@ const LeaderBoard = () => {
             {/* Profile Container */}
             <Paper>
               <div className="leader-box">
+                {/* Avatar icon */}
                 <Avatar
                   src="/broken-image.jpg"
                   sx={{

@@ -1,7 +1,5 @@
 import React from "react";
-import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
-import Modal from "@mui/material/Modal";
 import {
   Button,
   Dialog,
@@ -14,7 +12,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import IconButton from "@mui/material/IconButton";
 
-const NewMatchForm = ({}) => {
+const NewMatchForm = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {

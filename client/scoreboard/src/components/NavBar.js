@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages = ["Players", "Matches", "Games"];
+const pages = ["Groups", "Login", "Register"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -24,16 +24,25 @@ function ResponsiveAppBar() {
   };
 
   return (
+    // Navbar Header
     <AppBar position="static" sx={{ backgroundColor: "black" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
-          <Typography variant="h5" component="div" sx={{ flexGrow: 3, fontFamily:'JetBrains Mono, monospace' }}>
+          {/* NavBar Title */}
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{ flexGrow: 3, fontFamily: "JetBrains Mono, monospace" }}
+          >
             Scoreboard
           </Typography>
 
-
-          <Typography variant="h6" component="div" sx={{ flexGrow:3,fontFamily:'JetBrains Mono, monospace' }}>
+          {/* Navbar tile homepage */}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 3, fontFamily: "JetBrains Mono, monospace" }}
+          >
             Dashboard
           </Typography>
 
@@ -75,13 +84,11 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-       
           {/* Desktop Responsive */}
           <Box
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
             className="nav-bar-page"
-          >  
-       
+          >
             {pages.map((page) => (
               <Button
                 key={page}
@@ -95,20 +102,6 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
-
-    // <div className="home-nav">
-    //   <div className="logo-container">
-    //     <h1 className="title"> Scoreboard</h1>
-    //   </div>
-
-    //   {/* Another button here that links to the therapist home page  */}
-
-    //   <div>
-    //     <button className="secondary-button">Players</button>
-    //     <button className="secondary-button">Matches</button>
-    //     <button className="secondary-button">Games</button>
-    //   </div>
-    // </div>
   );
 }
 export default ResponsiveAppBar;

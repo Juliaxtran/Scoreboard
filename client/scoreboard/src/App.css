@@ -9,7 +9,7 @@ body {
   text-align: center;
 }
 
-
+/* Scoreboard.js => localhost:300/test */
 .forms {
   display: flex;
   gap: 3em;
@@ -29,72 +29,26 @@ body {
   gap: .5em;
 }
 
-.home-nav {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background: black;
-  width: 100%;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
- 
-}
-
-.title {
-  font-size: 2.5em;
-  font-family: 'Readex Pro', sans-serif;
-  color: white;
-}
-
-.logo {
-  width: 6em;
-}
-
-
-.primary-button:hover {
-  background: linear-gradient(260deg, rgb(104, 104, 214), lightblue);
-}
-
-.secondary-button {
-  color: rgb(255, 255, 255);
-  background-color: rgb(7, 0, 0);
-  font-weight: 700;
-  font-size: 15px;
-  text-transform: uppercase;
-  padding: 15px 30px;
-  margin: 2em;
-  height: 15%;
-
-}
-
-.secondary-button:hover {
-  color: rgb(139, 139, 139);
-}
-
-
+/* Desktop Responsive */
 
 /* Leaderboard component */
-.leaderboard-game-match{
+.leaderboard-game-match {
   display: flex;
   position: relative;
 }
 
-.leader-box{
+.leader-box {
   display: flex;
   padding-top: 1em;
   padding-left: 1em;
 }
 
-.leader-info{
+.leader-info {
   margin-left: 1em;
 }
 
-.box-container{
-  display:flex; 
+.box-container {
+  display: flex;
   height: 250;
   width: 350;
 }
@@ -105,23 +59,23 @@ body {
 
 
 
- /* Leaderboard component */ 
-.leaderboard-game-match{
-  display: block;
-}
+  /* Leaderboard component */
+  .leaderboard-game-match {
+    display: block;
+  }
 
-.leaderboard-button{
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-}
+  .leaderboard-button {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
 
-/* Match Component */
-.box-container{
-  display:block; 
-}
+  /* Match Component */
+  .box-container {
+    display: block;
+  }
 
 
 
