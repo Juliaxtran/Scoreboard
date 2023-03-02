@@ -1,45 +1,57 @@
 import React from "react";
-import { Paper, Box } from "@mui/material";
+import { Paper, Box, useMediaQuery } from "@mui/material";
 
 const MatchBoard = () => {
+const isMobile = useMediaQuery('(max-width:450px)'); 
+
   return (
     <>
+{/* 
+    Grey Container */}
       <Box
         sx={{
           textAlign: "center",
           "& > :not(style)": {
             m: 1,
-            width: 900,
-            height: 350,
+            width: isMobile?335:905,
+            height:isMobile?1000: 350,
           },
         }}
+       
+
+       
       >
+
+       {/* Match Form container - White Container  */}
         <Paper
           sx={{
             backgroundColor: "#cdcdcdf5",
             "& > :not(style)": {
               m: 1,
-              width: 850
+             
             },
-            display: "flex",
-            justifyContent: "center",
-            textAlign: "center",
-          }}
+            // display: "flex",
+            // justifyContent: "center",
+            // textAlign: "center",
+           
+          }} 
           elevation={0}
         >
           <div>
             <div>
               <h1 style={{marginRight: 750}}>Previous Matches</h1>
             </div>
-            <div style={{display:'flex'}}>
+            <div className="box-container">
               <Paper
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                   flexDirection: "column",
                   height: 250,
-                  width: 350,
-                   mr: 2
+                  width: isMobile? 310:350,
+                   mr: 2, 
+                   mb:6, 
+                   mt:2
                 }}
               >
                 <h1>Catan</h1>
@@ -54,7 +66,9 @@ const MatchBoard = () => {
                   flexDirection: "column",
                   height: 250,
                   width: 350,
-                  mr: 2
+                  mr: 2, 
+                  mb:6, 
+                  mt:2
                 }}
               >
                 <h1>Jenga</h1>
@@ -69,7 +83,9 @@ const MatchBoard = () => {
                   flexDirection: "column",
                   height: 250,
                   width: 350,
-                  mr: 2
+                  mr: 2, 
+                  mb:6, 
+                  mt:2
                 }}
               >
                 <h1>Chess</h1>

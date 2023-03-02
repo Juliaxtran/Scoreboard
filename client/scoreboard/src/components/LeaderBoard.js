@@ -1,10 +1,15 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import { Paper, Avatar, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 
 const LeaderBoard = () => {
+
+  const isMobile = useMediaQuery('(max-width:450px)'); 
+
   return (
     <>
+
+    {/* Leaderboard Container/Box */}
       <Box
         sx={{
           display: "flex",
@@ -12,8 +17,8 @@ const LeaderBoard = () => {
           textAlign: "center",
           "& > :not(style)": {
             m: 1,
-            width: 400,
-            height: 1000,
+            width: isMobile? 335:400,
+            height: isMobile?820: 1000,
           },
         }}
       >
@@ -27,28 +32,70 @@ const LeaderBoard = () => {
               "& > :not(style)": {
                 m: 1,
                 width: 390,
-                height: 150,
+                height:isMobile?200: 150,
               },
             }}
           >
+
+            {/* Profile Container */}
             <Paper>
-                <h1>Julia tran</h1>
-                <h3>Wins: 10</h3>
-                <h3>Losses: 2 (optional)</h3>
-                <h3>Win Rate: 30%</h3>
+              <div className="leader-box">
+                <Avatar
+                  src="/broken-image.jpg"
+                  sx={{
+                    width: 120,
+                    height: 120,
+                    color: "coral",
+                    backgroundColor: "lightblue",
+                  }}
+                />
+                <div className="leader-info">
+                  <h1>Julia tran</h1>
+                  <h3>Wins: 10</h3>
+                  <h3>Losses: 2 (optional)</h3>
+                  <h3>Win Rate: 30%</h3>
+                </div>
+              </div>
             </Paper>
             <Paper>
-                <h1>Julia tran</h1>
-                <h3>Wins: 10</h3>
-                <h3>Losses: 2 (optional)</h3>
-                <h3>Win Rate: 30%</h3>
+              <div className="leader-box">
+                <Avatar
+                  src="/broken-image.jpg"
+                  sx={{
+                    width: 120,
+                    height: 120,
+                    color: "coral",
+                    backgroundColor: "lightblue",
+                  }}
+                />
+                <div className="leader-info">
+                  <h1>Julia tran</h1>
+                  <h3>Wins: 10</h3>
+                  <h3>Losses: 2 (optional)</h3>
+                  <h3>Win Rate: 30%</h3>
+                </div>
+              </div>
             </Paper>
             <Paper>
-                <h1>Julia tran</h1>
-                <h3>Wins: 10</h3>
-                <h3>Losses: 2 (optional)</h3>
-                <h3>Win Rate: 30%</h3>
+              <div className="leader-box">
+                <Avatar
+                  src="/broken-image.jpg"
+                  sx={{
+                    width: 120,
+                    height: 120,
+                    color: "coral",
+                    backgroundColor: "lightblue",
+                  }}
+                />
+                <div className="leader-info">
+                  <h1>Julia tran</h1>
+                  <h3>Wins: 10</h3>
+                  <h3>Losses: 2 (optional)</h3>
+                  <h3>Win Rate: 30%</h3>
+                </div>
+              </div>
             </Paper>
+
           </Box>
         </Paper>
       </Box>

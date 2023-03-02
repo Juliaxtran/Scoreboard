@@ -74,6 +74,44 @@ body {
   color: rgb(139, 139, 139);
 }
 
+
+
+/* Leaderboard component */
 .leaderboard-game-match{
   display: flex;
+}
+
+.leader-box{
+  display: flex;
+  padding-top: 1em;
+  padding-left: 1em;
+}
+
+.leader-info{
+  margin-left: 1em;
+}
+
+.box-container{
+  display:flex; 
+  height: 250;
+  width: 350;
+}
+
+/* Mobile Responsive  */
+@media (max-width: 450px) {
+
+
+
+ /* Leaderboard component */ 
+.leaderboard-game-match{
+  display: block;
+}
+
+/* Match Component */
+.box-container{
+  display:block; 
+}
+
+
+
 }
