@@ -41,8 +41,8 @@ app.use('/match', matchRoutes);
 app.use('/game', gameRoutes);
 
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get('/health', (req, res) => {
+  res.send('ok');
 })
 
 
