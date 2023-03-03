@@ -54,6 +54,19 @@ body {
 }
 
 
+/* Register and Login Component  */
+.authentication {
+  background-color: #e1e1e1f5;
+  height: 80rem;
+}
+
+.authentication-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: 2em;
+}
+
 /* Mobile Responsive  */
 @media (max-width: 450px) {
 
