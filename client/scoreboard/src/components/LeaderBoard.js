@@ -1,6 +1,7 @@
 import React from "react";
 import { Paper, Avatar, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const LeaderBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
@@ -22,7 +23,9 @@ const LeaderBoard = () => {
         }}
       >
         <Paper sx={{ backgroundColor: "#cdcdcdf5" }} elevation={0}>
-          <h1>Leaderboard</h1>
+          <Link to="/players" style={{ textDecoration: "none", color:'black' }}>
+            <h1>Leaderboard</h1>
+          </Link>
           <Box
             sx={{
               display: "flex",

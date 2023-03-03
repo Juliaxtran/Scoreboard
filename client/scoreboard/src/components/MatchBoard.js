@@ -1,5 +1,7 @@
 import React from "react";
 import { Paper, Box, useMediaQuery } from "@mui/material";
+import {Link} from "react-router-dom";
+
 
 const MatchBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
@@ -28,7 +30,9 @@ const MatchBoard = () => {
         >
           <div>
             <div>
+            <Link to="/matches" style={{ textDecoration: "none", color:'black' }}>
               <h1 style={{ marginRight: 750 }}>Previous Matches</h1>
+              </Link>
             </div>
             <div className="box-container">
               {/* Match Form container - White Container  */}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Paper, Box, useMediaQuery } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
@@ -31,7 +32,9 @@ const GameBoard = () => {
       >
         <div>
           <div>
+          <Link to="/games" style={{ textDecoration: "none", color:'black' }}>
             <h1 style={{ marginRight: 750 }}>Games</h1>
+            </Link>
           </div>
           <div className="box-container">
             {/* Game container */}

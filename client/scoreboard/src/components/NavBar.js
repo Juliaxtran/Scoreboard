@@ -9,6 +9,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
+import { textAlign } from "@mui/system";
 
 const pages = ["Groups", "Login", "Register"];
 
@@ -29,19 +31,24 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* NavBar Title */}
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{ flexGrow: 3, fontFamily: "JetBrains Mono, monospace" }}
-          >
-            Scoreboard
-          </Typography>
-
+          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ flexGrow: 3, fontFamily: "JetBrains Mono, monospace" }}
+            >
+              Scoreboard
+            </Typography>
+          </Link>
           {/* Navbar tile homepage */}
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 3, fontFamily: "JetBrains Mono, monospace" }}
+            sx={{
+              flexGrow: 4,
+              fontFamily: "JetBrains Mono, monospace",
+              textAlign: "center",
+            }}
           >
             Dashboard
           </Typography>
@@ -76,11 +83,23 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              <Link to="/groups" style={{ textDecoration: "none", color:'black' }}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Groups</Typography>
                 </MenuItem>
-              ))}
+              </Link>
+
+              <Link to="/login" style={{ textDecoration: "none", color:'black' }}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Login</Typography>
+                </MenuItem>
+              </Link>
+
+              <Link to="/register" style={{ textDecoration: "none", color:'black' }}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Register</Typography>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
 
@@ -89,15 +108,30 @@ function ResponsiveAppBar() {
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
             className="nav-bar-page"
           >
-            {pages.map((page) => (
+            <Link to="/groups" style={{ textDecoration: "none" }}>
               <Button
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                Group
               </Button>
-            ))}
+            </Link>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Login
+              </Button>
+            </Link>
+            <Link to="/register" style={{ textDecoration: "none" }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Register
+              </Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>
