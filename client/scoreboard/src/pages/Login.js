@@ -19,7 +19,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:", { email, password });
+      const { data } = await axios.post("http://localhost:4000/player/login", { email, password }
+      , { withCredentials: true });
       console.log(data);
     } catch (error) {
       console.log(error);

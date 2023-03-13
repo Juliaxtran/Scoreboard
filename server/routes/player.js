@@ -121,18 +121,18 @@ e});
 router.post('/login', async (req, res) => {
   const player = await Player.findOne({ email: req.body.email });
   if (!player) {
-  
+
     return res.status(400).send('Email or password is wrong');
   }
   if (req.body.password != player.password) {
     return res.status(400).send('Email or password is wrong');
-  } 
-  
+  }
+
      res.cookie('sessionId', req.session.id, {
       httpOnly: true,
       maxAge: 3600000 // Cookie expires in 1 hour
     });
-  res.send('Logged in');
+  res.status(200).send('Logged in');
 });
 
 

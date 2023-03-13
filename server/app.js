@@ -7,12 +7,17 @@ const matchRoutes = require('./routes/match');
 const gameRoutes = require('./routes/game');
 const dotenv = require('dotenv');
 const session = require('express-session');
-
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 4000;
 dotenv.config();
 
 app.use(bodyParser.json());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: 'GET, POST',
+  credentials: true,
+}));
 
 // Connect to database
 mongoose.set('strictQuery', true)
@@ -41,8 +46,8 @@ app.use('/match', matchRoutes);
 app.use('/game', gameRoutes);
 
 
-app.get('/health', (req, res) => {
-  res.send('ok');
+app.get('/', (req, res) => {
+  res.send('This is the server and it is running');
 })
 
 
