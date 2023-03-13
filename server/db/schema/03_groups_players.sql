@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS groups_players CASCADE;
 CREATE TABLE Groups_Players (
   group_id INTEGER NOT NULL REFERENCES Groups(id),
   player_id INTEGER NOT NULL REFERENCES Players(id),
