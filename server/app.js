@@ -1,15 +1,17 @@
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const playerRoutes = require('./routes/player');
 const groupRoutes = require('./routes/group');
 const matchRoutes = require('./routes/match');
 const gameRoutes = require('./routes/game');
-const dotenv = require('dotenv');
 const session = require('express-session');
+require('dotenv').config();
 const { Pool } = require('pg');
 
 const {DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT} = process.env;
+
+
 
 const pool = new Pool({
 	user: DB_USER,
@@ -30,7 +32,7 @@ pool.connect().then(() => {
 
 const app = express();
 const port = process.env.PORT || 4000;
-dotenv.config();
+// dotenv.config();
 
 app.use(bodyParser.json());
 
