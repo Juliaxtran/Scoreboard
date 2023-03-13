@@ -18,13 +18,6 @@ router.get('/', async (req, res) => {
 });
 
 
-// const groupSchema = new mongoose.Schema({
-//   name: { type: String, required: true },
-//   players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
-//   games: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Game' }],
-//   matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Match' }]
-// });
-
 // POST: Create a new group
 router.post('/', async (req, res) => {
   const name = req.body.name;
@@ -61,6 +54,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+
+//it can be removed -> pat is thinking about smtn lol 
 // POST: add player to group
 // /group/:id/player/:id ? 
 router.post('/:id/player/:id', async (req, res) => {

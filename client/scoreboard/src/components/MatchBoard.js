@@ -1,6 +1,10 @@
 import React from "react";
 import { Paper, Box, useMediaQuery } from "@mui/material";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from '@mui/icons-material/Clear';
+import '../App.css';
 
 
 const MatchBoard = () => {
@@ -30,8 +34,11 @@ const MatchBoard = () => {
         >
           <div>
             <div>
-            <Link to="/matches" style={{ textDecoration: "none", color:'black' }}>
-              <h1 style={{ marginRight: 750 }}>Previous Matches</h1>
+              <Link
+                to="/matches"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <h1 style={{ marginRight: 750 }}>Previous Matches</h1>
               </Link>
             </div>
             <div className="box-container">
@@ -48,6 +55,10 @@ const MatchBoard = () => {
                   mt: 2,
                 }}
               >
+                <div className="action_buttons" style={{display:'flex', justifyContent:"space-between"}}>
+                  <IconButton><ClearIcon /></IconButton>
+                  <IconButton><ModeEditIcon /></IconButton>
+                </div>
                 {/* Match Info */}
                 <h1>Catan</h1>
                 <h3>Winner: Patrice</h3>
