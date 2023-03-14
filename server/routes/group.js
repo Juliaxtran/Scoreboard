@@ -26,7 +26,29 @@ module.exports = (db, dbQueries) => {
         console.log(error);
       });
   });
-  //
+  // Create a new group for a player
+  router.post("/create", (req, res) => {
+    const {name, owner_id} = req.body;
+    dbQueries
+    .createGroup(name, owner_id, db).then((group) => {
+      if (group) {
+        res.status(200).send({
+          success: true,
+          message: "Group created",
+          group: group,
+        });
+      } else {
+        res.status(400).send({
+          success: false,
+          message: "Group not created",
+          group:group,
+        });
+      }
+    });
+  });
+
+
+
 
 
 

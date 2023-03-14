@@ -39,7 +39,30 @@ const getGroupByPlayerId = function (id, db) {
     });
 };
 
+const createGroup = function (name, owner_id, db) {
+  const queryString =  `INSERT INTO groups (name, owner_id) VALUES ($1, $2) RETURNING *;`
+  
+  const values = [name, owner_id];
+  return db
+  .query(queryString, values)
+  .then((result) => {
+    if (result.rows.length === 0) {
+      console.log("Group not created");
+      return "Group not created";
+    } else {
+      return result.rows[0];
+    }
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+};
+
+
+
+
 module.exports = {
   getUserByEmail,
-  getGroupByPlayerId
+  getGroupByPlayerId,
+  createGroup,
 }
