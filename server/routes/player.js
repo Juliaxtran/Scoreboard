@@ -26,6 +26,7 @@ module.exports = (db, dbQueries) => {
               }
               if (response) {
                 req.session.id = player.id;
+
                 res
                   .cookie('sessionId', req.session.id, {
                         httpOnly: true,
@@ -41,6 +42,7 @@ module.exports = (db, dbQueries) => {
                       email: player.email,
                     }
                   });
+                  console.log( "Session Id" , req.session.id);
               } else {
                 return res
                   .status(400)
