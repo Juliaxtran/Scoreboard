@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Game = require('../models/game');
+
 
 // Game Routes
 
@@ -60,7 +60,7 @@ router.put('/:id', async (req, res) => {
         if (req.body.numPlayers != null) {
             game.numPlayers = req.body.numPlayers;
         }
-     
+
         const updatedGame = await game.save();
         res.json(updatedGame);
     } catch (err) {

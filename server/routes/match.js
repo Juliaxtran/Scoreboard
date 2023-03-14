@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Match = require('../models/match'); 
+
 
 // GET: All match => /match
 router.get('/', async (req, res) => {
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
     } catch (err) {
       res.status(400).json({ message: err.message });
     }
-  
+
   });
 
 // GET: Find a specific a match from an id => /match/:id
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// PUT: Update a match => /match/:id 
+// PUT: Update a match => /match/:id
 router.put('/:id', async (req, res) => {
     try {
         const match = await Match.findById(req.params.id);
@@ -70,7 +70,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE: Delete a match => /match/:id 
+// DELETE: Delete a match => /match/:id
 router.delete('/:id', async (req, res) => {
     try {
         const match = await Match.findById(req.params.id);
