@@ -6,33 +6,16 @@ const groupRoutes = require('./routes/group');
 const matchRoutes = require('./routes/match');
 const gameRoutes = require('./routes/game');
 const session = require('express-session');
+const db = require('./configs/db.config');
+const dbQueries = require('./routes/helpers');
 require('dotenv').config();
-const { Pool } = require('pg');
-
-const {DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT} = process.env;
-
-
-
-const pool = new Pool({
-	user: DB_USER,
-	host: DB_HOST,
-	password: DB_PASSWORD,
-	port: DB_PORT,
-	database: DB_DATABASE,
-})
-
-pool.connect().then(() => {
-	console.log("Database connection established.")
-}).catch( e => {
-	throw new Error(e);
-})
 
 
 
 
 const app = express();
 const port = process.env.PORT || 4000;
-// dotenv.config();
+
 
 app.use(bodyParser.json());
 
@@ -57,7 +40,7 @@ app.use(session({
 }))
 
 //Use Routes
-app.use('/player', playerRoutes);
+app.use('/player', playerRoutes(db, dbQueries));
 app.use('/group', groupRoutes);
 app.use('/match', matchRoutes);
 app.use('/game', gameRoutes);
