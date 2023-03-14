@@ -31,7 +31,11 @@ module.exports = (db, dbQueries) => {
                   .send({
                     success: true,
                     message: "Login succesful",
-                    player: player,
+                    player : {
+                      id: player.id,
+                      name: player.name,
+                      email: player.email,
+                    }
                   });
               } else {
                 return res
