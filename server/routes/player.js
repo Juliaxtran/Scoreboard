@@ -1,44 +1,53 @@
-
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
 // const Player = require('../models/player');
 // const Group = require('../models/group');
 
 module.exports = (db, dbQueries) => {
-
-  router.post('/login', (req, res) => {
+  router.post("/login", (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(401).send('Wrong email or password');
+      return res.status(401).send("Wrong email or password");
     }
 
-
-    dbQueries.getUserByEmail(email, db)
-      .then(player => {
+    dbQueries
+      .getUserByEmail(email, db)
+      .then((player) => {
         if (player) {
-          bcrypt.compare(req.body.password, player.password, function (err, response) {
-            if (err) {
-              return res.status(401).send({
-                sucess: false, message: 'No user found'
-              });
-            } if (response) {
-
-              req.session.id = player.id;
-              res.status(200).send({ success: true, message: 'Login succesful', user: user });
-            } else {
-              return res.status(400).send({ success: false, message: 'passwords do not match' });
+          bcrypt.compare(
+            req.body.password,
+            player.password,
+            function (err, response) {
+              if (err) {
+                return res.status(401).send({
+                  sucess: false,
+                  message: "No user found",
+                });
+              }
+              if (response) {
+                req.session.id = player.id;
+                res
+                  .status(200)
+                  .send({
+                    success: true,
+                    message: "Login succesful",
+                    player: player,
+                  });
+              } else {
+                return res
+                  .status(400)
+                  .send({ success: false, message: "passwords do not match" });
+              }
             }
-          })
+          );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   });
   return router;
-}
-
-
+};
 
 // Player Routes
 // router.get('/', async (req, res) => {
@@ -48,8 +57,6 @@ module.exports = (db, dbQueries) => {
 //     res.status(500).json({ message: err.message });
 //   }
 // });
-
-
 
 // Create a new player
 //Register Route
@@ -70,7 +77,6 @@ module.exports = (db, dbQueries) => {
 //   }
 
 // });
-
 
 // Connect player to group
 // router.post('/:id/connect', async (req, res) => {
@@ -96,7 +102,6 @@ module.exports = (db, dbQueries) => {
 //   }
 // });
 
-
 //GET: A player specified by an id => /player/:id
 // router.get('/:id', async (req, res) => {
 //   try {
@@ -110,7 +115,6 @@ module.exports = (db, dbQueries) => {
 //     res.status(400).json({ message: err.message });
 //   }
 // });
-
 
 //Update a player specified by an id => /player/:id
 // router.put('/:id', async (req, res) => {
@@ -129,14 +133,12 @@ module.exports = (db, dbQueries) => {
 //       player.password = req.body.password;
 //     }
 
-
 //     const updatedPlayer = await player.save();
 //     res.json(updatedPlayer);
 //   } catch (err) {
 //     res.status(400).json({ message: err.message });
 //   }
 // });
-
 
 //Delete a player specified by an id => /player/:id
 // router.delete('/:id', async (req, res) => {
@@ -171,14 +173,11 @@ module.exports = (db, dbQueries) => {
 //   res.send('Logged in');
 // });
 
-
 //Logout Route
 // router.post('/logout', async (req, res) => {
 //   req.session.destroy();
 //   res.clearCookie('sessionId');
 //   res.send('Logged out');
 // });
-
-
 
 // module.exports = router;
