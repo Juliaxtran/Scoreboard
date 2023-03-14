@@ -43,7 +43,7 @@ app.use(session({
 app.use('/player', playerRoutes(db, dbQueries));
 app.use('/group', groupRoutes(db, dbQueries));
 app.use('/game', gameRoutes(db, dbQueries));
-app.use('/match', matchRoutes);
+app.use('/match', matchRoutes(db, dbQueries));
 
 
 app.get('/health', (req, res) => {

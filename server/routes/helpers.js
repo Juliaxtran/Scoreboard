@@ -138,9 +138,71 @@ const getAllGamesByGroupId = function (group_id, db) {
   });
 };
 
+const createMatch = function (game_id, date, db) {
+  const queryString = `INSERT INTO Matches (game_id, date) VALUES ($1, $2) RETURNING *;`;
+  const values = [game_id, date];
+  return db
+    .query(queryString, values)
+    .then((result) => {
+      if (result.rows.length === 0) {
+        console.log("Match not created");
+        return null;
+      } else {
+          console.log("Match created");
+          return result.rows[0];
+      }
+      })
+      .catch((err) => {
+          console.log(err.message);
+          return null;
+      });
+  };
+  
+
+  const addGroupMatch = function (group_id, match_id, db) {
+    const queryString = `INSERT INTO Groups_Matches (group_id, match_id) VALUES ($1, $2) RETURNING *;`;
+    const values = [group_id, match_id];
+    return db
+      .query(queryString, values)
+      .then((result) => {
+        if (result.rows.length === 0) {
+          console.log("Group match not added");
+          return null;
+        } else {
+          return result.rows[0];
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        return null;
+      });
+  };
+
+  const addMatchPlayers = function (match_id, player_ids, winner_ids, db) {
+    const queryString =
+      "INSERT INTO Matches_Players (match_id, player_id, is_winner, is_loser) VALUES ($1, $2, $3, $4)";
+    const values = [];
+  
+    player_ids.forEach((player_id) => {
+      const is_winner = winner_ids.includes(player_id);
+      values.push([match_id, player_id, is_winner, !is_winner]);
+    });
+  
+    return db
+      .query(queryString, values)
+      .then((result) => {
+        console.log(`${result.rowCount} rows inserted`);
+        return result;
+      })
+      .catch((err) => {
+        console.log(err.message);
+        return null;
+      });
+  };
 
 
 
+        
 
 module.exports = {
   getUserByEmail,
@@ -149,5 +211,8 @@ module.exports = {
   addPlayerToGroup,
   getPlayersByGroupId,
   addGameToGroup,
-  getAllGamesByGroupId
+  getAllGamesByGroupId, 
+  createMatch, 
+  addGroupMatch,
+  addMatchPlayers
 }
