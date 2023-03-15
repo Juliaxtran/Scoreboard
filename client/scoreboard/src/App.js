@@ -3,10 +3,10 @@ import { StateContext } from './context/StateContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScoreBoard from './pages/ScoreBoard';
 import Dashboard from './pages/Dashboard';
-import Login from './pages/Login'
-import Register from './pages/Register'; 
-import AllPlayers from './pages/AllPlayers'; 
-import AllMatches from './pages/AllMatches'; 
+import Login from './pages/LoginPage'
+import Register from './pages/Register';
+import AllPlayers from './pages/AllPlayers';
+import AllMatches from './pages/AllMatches';
 import AllGroups from './pages/AllGroups'
 import AllGames from './pages/AllGames';
 
