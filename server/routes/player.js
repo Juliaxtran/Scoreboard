@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-
+const { v4: uuidv4 } = require("uuid");
 
 module.exports = (db, dbQueries) => {
 
@@ -26,29 +26,19 @@ module.exports = (db, dbQueries) => {
                 });
               }
               if (response) {
-                req.session.id = player.id;
-
+                req.session.playerId = player.id;
                 res
-                res.cookie('playerInfo', {
-                  id: player.id,
-                  name: player.name,
-                  email: player.email
-                }, {
-                  httpOnly: true,
-                  maxAge: 3600000 // Cookie expires in 1 hour
-                })
                   .status(200)
                   .send({
                     success: true,
                     message: "Login succesful",
-                    player : {
+                   player:{
                       id: player.id,
                       name: player.name,
                       email: player.email,
-                    }
+                      password: player.password 
+                   }
                   });
-                  console.log( "Session Id" , req.session.id);
-                  console.log("Plater Id", player.id)
               } else {
                 return res
                   .status(400)
@@ -61,7 +51,7 @@ module.exports = (db, dbQueries) => {
       .catch((error) => {
         console.log(error);
       });
-  });
+});
   //
 
   // Register Route

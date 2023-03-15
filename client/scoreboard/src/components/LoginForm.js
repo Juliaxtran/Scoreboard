@@ -11,7 +11,6 @@ import axios from "axios";
 import { Context } from '../context/StateContext';
 
 
-
 export default function LoginForm({ setError, setIsSignUp }) {
   const [formData, setFormData] = useState({
     email: "",
@@ -30,11 +29,11 @@ export default function LoginForm({ setError, setIsSignUp }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:4000/player/login", formData).then((res) => {
-      console.log(res.data.player);
+    axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
       const player = res.data.player;
       setUser(player);
-      console.log(user, 'user')
+      //to be removed after testing
+      console.log('user', user)
       const success = res.status === 200;
       if (success) {
         setError("Login Successful");

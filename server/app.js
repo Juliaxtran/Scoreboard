@@ -5,12 +5,12 @@ const playerRoutes = require('./routes/player');
 const groupRoutes = require('./routes/group');
 const matchRoutes = require('./routes/match');
 const gameRoutes = require('./routes/game');
-const session = require('express-session');
 const db = require('./configs/db.config');
 const dbQueries = require('./routes/helpers');
 require('dotenv').config();
 const cors = require('cors');
-
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 
 
 
@@ -19,18 +19,17 @@ const port = process.env.PORT || 4000;
 
 
 app.use(bodyParser.json());
-app.use(cors({origin: "http://localhost:3000", credentials: true}));
-
-
 
 //CORS for all routes
+app.use(cors({origin: "http://localhost:3000", credentials: true}));
 
-app.use(session({
-  secret: 'scoreboard',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+//set a cookie session
+app.use(cookieSession({
+  name: 'session',
+  keys: ['iAMaKEyyyyyyyyyy', 'IaMTheSecondKey'],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
+app.use(cookieParser());
 
 //Use Routes
 app.use('/player', playerRoutes(db, dbQueries));
