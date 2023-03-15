@@ -2,10 +2,13 @@ import React, { useState } from "react";
 
 import { Box, Paper, Typography, useMediaQuery, TextField, Autocomplete, Button } from "@mui/material";
 
-const RegisterForm = () => {
+const RegisterForm = ({setIsSignUp}) => {
   const isMobile = useMediaQuery("(max-width:420px)");
 
-  const group = ["Team Fun", "Team 1", "Team Tornado"];
+  const handleClick = () => {
+    setIsSignUp(true);
+  };
+
 
 
   return (
@@ -45,18 +48,10 @@ const RegisterForm = () => {
                 autoComplete="current-password"
               />
 
-              <Autocomplete
-                disablePortal
-                id="combo-box-demo"
-                options={group}
-                sx={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField {...params} label="Select a Group" />
-                )}
-              />
               <Button variant="contained" color="error" type='submit'>
                 Register
               </Button>
+              <Button onClick={handleClick}>Login</Button>
             </div>
           </Paper>
         </Box>
