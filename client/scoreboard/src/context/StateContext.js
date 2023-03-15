@@ -5,6 +5,7 @@ const Context = createContext();
 
 const StateContext = ({ children }) => {
 
+  const [user, setUser] = useState({});
   const [players, setPlayers] = useState([]);
   const [games, setGames] = useState([]);
   const [matches, setMatches] = useState([]);
@@ -112,9 +113,11 @@ const StateContext = ({ children }) => {
       handlePlayerSubmit,
       handleAddPlayer,
       handleGameSubmit,
-      handleMatchSubmit, 
-      handleAddWinner, 
-      winnerVal
+      handleMatchSubmit,
+      handleAddWinner,
+      winnerVal,
+      user,
+      setUser
     }}>
       {children}
     </Context.Provider>

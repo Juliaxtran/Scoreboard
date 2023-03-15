@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {
   useMediaQuery,
   Box,
@@ -8,6 +8,8 @@ import {
   Button,
 } from "@mui/material";
 import axios from "axios";
+// import {StateContext} from "../context/StateContext";
+
 
 
 export default function LoginForm() {
@@ -16,13 +18,21 @@ export default function LoginForm() {
     password: "",
   });
 
+  // const {setUser} = useContext(StateContext);
+
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    axios.post("http://localhost:4000/player/login", formData).then((res) => {
+      console.log(res.data.player);
+
+    });
+
   };
 
 
