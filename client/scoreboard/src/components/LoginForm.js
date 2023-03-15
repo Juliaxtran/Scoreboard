@@ -6,19 +6,18 @@ import {
   Typography,
   TextField,
   Button,
-  Alert
 } from "@mui/material";
 import axios from "axios";
-// import {StateContext} from "../context/StateContext";
 
 
 
-export default function LoginForm() {
+
+export default function LoginForm({ setError }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null);
+;
   // const {setUser} = useContext(StateContext);
 
 
@@ -48,7 +47,7 @@ export default function LoginForm() {
 
   const isMobile = useMediaQuery("(max-width:420px)");
   return (
-    <form className="authentication" onSubmit={handleSubmit}>
+    <form  onSubmit={handleSubmit}>
       <Box
         sx={{
           "& > :not(style)": {
@@ -96,11 +95,6 @@ export default function LoginForm() {
           </div>
         </Paper>
       </Box>
-      {error && (
-        <Alert severity={error === "Login Successful" ? "success" : "error"}>
-          {error}
-        </Alert>
-      )}
     </form>
   )
 }
