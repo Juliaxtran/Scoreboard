@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   useMediaQuery,
   Box,
@@ -11,29 +11,32 @@ import axios from "axios";
 import { Context } from '../context/StateContext';
 
 
-export default function LoginForm({ setError, setIsSignUp }) {
+export default function LoginForm({ setError, setIsSignUp}) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 ;
-  const {setUser, user} = useContext(Context);
+const [loading, setLoading] = useState(false);
+
+  const {setUser} = useContext(Context);
 
   const handleClick = () => {
     setIsSignUp(false);
   };
 
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state to true
     axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
-      const player = res.data.player;
+      const player = res.data.player; 
       setUser(player);
-      //to be removed after testing
-      console.log('user', user)
+      setLoading(false); // Set loading state to false after updating user state
       const success = res.status === 200;
       if (success) {
         setError("Login Successful");
@@ -44,10 +47,11 @@ export default function LoginForm({ setError, setIsSignUp }) {
     }).catch(error => {
       console.log(error);
       setError("Email or Password is incorrect, try again");
+      setLoading(false); // Set loading state to false after login process is complete
       setTimeout(() => setError(null), 3000);
     });
   };
-
+ 
 
   const isMobile = useMediaQuery("(max-width:420px)");
   return (
@@ -93,9 +97,9 @@ export default function LoginForm({ setError, setIsSignUp }) {
               autoComplete="current-password"
             />
 
-            <Button variant="contained" color="error" type="submit">
-              Login
-            </Button>
+<Button variant="contained" color="error" type="submit" disabled={loading}>
+  {loading ? 'Logging in...' : 'Login'}
+</Button>
             <Button onClick={handleClick}>Don't have an account Register</Button>
           </div>
         </Paper>

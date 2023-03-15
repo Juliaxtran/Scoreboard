@@ -11,7 +11,7 @@ import {
   Button,
 } from "@mui/material";
 
-const RegisterForm = ({ setError, setIsSignUp }) => {
+const RegisterForm = ({ setError, setIsSignUp}) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -51,15 +51,12 @@ const RegisterForm = ({ setError, setIsSignUp }) => {
   };
 
   return (
-    <>
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
             "& > :not(style)": {
               width: isMobile ? 336 : 400,
               height: isMobile ? 480 : 500,
-              position: "absolute",
-              top: 200,
               marginLeft: isMobile ? 2 : 60,
               paddingLeft: 2,
               paddingRight: 2,
@@ -115,7 +112,6 @@ const RegisterForm = ({ setError, setIsSignUp }) => {
           </Paper>
         </Box>
       </form>
-    </>
   );
 };
 
