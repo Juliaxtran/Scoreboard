@@ -18,7 +18,7 @@ const LoginPage = () => {
   )}
       <div className='login'>
       <div className='loginCopy'>
-      Scorebook app that allows you to keep track of scores and statistics for your favorite games. Whether you're playing with friends, family, or in a league, ScoreBoard makes it easy to record and track scores, as well as individual and team statistics. Scorebook for the competitive friends.
+      Scorebook  allows you to keep track of scores and statistics for your favorite games. Whether you're playing with friends, family, or in a league, ScoreBoard makes it easy to record and track scores, as well as individual and team statistics. Scorebook an app for the competitive friends.
       </div>
       <LoginForm setError={setError}/>
       </div>
