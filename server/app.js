@@ -46,8 +46,8 @@ app.use('/game', gameRoutes(db, dbQueries));
 app.use('/match', matchRoutes(db, dbQueries));
 
 
-app.get('/health', (req, res) => {
-  res.send('ok');
+app.get('/', (req, res) => {
+  res.send('Server is running');
 })
 
 
