@@ -12,7 +12,7 @@ import axios from "axios";
 
 
 
-export default function LoginForm({ setError }) {
+export default function LoginForm({ setError, setIsSignUp }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,7 +20,9 @@ export default function LoginForm({ setError }) {
 ;
   // const {setUser} = useContext(StateContext);
 
-
+  const handleClick = () => {
+    setIsSignUp(false);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -92,6 +94,7 @@ export default function LoginForm({ setError }) {
             <Button variant="contained" color="error" type="submit">
               Login
             </Button>
+            <Button onClick={handleClick}>Don't have an account Register</Button>
           </div>
         </Paper>
       </Box>
