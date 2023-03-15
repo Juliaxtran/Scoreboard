@@ -73,9 +73,13 @@ module.exports = (db, dbQueries) => {
 
         req.session.id = data["rows"][0].id
         return res.status(200).send({
-          "success": true,
-          "message": "Sign up successful",
-           "player": data["rows"][0]
+          success: true,
+          message: "Sign up successful",
+           player: {
+            id: player.id,
+            name: player.name,
+            email: player.email,
+          }
         })
       }
 
