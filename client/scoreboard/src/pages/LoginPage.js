@@ -4,10 +4,16 @@ import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 import "./LoginPage.css";
 import  {Alert}  from "@mui/material";
+import Cookies from "js-cookie";
 
 const LoginPage = () => {
   const [error, setError] = useState(null);
   const [isSignUp,  setIsSignUp] = useState(true);
+
+  const playerInfo = Cookies.get("playerInfo");
+  if (playerInfo) {
+    console.log(playerInfo)
+  };
 
 
   return (
