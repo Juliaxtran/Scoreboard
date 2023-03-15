@@ -138,6 +138,7 @@ const getAllGamesByGroupId = function (group_id, db) {
   });
 };
 
+// Matches queries
 const createMatch = function (game_id, date, db) {
   const queryString = `INSERT INTO Matches (game_id, date) VALUES ($1, $2) RETURNING *;`;
   const values = [game_id, date];
@@ -157,7 +158,7 @@ const createMatch = function (game_id, date, db) {
           return null;
       });
   };
-  
+
 
   const addGroupMatch = function (group_id, match_id, db) {
     const queryString = `INSERT INTO Groups_Matches (group_id, match_id) VALUES ($1, $2) RETURNING *;`;
@@ -178,16 +179,12 @@ const createMatch = function (game_id, date, db) {
       });
   };
 
-  const addMatchPlayers = function (match_id, player_ids, winner_ids, db) {
+  const addMatchPlayers = function (match_id, player_ids, is_winner, is_loser, db) {
     const queryString =
       "INSERT INTO Matches_Players (match_id, player_id, is_winner, is_loser) VALUES ($1, $2, $3, $4)";
-    const values = [];
-  
-    player_ids.forEach((player_id) => {
-      const is_winner = winner_ids.includes(player_id);
-      values.push([match_id, player_id, is_winner, !is_winner]);
-    });
-  
+    const values = [match_id, player_ids, is_winner, is_loser];
+
+
     return db
       .query(queryString, values)
       .then((result) => {
@@ -202,7 +199,7 @@ const createMatch = function (game_id, date, db) {
 
 
 
-        
+
 
 module.exports = {
   getUserByEmail,
@@ -211,8 +208,8 @@ module.exports = {
   addPlayerToGroup,
   getPlayersByGroupId,
   addGameToGroup,
-  getAllGamesByGroupId, 
-  createMatch, 
+  getAllGamesByGroupId,
+  createMatch,
   addGroupMatch,
   addMatchPlayers
 }
