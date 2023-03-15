@@ -6,6 +6,7 @@ import {
   Typography,
   TextField,
   Button,
+  Alert
 } from "@mui/material";
 import axios from "axios";
 // import {StateContext} from "../context/StateContext";
@@ -17,7 +18,7 @@ export default function LoginForm() {
     email: "",
     password: "",
   });
-
+  const [error, setError] = useState(null);
   // const {setUser} = useContext(StateContext);
 
 
@@ -30,9 +31,17 @@ export default function LoginForm() {
     e.preventDefault();
     axios.post("http://localhost:4000/player/login", formData).then((res) => {
       console.log(res.data.player);
-
+      const success = res.status === 200;
+      if(success) {
+        setError("Login Successful")
+      } else {
+        setError("Login Failed")
+      }
+    }).catch(error => {
+      console.log(error);
+      setError("Email or Password is incorrect, try again");
+      setTimeout(() => setError(null), 3000);
     });
-
   };
 
 
@@ -88,6 +97,11 @@ export default function LoginForm() {
         </div>
       </Paper>
     </Box>
+    {error && (
+  <Alert severity={error === "Login Successful" ? "success" : "error"}>
+    {error}
+  </Alert>
+)}
   </form>
   )
 }
