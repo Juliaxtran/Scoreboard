@@ -29,10 +29,14 @@ module.exports = (db, dbQueries) => {
                 req.session.id = player.id;
 
                 res
-                  .cookie('sessionId', req.session.id, {
-                        httpOnly: true,
-                        maxAge: 3600000 // Cookie expires in 1 hour
-                      })
+                res.cookie('playerInfo', {
+                  id: player.id,
+                  name: player.name,
+                  email: player.email
+                }, {
+                  httpOnly: true,
+                  maxAge: 3600000 // Cookie expires in 1 hour
+                })
                   .status(200)
                   .send({
                     success: true,
