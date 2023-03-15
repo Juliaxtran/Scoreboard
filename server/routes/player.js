@@ -67,11 +67,11 @@ module.exports = (db, dbQueries) => {
     password = bcrypt.hashSync(password, 12);
     const command = ' INSERT INTO players (name, email, password) VALUES($1, $2, $3) RETURNING *;'
     const values = [ name, email, password]
-    db.query(command, values).then(data => {
+    db.query(command, values).then(player => {
 
-      if (data["rows"].length > 0) {
+      if (player["rows"].length > 0) {
 
-        req.session.id = data["rows"][0].id
+        req.session.id = player["rows"][0].id
         return res.status(200).send({
           success: true,
           message: "Sign up successful",

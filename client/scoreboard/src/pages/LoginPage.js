@@ -14,7 +14,7 @@ const LoginPage = () => {
     <div className="LoginPage">
       <NavBar />
       {error && (
-    <Alert severity={error === "Login Successful" ? "success" : "error"}>
+    <Alert severity={error === "Login Successful" || "Registration Successful, Please Login" ? "success" : "error"}>
       {error}
     </Alert>
   )}
