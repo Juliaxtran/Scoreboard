@@ -50,7 +50,7 @@ module.exports = (db, dbQueries) => {
   // Add a player to a group by group id
 
   router.post("/add", (req, res) => {
-
+    // why does group_id not work when its in the params?
     const {group_id, email} = req.body;
     dbQueries
      .getUserByEmail(email, db)
