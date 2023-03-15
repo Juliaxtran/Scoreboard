@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mui/material";
 import axios from "axios";
-
+import { Context } from '../context/StateContext';
 
 
 
@@ -18,7 +18,7 @@ export default function LoginForm({ setError, setIsSignUp }) {
     password: "",
   });
 ;
-  // const {setUser} = useContext(StateContext);
+  const {setUser, user} = useContext(Context);
 
   const handleClick = () => {
     setIsSignUp(false);
@@ -32,6 +32,9 @@ export default function LoginForm({ setError, setIsSignUp }) {
     e.preventDefault();
     axios.post("http://localhost:4000/player/login", formData).then((res) => {
       console.log(res.data.player);
+      const player = res.data.player;
+      setUser(player);
+      console.log(user, 'user')
       const success = res.status === 200;
       if (success) {
         setError("Login Successful");
