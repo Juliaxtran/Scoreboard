@@ -73,7 +73,7 @@ function Group() {
         <div className='groups'>
           <h2>Groups</h2>
           {groups.length === 0 ? (
-            <p>No groups found. Create a group</p>
+            <p>No groups found. Please create a group</p>
           ) : (
             <>
            {groups.map((group) => {
