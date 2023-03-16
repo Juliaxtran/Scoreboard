@@ -34,7 +34,7 @@ const [loading, setLoading] = useState(false);
     e.preventDefault();
     setLoading(true); // Set loading state to true
     axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
-      const player = res.data.player; 
+      const player = res.data.player;
       setUser(player);
       setLoading(false); // Set loading state to false after updating user state
       const success = res.status === 200;
@@ -51,7 +51,7 @@ const [loading, setLoading] = useState(false);
       setTimeout(() => setError(null), 3000);
     });
   };
- 
+
 
   const isMobile = useMediaQuery("(max-width:420px)");
   return (
@@ -59,11 +59,13 @@ const [loading, setLoading] = useState(false);
       <Box
         sx={{
           "& > :not(style)": {
-            width: isMobile ? 336 : 400,
-            height: 350,
+            width: isMobile ? 300 : 400,
+            height: isMobile ? 300 : 350,
             marginLeft: isMobile ? 2 : 60,
-            paddingLeft: 2,
-            paddingRight: 2,
+            px : 3,
+            py: 4,
+            backdropFilter: "blur(10px)",
+            backgroundColor: 'rgba(255, 255, 255, 0.3)'
           },
         }}
       >

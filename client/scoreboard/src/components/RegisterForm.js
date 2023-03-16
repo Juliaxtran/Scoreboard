@@ -58,8 +58,10 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
               width: isMobile ? 336 : 400,
               height: isMobile ? 480 : 500,
               marginLeft: isMobile ? 2 : 60,
-              paddingLeft: 2,
-              paddingRight: 2,
+              px : 3,
+              py: 4,
+              backdropFilter: "blur(10px)",
+              backgroundColor: 'rgba(255, 255, 255, 0.3)'
             },
           }}
         >
