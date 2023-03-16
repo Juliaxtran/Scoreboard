@@ -43,7 +43,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
         if (success) {
           setError("Registration Successful");
           setTimeout(() => setError(null), 3000);
-          // navigate("/group");
+          navigate("/group");
         } else {
           setError("Registration Failed");
         }
