@@ -32,7 +32,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
     e.preventDefault();
     console.log(formData);
     axios
-      .post("http://localhost:4000/player/signup", formData)
+      .post("http://localhost:4000/player/signup", formData, {withCredentials: true })
       .then((res) => {
         console.log(res.data);
         const success = res.status === 200;
@@ -45,7 +45,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
       })
       .catch((error) => {
         console.log(error);
-        setError("registration failed, please try again");
+        setError("Email already exists, please login");
         setTimeout(() => setError(null), 3000);
       });
   };
