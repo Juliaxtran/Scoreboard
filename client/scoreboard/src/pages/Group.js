@@ -18,9 +18,9 @@ function Group() {
         .then((res) => {
           const groupData = res.data.group;
           console.log('Group data: ', groupData);
-          const groupsArray = [groupData].map((group) => ({
-            id: group.id,
-            name: group.name,
+          const groupsArray = Object.keys(groupData).map((key) => ({
+            id: key,
+            ...groupData[key],
           }));
           setGroups(groupsArray);
           console.log('groups', groupsArray);
