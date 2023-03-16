@@ -55,34 +55,52 @@ module.exports = (db, dbQueries) => {
   //
 
   // Register Route
-  router.post('/signup', (req, res) => {
+  router.post('/signup', async (req, res) => {
 
-    let {  name ,lastName, email, password } = req.body
-    password = bcrypt.hashSync(password, 12);
-    const command = ' INSERT INTO players (name, lastName, email, password) VALUES($1, $2, $3, $4) RETURNING *;'
-    const values = [ name, lastName, email, password]
-    db.query(command, values).then(player => {
+    const { name, lastName, email, password } = req.body;
 
-      if (player["rows"].length > 0) {
-
-        req.session.id = player["rows"][0].id
-        return res.status(200).send({
-          success: true,
-          message: "Sign up successful",
-           player: {
-            id: player.id,
-            name: player.name,
-            lastName: player.lastName,
-            email: player.email,
-          }
-        })
+    try {
+      // Step 1: Check if email exists in the database
+      const existingUser = await dbQueries.getUserByEmail(email, db);
+      if (existingUser !== "No email found") {
+        // Step 2: If email exists, send a message to the user that the email is already in use
+        return res.status(400).send({
+          success: false,
+          message: "Email is already in use",
+        });
       }
 
-    })
-      .catch((err) => console.log(err));
+      // Step 3: If email does not exist, create a new user in the database using async and await
+      const hashedPassword = bcrypt.hashSync(password, 12);
+      const command = "INSERT INTO players (name, lastName, email, password) VALUES($1, $2, $3, $4) RETURNING *;";
+      const values = [name, lastName, email, hashedPassword];
 
-  })
+      const newPlayer = await db.query(command, values);
+      req.session.playerId = newPlayer.rows[0].id;
+      console.log(req.session.playerId);
+
+      // Step 4: Create a new session for the new user
+
+      return res.status(200).send({
+        success: true,
+        message: "Sign up successful",
+        player: {
+          id: newPlayer.rows[0].id,
+          name: newPlayer.rows[0].name,
+          lastName: newPlayer.rows[0].lastName,
+          email: newPlayer.rows[0].email,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({
+        success: false,
+        message: "Sign up failed",
+      });
+    }
+  });
 
   return router;
 };
+
 
