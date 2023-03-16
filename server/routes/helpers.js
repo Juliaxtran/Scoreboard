@@ -32,7 +32,7 @@ const getGroupByPlayerId = function (player_id, db) {
         console.log("No group found");
         return "No group found";
       } else {
-        return result.rows[0];
+        return result.rows;
       }
     })
     .catch((err) => {
