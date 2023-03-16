@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const { v4: uuidv4 } = require("uuid");
+
 
 module.exports = (db, dbQueries) => {
 
@@ -27,6 +27,7 @@ module.exports = (db, dbQueries) => {
               }
               if (response) {
                 req.session.playerId = player.id;
+                console.log("Session Id" , req.session.playerId)
                 res
                   .status(200)
                   .send({
