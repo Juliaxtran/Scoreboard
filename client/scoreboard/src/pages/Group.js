@@ -1,13 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import { Context } from '../context/StateContext';
+import { Button } from '@mui/material';
 import axios from 'axios';
+import NewGroupForm from '../components/NewGroupForm';
+import "./Group.css";
+
 
 function Group() {
   const { user, setUser, groups, setGroups } = useContext(Context);
 
   const [loading, setLoading] = useState(true);
 
+  // Show groups for user
   useEffect(() => {
     const storedUser = sessionStorage.getItem('user');
     console.log(storedUser);
@@ -40,30 +45,41 @@ function Group() {
     return <div>Loading...</div>;
   }
 
-// Show groups for user
+
 
 
 
 
   return (
     <div className='groupPage'>
-      <NavBar/>
-      <div>
-        <h1>Group page</h1>
-        <h2>{user.name}</h2>
-        <h2>{user.id}</h2>
-        <h2>{user.lastName}</h2>
-        <h2>{user.email}</h2>
-      </div>
-      <div>
-        {groups && groups.map((group) => {
-          return (
-            <div key={group.id}>
-              <h2>{group.name}</h2>
-            </div>
-          );
-        })}
+      <NavBar />
+      <div className='groupInfo'>
+        <div className='groupCopy'>
+          <div className='groupCopy-text'>
+          <h2>Hello {user.name} {user.lastName}</h2>
+          <p> To start please choose a group or create a new group</p>
+          </div>
+          <NewGroupForm/>
+        </div>
 
+        <div className='groups'>
+          <h2>Groups</h2>
+          {groups && groups.map((group) => {
+            return (
+
+              <Button
+                size="large"
+                variant="contained"
+                sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
+                color="warning"
+                key={group.id}
+              >
+                {group.name}
+              </Button>
+            );
+          })}
+
+        </div>
       </div>
     </div>
   )

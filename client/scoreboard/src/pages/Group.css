@@ -1,0 +1,52 @@
+.groupPage {
+  height: 100vh;
+  color: white;
+  background:
+  linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  ), url('../assets/group.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+}
+
+.groupInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2em;
+  top: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  width: 50%;
+  max-width: 800px;
+}
+
+.groupCopy {
+  color: black;
+  width: 300px;
+  height: 250px;
+  padding: 1.5em;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1em;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.groupCopy-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  gap: 1em;
+}
