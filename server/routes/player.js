@@ -35,8 +35,8 @@ module.exports = (db, dbQueries) => {
                    player:{
                       id: player.id,
                       name: player.name,
+                      lastName: player.lastname,
                       email: player.email,
-                      password: player.password
                    }
                   });
               } else {
@@ -87,7 +87,7 @@ module.exports = (db, dbQueries) => {
         player: {
           id: newPlayer.rows[0].id,
           name: newPlayer.rows[0].name,
-          lastName: newPlayer.rows[0].lastName,
+          lastName: newPlayer.rows[0].lastname,
           email: newPlayer.rows[0].email,
         },
       });
