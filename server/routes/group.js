@@ -3,11 +3,13 @@ const router = require('express').Router();
 
 module.exports = (db, dbQueries) => {
 
-  // Get Group for a player
-  router.get("/:id", (req, res) => {
-    const { id } = req.params;
+  // Get Group for a player once logged in
+  router.get("/", (req, res) => {
+    // player id is stored in session
+    const  player_id  = req.session.id;
+    console.log(player_id)
     dbQueries
-      .getGroupByPlayerId(id, db)
+      .getGroupByPlayerId(player_id, db)
       .then((group) => {
         if (group) {
           res.status(200).send({
@@ -49,13 +51,16 @@ module.exports = (db, dbQueries) => {
 
   // Add a player to a group by group id
 
-  router.post("/add", (req, res) => {
+  router.post("/add/:group_id", (req, res) => {
     // why does group_id not work when its in the params?
-    const {group_id, email} = req.body;
+    const { email} = req.body;
+    const { group_id } = req.params;
+
     dbQueries
      .getUserByEmail(email, db)
        .then((player) => {
           if (player) {
+            console.log('player info',player)
             dbQueries
             .addPlayerToGroup(group_id, player.id, db)
             .then((group) => {

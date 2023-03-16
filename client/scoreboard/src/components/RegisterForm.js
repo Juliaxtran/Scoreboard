@@ -56,7 +56,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
           sx={{
             "& > :not(style)": {
               width: isMobile ? 300 : 400,
-              height: isMobile ? 400 : 460,
+              height: 460,
               marginLeft: isMobile ? 0 : 60,
               px : 3,
               py: 4,

@@ -22,9 +22,9 @@ const getUserByEmail = function (email, db) {
 
 // Group Queries
 
-const getGroupByPlayerId = function (id, db) {
-  const queryString = `select * from groups_players where player_id = $1;`
-  const values = [id];
+const getGroupByPlayerId = function (player_id, db) {
+  const queryString = `select * from groups_players join groups on groups_players.group_id = groups.id where player_id = $1;`
+  const values = [player_id];
   return db
     .query(queryString, values)
     .then((result) => {
