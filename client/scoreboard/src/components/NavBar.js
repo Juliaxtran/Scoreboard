@@ -10,9 +10,9 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import { textAlign } from "@mui/system";
 
-const pages = ["Groups", "Login", "Register"];
+
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
