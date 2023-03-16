@@ -19,7 +19,7 @@ export default function LoginForm({ setError, setIsSignUp}) {
   });
 ;
 const [loading, setLoading] = useState(false);
-const {setUser} = useContext(Context);
+const {user, setUser} = useContext(Context);
 const navigate = useNavigate();
 
   const handleClick = () => {
@@ -36,13 +36,14 @@ const navigate = useNavigate();
     setLoading(true); // Set loading state to true
     axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
       const player = res.data.player;
+      console.log(player);
       setUser(player);
       setLoading(false); // Set loading state to false after updating user state
       const success = res.status === 200;
       if (success) {
         setError("Login Successful");
         setTimeout(() => setError(null), 3000);
-        navigate('/group');
+        // navigate('/group');
       } else {
         setError("Login Failed")
       }

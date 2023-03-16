@@ -37,11 +37,13 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
       .post("http://localhost:4000/player/signup", formData, {withCredentials: true })
       .then((res) => {
         console.log(res.data);
+        const player = res.data.player;
+        console.log(player);
         const success = res.status === 200;
         if (success) {
           setError("Registration Successful");
           setTimeout(() => setError(null), 3000);
-          navigate("/group");
+          // navigate("/group");
         } else {
           setError("Registration Failed");
         }
