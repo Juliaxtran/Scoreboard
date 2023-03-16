@@ -13,16 +13,17 @@ const LoginPage = () => {
     <div className="LoginPage">
       <NavBar />
       {error && (
-        <Alert
-          severity={
-            error === "Login Successful" ||
-            error === "Registration Successful, Please Login"
-              ? "success"
-              : "error"
-          }
-        >
-          {error}
-        </Alert>
+       <Alert
+       severity={
+         error === "Login Successful" ||
+         error === "Registration Successful, Please Login"
+           ? "success"
+           : "error"
+       }
+       style={{ position: "fixed", top: "80px", left: "50%", transform: "translateX(-50%)" }}
+     >
+       {error}
+     </Alert>
       )}
       <div className="login">
         <div className="loginCopy">
