@@ -29,8 +29,7 @@ const getGroupByPlayerId = function (player_id, db) {
     .query(queryString, values)
     .then((result) => {
       if (result.rows.length === 0) {
-        console.log("No group found");
-        return "No group found";
+        return [];
       } else {
         return result.rows;
       }

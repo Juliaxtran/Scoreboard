@@ -22,13 +22,21 @@ function Group() {
         .get(`http://localhost:4000/group`, { withCredentials: true })
         .then((res) => {
           const groupData = res.data.group;
-          console.log('Group data: ', groupData);
-          const groupsArray = Object.keys(groupData).map((key) => ({
-            id: key,
-            ...groupData[key],
-          }));
-          setGroups(groupsArray);
-          console.log('groups', groupsArray);
+          if (groupData === 'No group found') {
+            setGroups([]);
+          }
+
+          if (res.status === 200) {
+            const groupData = res.data.group;
+            console.log('Group data: ', groupData);
+            const groupsArray = groupData
+              ? Object.keys(groupData).map((key) => ({ id: key, ...groupData[key] }))
+              : [];
+            setGroups(groupsArray);
+            console.log('groups', groupsArray);
+          } else if (res.status === 400) {
+            setGroups([]);
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -56,28 +64,33 @@ function Group() {
       <div className='groupInfo'>
         <div className='groupCopy'>
           <div className='groupCopy-text'>
-          <h2>Hello {user.name} {user.lastName}</h2>
-          <p> To start please choose a group or create a new group</p>
+            <h2>Hello {user.name} {user.lastName}</h2>
+            <p> To start please choose a group or create a new group</p>
           </div>
-          <NewGroupForm/>
+          <NewGroupForm />
         </div>
 
         <div className='groups'>
           <h2>Groups</h2>
-          {groups && groups.map((group) => {
-            return (
-
-              <Button
-                size="large"
-                variant="contained"
-                sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
-                color="warning"
-                key={group.id}
-              >
-                {group.name}
-              </Button>
-            );
-          })}
+          {groups.length === 0 ? (
+            <p>No groups found. Create a group</p>
+          ) : (
+            <>
+           {groups.map((group) => {
+                return (
+                  <Button
+                    size="large"
+                    variant="contained"
+                    sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
+                    color="warning"
+                    key={group.id}
+                  >
+                    {group.name}
+                  </Button>
+                );
+              })}
+            </>
+          )}
 
         </div>
       </div>
