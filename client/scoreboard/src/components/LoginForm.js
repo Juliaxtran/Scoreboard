@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom';
 import {
   useMediaQuery,
   Box,
@@ -18,8 +19,8 @@ export default function LoginForm({ setError, setIsSignUp}) {
   });
 ;
 const [loading, setLoading] = useState(false);
-
-  const {setUser} = useContext(Context);
+const {setUser} = useContext(Context);
+const navigate = useNavigate();
 
   const handleClick = () => {
     setIsSignUp(false);
@@ -41,6 +42,7 @@ const [loading, setLoading] = useState(false);
       if (success) {
         setError("Login Successful");
         setTimeout(() => setError(null), 3000);
+        navigate('/group');
       } else {
         setError("Login Failed")
       }

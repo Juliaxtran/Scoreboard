@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import {
   Box,
@@ -18,6 +19,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
     password: "",
   });
 
+  const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width:420px)");
 
   const handleClick = () => {
@@ -37,8 +39,9 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
         console.log(res.data);
         const success = res.status === 200;
         if (success) {
-          setError("Registration Successful, Please Login");
+          setError("Registration Successful");
           setTimeout(() => setError(null), 3000);
+          navigate("/group");
         } else {
           setError("Registration Failed");
         }

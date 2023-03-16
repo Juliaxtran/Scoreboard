@@ -8,6 +8,7 @@ import AllPlayers from './pages/AllPlayers';
 import AllMatches from './pages/AllMatches';
 import AllGroups from './pages/AllGroups'
 import AllGames from './pages/AllGames';
+import Group from './pages/Group';
 
 
 const App = () => {
@@ -16,8 +17,10 @@ const App = () => {
     <StateContext>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/group" element={<Group />} />
           <Route path="/test" element={<ScoreBoard />} />
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/players" element={<AllPlayers/>} />
           <Route path="/matches" element={<AllMatches/>} />
