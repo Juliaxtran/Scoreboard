@@ -26,8 +26,13 @@ module.exports = (db, dbQueries) => {
                 });
               }
               if (response) {
-                req.session.playerId = player.id;
-                console.log("Session Id" , req.session.playerId)
+                req.session.player = {
+                  id: player.id,
+                  name: player.name,
+                  lastName: player.lastname,
+                  email: player.email,
+                }
+                console.log("Session Id" , req.session.player)
                 res
                   .status(200)
                   .send({
@@ -77,8 +82,13 @@ module.exports = (db, dbQueries) => {
       const values = [name, lastName, email, hashedPassword];
 
       const newPlayer = await db.query(command, values);
-      req.session.playerId = newPlayer.rows[0].id;
-      console.log(req.session.playerId);
+      req.session.player = {
+        id: newPlayer.rows[0].id,
+        name: newPlayer.rows[0].name,
+        lastName: newPlayer.rows[0].lastname,
+        email: newPlayer.rows[0].email,
+      }
+
 
       // Step 4: Create a new session for the new user
 

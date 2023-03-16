@@ -6,7 +6,7 @@ module.exports = (db, dbQueries) => {
   // Get Group for a player once logged in
   router.get("/", (req, res) => {
     // player id is stored in session
-    const  player_id  = req.session.id;
+    const  player_id  = req.session.player.id;
     console.log(player_id)
     dbQueries
       .getGroupByPlayerId(player_id, db)

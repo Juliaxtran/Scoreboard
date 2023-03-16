@@ -31,7 +31,6 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
@@ -40,7 +39,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
       .then((res) => {
         console.log(res.data);
         const player = res.data.player;
-        setUser(player);
+        sessionStorage.setItem("user", JSON.stringify(player));
         const success = res.status === 200;
         if (success) {
           setError("Registration Successful");
@@ -56,7 +55,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
         setTimeout(() => setError(null), 3000);
       });
   };
-
+  
   return (
       <form onSubmit={handleSubmit}>
         <Box

@@ -12,15 +12,15 @@ import axios from "axios";
 import { Context } from '../context/StateContext';
 
 
-export default function LoginForm({ setError, setIsSignUp}) {
+export default function LoginForm({ setError, setIsSignUp }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-;
-const [loading, setLoading] = useState(false);
-const {user, setUser} = useContext(Context);
-const navigate = useNavigate();
+  ;
+  const [loading, setLoading] = useState(false);
+  const { user, setUser } = useContext(Context);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setIsSignUp(false);
@@ -31,17 +31,19 @@ const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading state to true
+    setLoading(true);
     axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
       const player = res.data.player;
       setUser(player);
-      setLoading(false); // Set loading state to false after updating user state
+      setLoading(false);
       const success = res.status === 200;
       if (success) {
         setError("Login Successful");
         setTimeout(() => setError(null), 3000);
+        sessionStorage.setItem('user', JSON.stringify(player)); // store user in sessionStorage
         navigate('/group');
       } else {
         setError("Login Failed")
@@ -49,7 +51,7 @@ const navigate = useNavigate();
     }).catch(error => {
       console.log(error);
       setError("Email or Password is incorrect, try again");
-      setLoading(false); // Set loading state to false after login process is complete
+      setLoading(false);
       setTimeout(() => setError(null), 3000);
     });
   };
@@ -57,14 +59,14 @@ const navigate = useNavigate();
 
   const isMobile = useMediaQuery("(max-width:420px)");
   return (
-    <form  onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Box
         sx={{
           "& > :not(style)": {
             width: isMobile ? 300 : 400,
             height: isMobile ? 320 : 350,
             marginLeft: isMobile ? 0 : 60,
-            px : 3,
+            px: 3,
             py: 4,
             backdropFilter: "blur(10px)",
             backgroundColor: 'rgba(255, 255, 255, 0.3)'
@@ -101,9 +103,9 @@ const navigate = useNavigate();
               autoComplete="current-password"
             />
 
-<Button variant="contained" color="error" type="submit" disabled={loading}>
-  {loading ? 'Logging in...' : 'Login'}
-</Button>
+            <Button variant="contained" color="error" type="submit" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
+            </Button>
             <Button onClick={handleClick}>Don't have an account Register</Button>
           </div>
         </Paper>

@@ -7,6 +7,7 @@ const StateContext = ({ children }) => {
 
   const [user, setUser] = useState({});
   const [players, setPlayers] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [games, setGames] = useState([]);
   const [matches, setMatches] = useState([]);
   const [playerVal, setPlayerVal] = useState([]);
@@ -117,7 +118,9 @@ const StateContext = ({ children }) => {
       handleAddWinner,
       winnerVal,
       user,
-      setUser
+      setUser,
+      groups,
+      setGroups
     }}>
       {children}
     </Context.Provider>
