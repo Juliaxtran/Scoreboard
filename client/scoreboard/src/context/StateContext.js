@@ -124,4 +124,4 @@ const StateContext = ({ children }) => {
   );
 };
 
-export { StateContext, Context };
+export { StateContext, Context};

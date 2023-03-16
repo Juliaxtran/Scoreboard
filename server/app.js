@@ -42,6 +42,18 @@ app.get('/', (req, res) => {
   res.send('Server is running');
 })
 
+app.get('/api/profile', (req, res) => {
+  if (req.session.id) {
+    const player_id = req.session.id
+    const command = "SELECT * from players where id = $1; "
+    values = [player_id]
+    db.query(command, values).then(data => {
+      return res.json(data.rows[0]);
+    })
+  } else {
+    return res.status(400).send("No user info")
+  }
+})
 
 
 app.listen(port,

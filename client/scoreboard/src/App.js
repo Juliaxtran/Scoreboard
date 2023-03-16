@@ -9,9 +9,13 @@ import AllMatches from './pages/AllMatches';
 import AllGroups from './pages/AllGroups'
 import AllGames from './pages/AllGames';
 import Group from './pages/Group';
+import { StateContext } from './context/StateContext';
+import { useEffect, useContext} from 'react';
 
 
 const App = () => {
+  const [user, setUser] = useContext(StateContext);
+
 
   return (
     <StateContext>
