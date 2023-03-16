@@ -14,8 +14,7 @@
 .authentication-form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  margin-top: 2em;
+  gap: 1.2em;
 }
 
 .loginCopy {
@@ -38,7 +37,6 @@
   .loginCopy {
     margin-right: 0;
     margin-bottom: 6em;
-    margin-top: 4em;
   }
 }
 

@@ -7,13 +7,13 @@ import {
   Typography,
   useMediaQuery,
   TextField,
-  Autocomplete,
   Button,
 } from "@mui/material";
 
 const RegisterForm = ({ setError, setIsSignUp}) => {
   const [formData, setFormData] = useState({
     name: "",
+    lastName: "",
     email: "",
     password: "",
   });
@@ -55,9 +55,9 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
         <Box
           sx={{
             "& > :not(style)": {
-              width: isMobile ? 336 : 400,
-              height: isMobile ? 480 : 500,
-              marginLeft: isMobile ? 2 : 60,
+              width: isMobile ? 300 : 400,
+              height: isMobile ? 400 : 460,
+              marginLeft: isMobile ? 0 : 60,
               px : 3,
               py: 4,
               backdropFilter: "blur(10px)",
@@ -73,19 +73,25 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
                 fontFamily: "JetBrains Mono, monospace",
                 textAlign: "center",
                 fontWeight: "bold",
-                marginTop: 5,
-              }}
+                marginTop: 2,
+            }}
             >
               Register
             </Typography>
             <div className="authentication-form">
               <TextField
                 required
-                label="Name"
+                label="First Name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                autoComplete="name"
+              />
+                <TextField
+                required
+                label="Last name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
               />
 
               <TextField
@@ -94,7 +100,6 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                autoComplete="username"
               />
               <TextField
                 id="outlined-password-input"
@@ -103,7 +108,6 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                autoComplete="current-password"
               />
 
               <Button variant="contained" color="error" type="submit">

@@ -8,7 +8,7 @@ import { Alert } from "@mui/material";
 const LoginPage = () => {
   const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(true);
-  
+
   return (
     <div className="LoginPage">
       <NavBar />

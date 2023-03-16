@@ -36,7 +36,7 @@ module.exports = (db, dbQueries) => {
                       id: player.id,
                       name: player.name,
                       email: player.email,
-                      password: player.password 
+                      password: player.password
                    }
                   });
               } else {
@@ -57,10 +57,10 @@ module.exports = (db, dbQueries) => {
   // Register Route
   router.post('/signup', (req, res) => {
 
-    let {  name ,email, password } = req.body
+    let {  name ,lastName, email, password } = req.body
     password = bcrypt.hashSync(password, 12);
-    const command = ' INSERT INTO players (name, email, password) VALUES($1, $2, $3) RETURNING *;'
-    const values = [ name, email, password]
+    const command = ' INSERT INTO players (name, lastName, email, password) VALUES($1, $2, $3, $4) RETURNING *;'
+    const values = [ name, lastName, email, password]
     db.query(command, values).then(player => {
 
       if (player["rows"].length > 0) {
@@ -72,6 +72,7 @@ module.exports = (db, dbQueries) => {
            player: {
             id: player.id,
             name: player.name,
+            lastName: player.lastName,
             email: player.email,
           }
         })

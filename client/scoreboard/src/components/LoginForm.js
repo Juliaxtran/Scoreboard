@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import {
   useMediaQuery,
   Box,
@@ -60,8 +60,8 @@ const [loading, setLoading] = useState(false);
         sx={{
           "& > :not(style)": {
             width: isMobile ? 300 : 400,
-            height: isMobile ? 300 : 350,
-            marginLeft: isMobile ? 2 : 60,
+            height: isMobile ? 320 : 350,
+            marginLeft: isMobile ? 0 : 60,
             px : 3,
             py: 4,
             backdropFilter: "blur(10px)",
@@ -77,7 +77,7 @@ const [loading, setLoading] = useState(false);
               fontFamily: "JetBrains Mono, monospace",
               textAlign: "center",
               fontWeight: "bold",
-              marginTop: 5,
+              marginTop: 3,
             }}
           >
             Login
