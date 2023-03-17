@@ -1,9 +1,26 @@
 import React from "react";
 import { Paper, Box, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { Context } from "../context/StateContext";
+import { useParams } from "react-router-dom";
+import { useContext, useEffect } from "react";
 
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
+
+  const { group_id } = useParams();
+  const { games, setGames } = useContext(Context);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/game/all/${group_id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setGames(res.data.games);
+      });
+  }, [group_id]);
 
   return (
     // Gameboard Container/Box
@@ -32,80 +49,44 @@ const GameBoard = () => {
       >
         <div>
           <div>
-          <Link to="/games" style={{ textDecoration: "none", color:'black' }}>
-            <h1 style={{ marginRight: 750 }}>Games</h1>
+            <Link
+              to="/games"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <h1 style={{ marginRight: 750 }}>Games</h1>
             </Link>
           </div>
           <div className="box-container">
             {/* Game container */}
-            <Paper
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                mr: 2,
-                height: 250,
-                width: isMobile ? 310 : 350,
-                mb: 6,
-                mt: 2,
-              }}
-            >
-              {/* Game Info  */}
-              <h1>Catan</h1>
-              <h3>Most Wins: Patrice</h3>
-              <h3>Description:</h3>{" "}
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </p>
-              <h3>Most Losses: Ryan</h3>
-            </Paper>
-            {/* Game container */}
-            <Paper
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                height: 250,
-                width: isMobile ? 310 : 350,
-                mr: 2,
-                mb: 6,
-                mt: 2,
-              }}
-            >
-              {/* Game Info  */}
-              <h1>Jenga</h1>
-              <h3>Most Wins: Patrice</h3>
-              <h3>Description:</h3>{" "}
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </p>
-              <h3>Most Losses: Ryan</h3>
-            </Paper>
-            {/* Game container */}
-            <Paper
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                height: 250,
-                width: isMobile ? 310 : 350,
-                mr: 2,
-                mb: 6,
-                mt: 2,
-              }}
-            >
-              {/* Game Info  */}
-              <h1>Chess</h1>
-              <h3>Most Wins: Patrice</h3>
-              <h3>Description:</h3>{" "}
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
-              </p>
-              <h3>Most Losses: Ryan</h3>
-            </Paper>
+
+            {games.map((game) => {
+              return (
+                <React.Fragment key={game.id}>
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      height: 250,
+                      width: isMobile ? 310 : 350,
+                      mr: 2,
+                      mb: 6,
+                      mt: 2,
+                    }}
+                    key={game.id}
+                  >
+                    {/* Game Info  */}
+                    <h1>{game.name}</h1>
+
+                    <h3>Description:</h3>
+                    <p>{game.description}</p>
+                    {/* TODO:Query or equation to calculate most wins and losses */}
+                    <h3>Most WINS: Patrice</h3>
+                    <h3>Most Losses: Ryan</h3>
+                  </Paper>
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
       </Paper>
