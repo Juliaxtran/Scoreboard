@@ -13,7 +13,7 @@ import { useState} from 'react';
 
 
 const App = () => {
-const [groupId, setGroupId] = useState('');
+
 
 
   return (
@@ -21,9 +21,9 @@ const [groupId, setGroupId] = useState('');
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login/>} />
-          <Route path="/group" element={<Group  setGroupId={setGroupId} groupId={groupId}/>} />
+          <Route path="/group" element={<Group />} />
           <Route path="/test" element={<ScoreBoard />} />
-          <Route path="/dashboard/:group_id" element={<Dashboard setGroupId={setGroupId} groupId={groupId} />} />
+          <Route path="/dashboard/:group_id" element={<Dashboard  />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/players" element={<AllPlayers/>} />
           <Route path="/matches" element={<AllMatches/>} />
