@@ -28,22 +28,23 @@ const NewGroupForm = () => {
     axios
       .post("http://localhost:4000/group/create", { name, owner_id })
       .then((res) => {
-       const success = res.status === 200;
+        const success = res.status === 200;
         if (success) {
           console.log("Group created successfully");
           setOpen(false);
           window.location.reload();
+          // Call handleNewGroup with the new group data
         }
       })
       .catch((error) => {
         console.log(error);
-      }
-      );
-  }
+      });
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
+
 
   return (
     <form onSubmit={handleSubmit}>
