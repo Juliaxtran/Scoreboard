@@ -1,4 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import { Context } from '../context/StateContext';
 import { Button } from '@mui/material';
@@ -7,10 +8,15 @@ import NewGroupForm from '../components/NewGroupForm';
 import "./Group.css";
 
 
-function Group() {
-  const { user, setUser, groups, setGroups } = useContext(Context);
 
+function Group({setGroupId}) {
+  const { user, setUser, groups, setGroups } = useContext(Context);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+
+
+
 
   // Show groups for user
   useEffect(() => {
@@ -56,8 +62,6 @@ function Group() {
 
 
 
-
-
   return (
     <div className='groupPage'>
       <NavBar />
@@ -84,6 +88,11 @@ function Group() {
                     sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
                     color="warning"
                     key={group.id}
+                    onClick={() => {
+                      setGroupId(group.id);
+                      localStorage.setItem('groupId', group.id); // set the groupId in localStorage
+                      navigate('/dashboard');
+                    }}
                   >
                     {group.name}
                   </Button>

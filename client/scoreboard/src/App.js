@@ -9,11 +9,11 @@ import AllMatches from './pages/AllMatches';
 import AllGroups from './pages/AllGroups'
 import AllGames from './pages/AllGames';
 import Group from './pages/Group';
-import { useEffect, useContext} from 'react';
+import { useState} from 'react';
 
 
 const App = () => {
-  // const [user, setUser] = useContext(StateContext);
+const [groupId, setGroupId] = useState('');
 
 
   return (
@@ -21,9 +21,9 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login/>} />
-          <Route path="/group" element={<Group />} />
+          <Route path="/group" element={<Group  setGroupId={setGroupId} groupId={groupId}/>} />
           <Route path="/test" element={<ScoreBoard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard setGroupId={setGroupId} groupId={groupId} />} />
           <Route path="/login" element={<Login/>} />
           <Route path="/players" element={<AllPlayers/>} />
           <Route path="/matches" element={<AllMatches/>} />

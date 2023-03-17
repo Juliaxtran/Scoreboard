@@ -120,7 +120,8 @@ const StateContext = ({ children }) => {
       user,
       setUser,
       groups,
-      setGroups
+      setGroups,
+
     }}>
       {children}
     </Context.Provider>

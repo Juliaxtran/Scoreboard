@@ -89,10 +89,10 @@ module.exports = (db, dbQueries) => {
 
 
   // Find all players for one group by group id
-  router.get("/players/:id", (req, res) => {
-    const { id } = req.params;
+  router.get("/players/:group_id", (req, res) => {
+    const { group_id } = req.params;
     dbQueries
-      .getPlayersByGroupId(id, db)
+      .getPlayersByGroupId(group_id , db)
       .then((players) => {
         if (players) {
           res.status(200).send({
