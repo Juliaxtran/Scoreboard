@@ -41,7 +41,7 @@ module.exports = (db, dbQueries) => {
                    player:{
                       id: player.id,
                       name: player.name,
-                      lastName: player.lastname,
+                      lastname: player.lastname,
                       email: player.email,
                    }
                   });

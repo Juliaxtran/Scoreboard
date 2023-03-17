@@ -19,7 +19,7 @@ export default function LoginForm({ setError, setIsSignUp }) {
   });
   ;
   const [loading, setLoading] = useState(false);
-  const { user, setUser } = useContext(Context);
+  const {  setUser } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -43,7 +43,7 @@ export default function LoginForm({ setError, setIsSignUp }) {
       if (success) {
         setError("Login Successful");
         setTimeout(() => setError(null), 3000);
-        sessionStorage.setItem('user', JSON.stringify(player)); // store user in sessionStorage
+        // sessionStorage.setItem('user', JSON.stringify(player)); // store user in sessionStorage
         navigate('/group');
       } else {
         setError("Login Failed")

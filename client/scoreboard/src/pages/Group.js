@@ -20,10 +20,10 @@ function Group({setGroupId}) {
 
   // Show groups for user
   useEffect(() => {
-    const storedUser = sessionStorage.getItem('user');
-    console.log(storedUser);
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    // const storedUser = sessionStorage.getItem('user');
+    // console.log(storedUser);
+    if (user) {
+      // setUser(JSON.parse(storedUser));
       axios
         .get(`http://localhost:4000/group`, { withCredentials: true })
         .then((res) => {
@@ -53,7 +53,7 @@ function Group({setGroupId}) {
     } else {
       setLoading(false);
     }
-  }, [setUser, setGroups]);
+  }, [setUser, setGroups, user]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -68,7 +68,8 @@ function Group({setGroupId}) {
       <div className='groupInfo'>
         <div className='groupCopy'>
           <div className='groupCopy-text'>
-            <h2>Hello {user.name} {user.lastName}</h2>
+            <h2>Hello {user.name} {user.lastname}</h2>
+            <p>{user.id}{user.email}</p>
             <p> To start please choose a group or create a new group</p>
           </div>
           <NewGroupForm />
@@ -90,7 +91,7 @@ function Group({setGroupId}) {
                     key={group.id}
                     onClick={() => {
                       setGroupId(group.id);
-                      localStorage.setItem('groupId', group.id); // set the groupId in localStorage
+                      // localStorage.setItem('groupId', group.id); // set the groupId in localStorage
                       navigate(`/dashboard/${group.id}`);
                     }}
                   >
