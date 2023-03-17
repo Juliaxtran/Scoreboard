@@ -58,7 +58,6 @@ const GameBoard = () => {
           </div>
           <div className="box-container">
             {/* Game container */}
-
             {games.map((game) => {
               return (
                 <React.Fragment key={game.id}>
