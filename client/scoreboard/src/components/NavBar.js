@@ -11,9 +11,6 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
-
-
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -83,18 +80,20 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <Link to="/group" style={{ textDecoration: "none", color:'black' }}>
+              <Link
+                to="/group"
+                style={{ textDecoration: "none", color: "black" }}
+              >
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Groups</Typography>
                 </MenuItem>
               </Link>
 
-              <Link to="/" style={{ textDecoration: "none", color:'black' }}>
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Join The Game</Typography>
                 </MenuItem>
               </Link>
-
             </Menu>
           </Box>
 
@@ -119,7 +118,6 @@ function ResponsiveAppBar() {
                 Join The Game
               </Button>
             </Link>
-          
           </Box>
         </Toolbar>
       </Container>

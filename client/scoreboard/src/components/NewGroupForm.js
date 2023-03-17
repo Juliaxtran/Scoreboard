@@ -62,7 +62,6 @@ const NewGroupForm = () => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={{ textAlign: 'center' }}> New Group</DialogTitle>
         <DialogContent>
-
           {/* Name  Text Field */}
           <Typography
             variant="h6"

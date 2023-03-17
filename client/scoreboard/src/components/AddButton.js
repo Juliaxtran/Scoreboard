@@ -3,15 +3,12 @@ import NewMatchForm from "./NewMatchForm";
 import NewGameForm from "./NewGameForm";
 import NewPlayerForm from "./NewPlayerForm";
 
-
 const AddButton = () => {
-
-
   return (
     <>
-      <NewMatchForm/>
-      <NewPlayerForm/>
-      <NewGameForm/>
+      <NewMatchForm />
+      <NewPlayerForm />
+      <NewGameForm />
     </>
   );
 };

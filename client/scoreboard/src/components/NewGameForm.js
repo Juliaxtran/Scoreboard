@@ -20,7 +20,7 @@ const NewGameForm = () => {
       <Button
         size="large"
         variant="contained"
-        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2  }}
+        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
         color="warning"
         onClick={handleClickOpen}
       >
@@ -29,9 +29,8 @@ const NewGameForm = () => {
 
       {/* Dialog component  */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{textAlign:'center'}}> New Game</DialogTitle>
+        <DialogTitle sx={{ textAlign: "center" }}> New Game</DialogTitle>
         <DialogContent>
-
           {/* Name  Text Field */}
           <Typography
             variant="h6"
@@ -53,7 +52,7 @@ const NewGameForm = () => {
             variant="h6"
             sx={{ fontWeight: "bold", fontFamily: "JetBrains Mono, monospace" }}
           >
-           Description
+            Description
           </Typography>
           <TextField
             autoFocus

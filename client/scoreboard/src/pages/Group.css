@@ -1,11 +1,8 @@
 .groupPage {
   height: 100vh;
   color: white;
-  background:
-  linear-gradient(
-    rgba(0, 0, 0, 0.7),
-    rgba(0, 0, 0, 0.7)
-  ), url('../assets/group.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../assets/group.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center top;

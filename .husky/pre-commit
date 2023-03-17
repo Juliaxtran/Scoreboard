@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd server && npx --no-install lint-staged
+DIR_NAME=$(realpath .)
+
+cd ${DIR_NAME}/server && npx --no-install lint-staged
+cd ${DIR_NAME}/client/scoreboard && npx --no-install lint-staged
