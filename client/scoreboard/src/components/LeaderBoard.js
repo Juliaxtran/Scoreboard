@@ -10,7 +10,7 @@ const LeaderBoard = () => {
 
   const { group_id } = useParams();
   const { setPlayers, players } = useContext(Context);
-  
+
   useEffect(() => {
     axios.get(`http://localhost:4000/group/players/${group_id}`, { withCredentials: true })
       .then(res => {
@@ -18,7 +18,7 @@ const LeaderBoard = () => {
         console.log('res',res.data.players)
       })
   }, [group_id]);
-  
+
 
   return (
     <>
@@ -51,9 +51,10 @@ const LeaderBoard = () => {
                 height: isMobile ? 200 : 150,
               },
             }}
-          > 
+          >
+
             {/* Profile Container */}
-            {players.map(player => {
+            {Array.isArray(players) && players.map(player => {
               return (
                 <Paper key={player.id}>
                 <div className="leader-box">

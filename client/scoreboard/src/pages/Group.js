@@ -53,7 +53,7 @@ function Group() {
     } else {
       setLoading(false);
     }
-  }, [setUser, setGroups, user, groups]);
+  }, [setUser, user, setGroups]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -69,7 +69,6 @@ function Group() {
         <div className='groupCopy'>
           <div className='groupCopy-text'>
             <h2>Hello {user.name} {user.lastname}</h2>
-            <p>{user.id}{user.email}</p>
             <p> To start please choose a group or create a new group</p>
           </div>
           <NewGroupForm />

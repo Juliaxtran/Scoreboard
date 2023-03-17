@@ -32,6 +32,7 @@ const NewGroupForm = () => {
         if (success) {
           console.log("Group created successfully");
           setOpen(false);
+          window.location.reload();
         }
       })
       .catch((error) => {
