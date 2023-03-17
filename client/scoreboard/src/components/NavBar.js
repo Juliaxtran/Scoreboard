@@ -89,7 +89,7 @@ function ResponsiveAppBar() {
                 </MenuItem>
               </Link>
 
-              <Link to="/login" style={{ textDecoration: "none", color:'black' }}>
+              <Link to="/" style={{ textDecoration: "none", color:'black' }}>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Join The Game</Typography>
                 </MenuItem>
@@ -111,7 +111,7 @@ function ResponsiveAppBar() {
                 Group
               </Button>
             </Link>
-            <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
