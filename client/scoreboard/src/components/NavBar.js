@@ -83,7 +83,7 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <Link to="/groups" style={{ textDecoration: "none", color:'black' }}>
+              <Link to="/group" style={{ textDecoration: "none", color:'black' }}>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">Groups</Typography>
                 </MenuItem>
@@ -91,15 +91,10 @@ function ResponsiveAppBar() {
 
               <Link to="/login" style={{ textDecoration: "none", color:'black' }}>
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Login</Typography>
+                  <Typography textAlign="center">Join The Game</Typography>
                 </MenuItem>
               </Link>
 
-              <Link to="/register" style={{ textDecoration: "none", color:'black' }}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Register</Typography>
-                </MenuItem>
-              </Link>
             </Menu>
           </Box>
 
@@ -108,7 +103,7 @@ function ResponsiveAppBar() {
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
             className="nav-bar-page"
           >
-            <Link to="/groups" style={{ textDecoration: "none" }}>
+            <Link to="/group" style={{ textDecoration: "none" }}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -121,17 +116,10 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                Login
+                Join The Game
               </Button>
             </Link>
-            <Link to="/register" style={{ textDecoration: "none" }}>
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Register
-              </Button>
-            </Link>
+          
           </Box>
         </Toolbar>
       </Container>
