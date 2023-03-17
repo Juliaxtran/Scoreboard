@@ -21,10 +21,6 @@ const LeaderBoard = () => {
         console.log("res", res.data.players);
       });
   }, [group_id]);
-<<<<<<< HEAD
-
-=======
->>>>>>> ebae4e7 (install prettier on client and run prettier)
 
   return (
     <>
@@ -61,33 +57,33 @@ const LeaderBoard = () => {
               },
             }}
           >
-
             {/* Profile Container */}
-            {Array.isArray(players) && players.map(player => {
-              return (
-                <Paper key={player.id}>
-                  <div className="leader-box">
-                    {/* Avatar icon */}
-                    <Avatar
-                      src="/broken-image.jpg"
-                      sx={{
-                        width: 120,
-                        height: 120,
-                        color: "coral",
-                        backgroundColor: "lightblue",
-                      }}
-                    />
-                    {/* Profile Info */}
-                    <div className="leader-info">
-                      <h1>{player.name}</h1>
-                      <h3>Wins: 10</h3>
-                      <h3>Losses: 2 (optional)</h3>
-                      <h3>Win Rate: 30%</h3>
+            {Array.isArray(players) &&
+              players.map((player) => {
+                return (
+                  <Paper key={player.id}>
+                    <div className="leader-box">
+                      {/* Avatar icon */}
+                      <Avatar
+                        src="/broken-image.jpg"
+                        sx={{
+                          width: 120,
+                          height: 120,
+                          color: "coral",
+                          backgroundColor: "lightblue",
+                        }}
+                      />
+                      {/* Profile Info */}
+                      <div className="leader-info">
+                        <h1>{player.name}</h1>
+                        <h3>Wins: 10</h3>
+                        <h3>Losses: 2 (optional)</h3>
+                        <h3>Win Rate: 30%</h3>
+                      </div>
                     </div>
-                  </div>
-                </Paper>
-              );
-            })}
+                  </Paper>
+                );
+              })}
           </Box>
         </Paper>
       </Box>

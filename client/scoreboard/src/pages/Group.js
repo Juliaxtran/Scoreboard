@@ -59,10 +59,12 @@ function Group() {
   return (
     <div className="groupPage">
       <NavBar />
-      <div className='groupInfo'>
-        <div className='groupCopy'>
-          <div className='groupCopy-text'>
-            <h2>Hello {user.name} {user.lastname}</h2>
+      <div className="groupInfo">
+        <div className="groupCopy">
+          <div className="groupCopy-text">
+            <h2>
+              Hello {user.name} {user.lastname}
+            </h2>
             <p> To start please choose a group or create a new group</p>
           </div>
           <NewGroupForm />
