@@ -1,14 +1,12 @@
-const router = require("express").Router();
-const bcrypt = require("bcryptjs");
-
+const router = require('express').Router();
+const bcrypt = require('bcryptjs');
 
 module.exports = (db, dbQueries) => {
-
   // Login Route
-  router.post("/login", (req, res) => {
+  router.post('/login', (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(401).send("Wrong email or password");
+      return res.status(401).send('Wrong email or password');
     }
 
     dbQueries
@@ -22,7 +20,7 @@ module.exports = (db, dbQueries) => {
               if (err) {
                 return res.status(401).send({
                   sucess: false,
-                  message: "No user found",
+                  message: 'No user found',
                 });
               }
               if (response) {
@@ -31,54 +29,52 @@ module.exports = (db, dbQueries) => {
                   name: player.name,
                   lastName: player.lastname,
                   email: player.email,
-                }
-                console.log("Session Id" , req.session.player)
-                res
-                  .status(200)
-                  .send({
-                    success: true,
-                    message: "Login succesful",
-                   player:{
-                      id: player.id,
-                      name: player.name,
-                      lastname: player.lastname,
-                      email: player.email,
-                   }
-                  });
+                };
+                console.log('Session Id', req.session.player);
+                res.status(200).send({
+                  success: true,
+                  message: 'Login succesful',
+                  player: {
+                    id: player.id,
+                    name: player.name,
+                    lastname: player.lastname,
+                    email: player.email,
+                  },
+                });
               } else {
                 return res
                   .status(400)
-                  .send({ success: false, message: "passwords do not match" });
+                  .send({ success: false, message: 'passwords do not match' });
               }
-            }
+            },
           );
         }
       })
       .catch((error) => {
         console.log(error);
       });
-});
+  });
   //
 
   // Register Route
   router.post('/signup', async (req, res) => {
-
     const { name, lastName, email, password } = req.body;
 
     try {
       // Step 1: Check if email exists in the database
       const existingUser = await dbQueries.getUserByEmail(email, db);
-      if (existingUser !== "No email found") {
+      if (existingUser !== 'No email found') {
         // Step 2: If email exists, send a message to the user that the email is already in use
         return res.status(400).send({
           success: false,
-          message: "Email is already in use",
+          message: 'Email is already in use',
         });
       }
 
       // Step 3: If email does not exist, create a new user in the database using async and await
       const hashedPassword = bcrypt.hashSync(password, 12);
-      const command = "INSERT INTO players (name, lastName, email, password) VALUES($1, $2, $3, $4) RETURNING *;";
+      const command =
+        'INSERT INTO players (name, lastName, email, password) VALUES($1, $2, $3, $4) RETURNING *;';
       const values = [name, lastName, email, hashedPassword];
 
       const newPlayer = await db.query(command, values);
@@ -87,14 +83,13 @@ module.exports = (db, dbQueries) => {
         name: newPlayer.rows[0].name,
         lastName: newPlayer.rows[0].lastname,
         email: newPlayer.rows[0].email,
-      }
-
+      };
 
       // Step 4: Create a new session for the new user
 
       return res.status(200).send({
         success: true,
-        message: "Sign up successful",
+        message: 'Sign up successful',
         player: {
           id: newPlayer.rows[0].id,
           name: newPlayer.rows[0].name,
@@ -106,12 +101,10 @@ module.exports = (db, dbQueries) => {
       console.log(error);
       return res.status(400).send({
         success: false,
-        message: "Sign up failed",
+        message: 'Sign up failed',
       });
     }
   });
 
   return router;
 };
-
-
