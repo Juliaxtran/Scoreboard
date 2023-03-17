@@ -91,7 +91,7 @@ function Group({setGroupId}) {
                     onClick={() => {
                       setGroupId(group.id);
                       localStorage.setItem('groupId', group.id); // set the groupId in localStorage
-                      navigate('/dashboard');
+                      navigate(`/dashboard/${group.id}`);
                     }}
                   >
                     {group.name}

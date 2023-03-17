@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Paper, Avatar, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { Context } from "../context/StateContext";
 
 const LeaderBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
+
+  const { group_id } = useParams();
+  const { setPlayers, players } = useContext(Context);
+  
+  useEffect(() => {
+    axios.get(`http://localhost:4000/group/players/${group_id}`, { withCredentials: true })
+      .then(res => {
+        setPlayers(res.data.players);
+      })
+  }, [group_id]);
+  
 
   return (
     <>
@@ -37,73 +50,33 @@ const LeaderBoard = () => {
                 height: isMobile ? 200 : 150,
               },
             }}
-          >
+          > 
             {/* Profile Container */}
-            <Paper>
-              <div className="leader-box">
-                {/* Avatar icon */}
-                <Avatar
-                  src="/broken-image.jpg"
-                  sx={{
-                    width: 120,
-                    height: 120,
-                    color: "coral",
-                    backgroundColor: "lightblue",
-                  }}
-                />
-                {/* Profile Info */}
-                <div className="leader-info">
-                  <h1>Julia tran</h1>
-                  <h3>Wins: 10</h3>
-                  <h3>Losses: 2 (optional)</h3>
-                  <h3>Win Rate: 30%</h3>
+            {players.map(player => {
+              return (
+                <Paper key={player.id}>
+                <div className="leader-box">
+                  {/* Avatar icon */}
+                  <Avatar
+                    src="/broken-image.jpg"
+                    sx={{
+                      width: 120,
+                      height: 120,
+                      color: "coral",
+                      backgroundColor: "lightblue",
+                    }}
+                  />
+                  {/* Profile Info */}
+                  <div className="leader-info">
+                    <h1>{player.name}(Real!)</h1>
+                    <h3>Wins: 10</h3>
+                    <h3>Losses: 2 (optional)</h3>
+                    <h3>Win Rate: 30%</h3>
+                  </div>
                 </div>
-              </div>
-            </Paper>
-            {/* Profile Container */}
-            <Paper>
-              <div className="leader-box">
-                {/* Avatar icon */}
-                <Avatar
-                  src="/broken-image.jpg"
-                  sx={{
-                    width: 120,
-                    height: 120,
-                    color: "coral",
-                    backgroundColor: "lightblue",
-                  }}
-                />
-                {/* Profile Info */}
-                <div className="leader-info">
-                  <h1>Julia tran</h1>
-                  <h3>Wins: 10</h3>
-                  <h3>Losses: 2 (optional)</h3>
-                  <h3>Win Rate: 30%</h3>
-                </div>
-              </div>
-            </Paper>
-            {/* Profile Container */}
-            <Paper>
-              <div className="leader-box">
-                {/* Avatar icon */}
-                <Avatar
-                  src="/broken-image.jpg"
-                  sx={{
-                    width: 120,
-                    height: 120,
-                    color: "coral",
-                    backgroundColor: "lightblue",
-                  }}
-                />
-                {/* Profile Info */}
-                <div className="leader-info">
-                  <h1>Julia tran</h1>
-                  <h3>Wins: 10</h3>
-                  <h3>Losses: 2 (optional)</h3>
-                  <h3>Win Rate: 30%</h3>
-                </div>
-              </div>
-            </Paper>
+              </Paper>
+              )
+            })}
           </Box>
         </Paper>
       </Box>

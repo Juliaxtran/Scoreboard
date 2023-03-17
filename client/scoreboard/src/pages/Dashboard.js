@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import AddButton from "../components/AddButton";
 import GameBoard from "../components/GameBoard";
 import LeaderBoard from "../components/LeaderBoard";
@@ -8,17 +9,21 @@ import { Context } from '../context/StateContext';
 
 const Dashboard = ({setGroupId,groupId}) => {
 
-  useEffect(() => {
-    const storedGroupId = localStorage.getItem('groupId');
-    if (storedGroupId) {
-      setGroupId(storedGroupId);
-    }
-  }, []);
+const {group_id} = useParams();
+
+
+  // useEffect(() => {
+  //   const storedGroupId = localStorage.getItem('groupId');
+  //   if (storedGroupId) {
+  //     setGroupId(storedGroupId);
+  //   }
+  // }, []);
+
 
   return (
     <>
       <NavBar />
-      <p>GroupId:{groupId}</p>
+      <p>GroupId:{group_id}</p>
       <div className="leaderboard-game-match" style={{marginTop:20, marginLeft: 20}}>
         <LeaderBoard />
         <div className="game-match">
