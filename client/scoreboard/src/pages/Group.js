@@ -9,7 +9,7 @@ import "./Group.css";
 
 
 
-function Group({setGroupId}) {
+function Group() {
   const { user, setUser, groups, setGroups } = useContext(Context);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -90,7 +90,7 @@ function Group({setGroupId}) {
                     color="warning"
                     key={group.id}
                     onClick={() => {
-                      setGroupId(group.id);
+                      // setGroupId(group.id);
                       // localStorage.setItem('groupId', group.id); // set the groupId in localStorage
                       navigate(`/dashboard/${group.id}`);
                     }}

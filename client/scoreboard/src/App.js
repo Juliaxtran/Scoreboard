@@ -9,22 +9,19 @@ import AllMatches from './pages/AllMatches';
 import AllGroups from './pages/AllGroups'
 import AllGames from './pages/AllGames';
 import Group from './pages/Group';
-import { useState} from 'react';
+
 
 
 const App = () => {
-const [groupId, setGroupId] = useState('');
-
 
   return (
     <StateContext>
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/group" element={<Group  setGroupId={setGroupId} groupId={groupId}/>} />
+          <Route path="/" element={<Login/>} />
+          <Route path="/group" element={<Group />} />
           <Route path="/test" element={<ScoreBoard />} />
-          <Route path="/dashboard/:group_id" element={<Dashboard setGroupId={setGroupId} groupId={groupId} />} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/dashboard/:group_id" element={<Dashboard  />} />
           <Route path="/players" element={<AllPlayers/>} />
           <Route path="/matches" element={<AllMatches/>} />
           <Route path="/groups" element={<AllGroups/>} />
