@@ -53,7 +53,7 @@ function Group() {
     } else {
       setLoading(false);
     }
-  }, [setUser, setGroups, user]);
+  }, [setUser, setGroups, user, groups]);
 
   if (loading) {
     return <div>Loading...</div>;

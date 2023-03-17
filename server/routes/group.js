@@ -27,10 +27,11 @@ module.exports = (db, dbQueries) => {
         console.log(error);
       });
   });
-  
+
   // Create a new group for a player
   router.post("/create", (req, res) => {
     const {name, owner_id} = req.body;
+    console.log( 'Create group','name', name, 'owner_id', owner_id)
     dbQueries
     .createGroup(name, owner_id, db).then((group) => {
       if (group) {
