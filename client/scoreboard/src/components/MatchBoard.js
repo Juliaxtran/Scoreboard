@@ -19,9 +19,9 @@ const MatchBoard = () => {
     axios
       .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
       .then((res) => {
-        setMatches(res.data.matches);
+       setMatches(res.data.matches);   
       });
-  }, [group_id]);
+  }, [group_id, setMatches]);
 
   return (
     <>
@@ -56,7 +56,7 @@ const MatchBoard = () => {
             </div>
             <div className="box-container">
        
-              {matches.map((match) => {
+              {Array.isArray(matches) && matches.map((match) => {
                 return (
                   <Paper
                     sx={{
