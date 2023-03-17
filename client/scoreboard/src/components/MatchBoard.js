@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Paper, Box, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import IconButton from "@mui/material/IconButton";
-import ClearIcon from '@mui/icons-material/Clear';
-import '../App.css';
-
+import ClearIcon from "@mui/icons-material/Clear";
+import "../App.css";
+import axios from "axios";
+import { Context } from "../context/StateContext";
+import { useParams } from "react-router-dom";
 
 const MatchBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
+
+  const { group_id } = useParams();
+  const { setMatches, matches } = useContext(Context);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
+      .then((res) => {
+        setMatches(res.data.matches);
+      });
+  }, [group_id]);
 
   return (
     <>
@@ -42,67 +55,49 @@ const MatchBoard = () => {
               </Link>
             </div>
             <div className="box-container">
-              {/* Match Form container - White Container  */}
-              <Paper
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  height: 250,
-                  width: isMobile ? 310 : 350,
-                  mr: 2,
-                  mb: 6,
-                  mt: 2,
-                }}
-              >
-                <div className="action_buttons" style={{display:'flex', justifyContent:"space-between"}}>
-                  <IconButton><ClearIcon /></IconButton>
-                  <IconButton><ModeEditIcon /></IconButton>
-                </div>
-                {/* Match Info */}
-                <h1>Catan</h1>
-                <h3>Winner: Patrice</h3>
-                <h3>Players: Julia, Tyler, Pat, Rebecca</h3>
-                <h3>Date Played: Feb. 3, 2023</h3>
-              </Paper>
-              {/* Match Form container - White Container  */}
-              <Paper
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  height: 250,
-                  width: isMobile ? 310 : 350,
-                  mr: 2,
-                  mb: 6,
-                  mt: 2,
-                }}
-              >
-                {/* Match Info */}
-                <h1>Jenga</h1>
-                <h3>Winner: Patrice</h3>
-                <h3>Players: Julia, Tyler, Pat, Rebecca</h3>
-                <h3>Date Played: Feb. 3, 2023</h3>
-              </Paper>
-              {/* Match Form container - White Container  */}
-              <Paper
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  height: 250,
-                  width: isMobile ? 310 : 350,
-                  mr: 2,
-                  mb: 6,
-                  mt: 2,
-                }}
-              >
-                {/* Match Info */}
-                <h1>Chess</h1>
-                <h3>Winner: Patrice</h3>
-                <h3>Players: Julia, Tyler, Pat, Rebecca</h3>
-                <h3>Date Played: Feb. 3, 2023</h3>
-              </Paper>
+       
+              {matches.map((match) => {
+                return (
+                  <Paper
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      height: 250,
+                      width: isMobile ? 310 : 350,
+                      mr: 2,
+                      mb: 6,
+                      mt: 2,
+                    }}
+                    key={match.id}
+                  >
+                    <div
+                      className="action_buttons"
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: -50,
+                      }}
+                    >
+                      <IconButton>
+                        <ClearIcon />
+                      </IconButton>
+                      <IconButton>
+                        <ModeEditIcon />
+                      </IconButton>
+                    </div>
+                    {/* Avatar icon */}
+                    <h1>{match.game_name}</h1>
+                    <h3>Winner(s): {match.winners}</h3>
+                    <h3>Players:</h3>
+                    <p> {match.player_names}</p>
+                    <h3>
+                      Date Played:{" "}
+                      {new Date(match.played_on).toISOString().slice(0, 10)}
+                    </h3>
+                  </Paper>
+                );
+              })}
             </div>
           </div>
         </Paper>

@@ -68,7 +68,7 @@ const LeaderBoard = () => {
                   />
                   {/* Profile Info */}
                   <div className="leader-info">
-                    <h1>{player.name}(Real!)</h1>
+                    <h1>{player.name}</h1>
                     <h3>Wins: 10</h3>
                     <h3>Losses: 2 (optional)</h3>
                     <h3>Win Rate: 30%</h3>
