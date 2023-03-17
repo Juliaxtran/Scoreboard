@@ -26,36 +26,34 @@ module.exports = (db, dbQueries) => {
       });
   });
 
-  router.post("/create", (req, res) => {
+  router.post('/create', (req, res) => {
     const { name, owner_id } = req.body;
-    console.log("Create group", "name", name, "owner_id", owner_id);
-    dbQueries.createGroup(name, owner_id, db)
-      .then((group) => {
-        if (group) {
-          dbQueries.addPlayerToGroup(group.id, owner_id, db)
-            .then((result) => {
-              if (result) {
-                res.status(200).send({
-                  success: true,
-                  message: "Group created",
-                  group: group,
-                });
-              } else {
-                res.status(400).send({
-                  success: false,
-                  message: "Group not created",
-                  group: group,
-                });
-              }
+    console.log('Create group', 'name', name, 'owner_id', owner_id);
+    dbQueries.createGroup(name, owner_id, db).then((group) => {
+      if (group) {
+        dbQueries.addPlayerToGroup(group.id, owner_id, db).then((result) => {
+          if (result) {
+            res.status(200).send({
+              success: true,
+              message: 'Group created',
+              group: group,
             });
-        } else {
-          res.status(400).send({
-            success: false,
-            message: "Group not created",
-            group: group,
-          });
-        }
-      });
+          } else {
+            res.status(400).send({
+              success: false,
+              message: 'Group not created',
+              group: group,
+            });
+          }
+        });
+      } else {
+        res.status(400).send({
+          success: false,
+          message: 'Group not created',
+          group: group,
+        });
+      }
+    });
   });
 
   // Add a player to a group by group id

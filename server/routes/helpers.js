@@ -25,7 +25,7 @@ const getGroupByPlayerId = function (player_id, db) {
   SELECT g.*, p.name AS owner_name
   FROM Groups g
   JOIN Players p ON g.owner_id = p.id
-  WHERE g.owner_id = $1;`
+  WHERE g.owner_id = $1;`;
   const values = [player_id];
   return db
     .query(queryString, values)
