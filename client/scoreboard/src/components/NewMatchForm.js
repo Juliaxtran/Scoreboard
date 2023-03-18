@@ -11,6 +11,8 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import IconButton from "@mui/material/IconButton";
+import { useContext } from "react";
+import { Context } from "../context/StateContext";
 
 const NewMatchForm = () => {
   const [open, setOpen] = React.useState(false);
@@ -19,7 +21,12 @@ const NewMatchForm = () => {
     setOpen(true);
   };
 
-  const player = ["Julia", "Patrice", "Ryan"];
+const {players} = useContext(Context)
+
+//list of names in the player array that store in array embbeded in the player object
+// needs to be mapped to an array of strings
+const playerNames = players.map((player) => player.name);
+
 
   return (
     <>
@@ -65,7 +72,7 @@ const NewMatchForm = () => {
           <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={player}
+            options={playerNames}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="Select a player" />
@@ -88,7 +95,7 @@ const NewMatchForm = () => {
           <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={player}
+            options={playerNames}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="Select a winner" />

@@ -14,7 +14,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import { useContext } from "react";
+import { Context } from "../context/StateContext";
 
 const NewPlayerForm = () => {
   const [open, setOpen] = React.useState(false);
@@ -24,6 +25,7 @@ const NewPlayerForm = () => {
     setOpen(true);
   };
 
+const { setPlayers, players} = useContext(Context)
 
 const { group_id } = useParams();
 
@@ -37,6 +39,7 @@ const { group_id } = useParams();
         if (success) {
           console.log("Add player to group successfully!");
           setOpen(false);
+          setPlayers(res.data.players)
           window.location.reload();
         }
       })
@@ -44,7 +47,6 @@ const { group_id } = useParams();
         console.log(error);
       });
   };
-  
 
   return (
     <>

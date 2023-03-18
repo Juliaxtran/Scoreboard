@@ -15,7 +15,6 @@ const LeaderBoard = () => {
     axios.get(`http://localhost:4000/group/players/${group_id}`, { withCredentials: true })
       .then(res => {
         setPlayers(res.data.players);
-        console.log('res',res.data.players)
       })
   }, [group_id]);
 
