@@ -35,7 +35,7 @@ const { group_id } = useParams();
       .then((res) => {
         const success = res.status === 200;
         if (success) {
-          console.log("Add player to group successfully");
+          console.log("Add player to group successfully!");
           setOpen(false);
           window.location.reload();
         }
