@@ -8,19 +8,47 @@ import {
   DialogContent,
   Typography,
   Autocomplete,
+  Tooltip
 } from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
+import IconButton from '@mui/material/IconButton';
+import axios from "axios";
+import { useParams } from "react-router-dom";
+
 
 const NewPlayerForm = () => {
   const [open, setOpen] = React.useState(false);
+  const [email, setEmail] = React.useState("");
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const group = ["Team Fun", "Team 1", "Team Tornado"];
+
+const { group_id } = useParams();
+
+//add player to group
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:4000/group/add/${group_id}`, { email })
+      .then((res) => {
+        const success = res.status === 200;
+        if (success) {
+          console.log("Add player to group successfully");
+          setOpen(false);
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  
 
   return (
     <>
+    <form onSubmit={handleSubmit}>
       {/* Button Component */}
       <Button
         size="large"
@@ -36,15 +64,9 @@ const NewPlayerForm = () => {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={{textAlign:'center'}}>New Player</DialogTitle>
         <DialogContent>
-          {/* Name Text Field */}
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", fontFamily: "JetBrains Mono, monospace" }}
-          >
-            Name
-          </Typography>
-          <TextField autoFocus id="name" type="text" variant="outlined" />
-
+        <Tooltip title="Enter the player's email. Player needs to have an account. " placement="top">
+            <IconButton><InfoIcon/></IconButton>
+          </Tooltip>
           {/* Email Text Field */}
           <Typography
             variant="h6"
@@ -58,35 +80,21 @@ const NewPlayerForm = () => {
             type="email"
             fullWidth
             variant="outlined"
+            onChange={(e) => setEmail(e.target.value)}
           />
 
-          {/* Group Select/Autocomplete Component */}
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", fontFamily: "JetBrains Mono, monospace" }}
-          >
-            Group
-          </Typography>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={group}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label="Select a Group" />
-            )}
-          />
         </DialogContent>
 
         <DialogActions>
           
           {/* Submit and Cancel Button */}
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} color="error" variant="contained">
+          <Button onClick={handleSubmit} color="error" variant="contained" type="submit">
             Submit
           </Button>
         </DialogActions>
       </Dialog>
+      </form>
     </>
   );
 };
