@@ -64,7 +64,7 @@ const { group_id } = useParams();
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={{textAlign:'center'}}>New Player</DialogTitle>
         <DialogContent>
-        <Tooltip title="Enter the player's email. Player needs to have an account. " placement="top">
+        <Tooltip title={<Typography style={{fontSize:'15px'}}>Enter the player's email. Player needs to have an account.</Typography> } placement="top">
             <IconButton><InfoIcon/></IconButton>
           </Tooltip>
           {/* Email Text Field */}
