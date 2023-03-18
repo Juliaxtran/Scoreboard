@@ -5,11 +5,11 @@ const router = require('express').Router();
 module.exports = (db, dbQueries) => {
 
  // User can add a game for group using groupId
-    router.post("/add/:id", (req, res) => {
-        const { id } = req.params;
+    router.post("/add/:group_id", (req, res) => {
+        const { group_id } = req.params;
         const { name, description } = req.body;
         dbQueries
-            .addGameToGroup( name, description,id, db)
+            .addGameToGroup( name, description,group_id, db)
             .then((game) => {
                 if (game) {
                     res.status(200).send({

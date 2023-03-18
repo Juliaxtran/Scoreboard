@@ -8,6 +8,8 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const NewGameForm = () => {
   const [open, setOpen] = React.useState(false);
@@ -15,8 +17,33 @@ const NewGameForm = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+const { group_id } = useParams();
+const [name, setName] = React.useState("");
+const [description, setDescription] = React.useState("");
+
+  //add game to a group
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:4000/game/add/${group_id}`, { name, description})
+      .then((res) => {
+        const success = res.status === 200;
+        if (success) {
+          console.log("Add Group to group successfully");
+          setOpen(false);
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
   return (
     <>
+    <form onSubmit={handleSubmit}>
       <Button
         size="large"
         variant="contained"
@@ -46,6 +73,7 @@ const NewGameForm = () => {
             label="Name"
             type="text"
             variant="outlined"
+            onChange={(e) => setName(e.target.value)}
           />
 
           {/* Description Text Field */}
@@ -63,17 +91,19 @@ const NewGameForm = () => {
             type="text"
             fullWidth
             variant="outlined"
+            onChange={(e) => setDescription(e.target.value)}
           />
         </DialogContent>
 
         {/* Submit and Cancel Button */}
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} color="error" variant="contained">
+          <Button onClick={handleSubmit} color="error" variant="contained" type="submit">
             Submit
           </Button>
         </DialogActions>
       </Dialog>
+      </form>
     </>
   );
 };
