@@ -54,7 +54,11 @@ body {
 }
 
 
-
+/* New Match Form  */
+.new-fields{
+  display: flex;
+  gap: 1em;
+}
 
 /* Register and Login Component  */
 .authentication {
