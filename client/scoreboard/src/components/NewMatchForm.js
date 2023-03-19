@@ -83,6 +83,7 @@ const handleAddNewPlayer = (index, value) => {
             disablePortal
             id="combo-box-demo"
             options={playerNames}
+            value={newPlayer[0]}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="Select a player" />
@@ -92,8 +93,9 @@ const handleAddNewPlayer = (index, value) => {
 
 
 {playerVal.map((player, index) => (
-            <div key={player.id} className="new-fields">
+            <div key={`${player.id}-${index}`}  className="new-fields">
               <Autocomplete
+            
                 disablePortal
                 id="combo-box-demo"
                 options={playerNames}
@@ -102,12 +104,12 @@ const handleAddNewPlayer = (index, value) => {
                 renderInput={(params) => (
                   <TextField {...params} label="Select a player" />
                 )}
-                onChange={(event, value) => handleAddNewPlayer(index, event.target.value)}
+                onChange={(event, value) => handleAddNewPlayer(index, event.target.value)}  
               />
               <IconButton
                 sx={{ color: "green" }}
                 size="large"
-                onClick={(id) => handleDeletePlayer(player.id)}
+                onClick={() => handleDeletePlayer(player.id)}
               >
                 <DeleteIcon />
               </IconButton>
