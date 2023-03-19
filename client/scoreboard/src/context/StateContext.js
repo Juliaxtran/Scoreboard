@@ -40,6 +40,12 @@ const StateContext = ({ children }) => {
     setWinnerVal(abc)
   };
 
+const handleDeleteWinner = (index) => {
+    const newWinnersCopy = [...winnerVal];
+    newWinnersCopy.splice(index, 1);
+    setWinnerVal(newWinnersCopy);
+  };
+
   const handlePlayerSubmit = (e) => {
     e.preventDefault();
     setPlayers([...players, { name: e.target[0].value }]);
@@ -138,7 +144,8 @@ const StateContext = ({ children }) => {
       setUser,
       groups,
       setGroups,
-      handleDeletePlayer
+      handleDeletePlayer, 
+      handleDeleteWinner
 
     }}>
       {children}

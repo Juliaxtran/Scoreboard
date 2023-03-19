@@ -18,25 +18,38 @@ import { Context } from "../context/StateContext";
 const NewMatchForm = () => {
   const [open, setOpen] = React.useState(false);
   const [newPlayer, setNewPlayer] = useState([]);
+  const [newWinner, setNewWinner] = useState([]);
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const { players, handleAddPlayer, playerVal, handleDeletePlayer } = useContext(Context);
+  const {
+    players,
+    handleAddPlayer,
+    playerVal,
+    handleDeletePlayer,
+    winnerVal,
+    handleAddWinner,
+    handleDeleteWinner,
+  } = useContext(Context);
 
-//list of names in the player array that store in array embbeded in the player object
-// needs to be mapped to an array of strings
-const playerNames = players.map((player) => player.name);
+  //list of names in the player array that store in array embbeded in the player object
+  // needs to be mapped to an array of strings
+  const playerNames = players.map((player) => player.name);
 
-//handleAddNewPlayer function to add new player to the newPlayer array
-const handleAddNewPlayer = (index, value) => {
-  const newPlayersCopy = [...newPlayer];
-  newPlayersCopy[index] = value;
-  setNewPlayer(newPlayersCopy);
-};
+  //handleAddNewPlayer function to add new player to the newPlayer array
+  const handleAddNewPlayer = (index, value) => {
+    const newPlayersCopy = [...newPlayer];
+    newPlayersCopy[index] = value;
+    setNewPlayer(newPlayersCopy);
+  };
 
-
+  const handleAddNewWinner = (index, value) => {
+    const newWinnerCopy = [...newWinner];
+    newWinnerCopy[index] = value;
+    setNewWinner(newWinnerCopy);
+  };
 
   return (
     <>
@@ -91,11 +104,9 @@ const handleAddNewPlayer = (index, value) => {
             onChange={(index, value) => handleAddNewPlayer(index, value)}
           />
 
-
-{playerVal.map((player, index) => (
-            <div key={`${player.id}-${index}`}  className="new-fields">
+          {playerVal.map((player, index) => (
+            <div key={`${player.id}-${index}`} className="new-fields">
               <Autocomplete
-            
                 disablePortal
                 id="combo-box-demo"
                 options={playerNames}
@@ -104,7 +115,9 @@ const handleAddNewPlayer = (index, value) => {
                 renderInput={(params) => (
                   <TextField {...params} label="Select a player" />
                 )}
-                onChange={(event, value) => handleAddNewPlayer(index, event.target.value)}  
+                onChange={(event, value) =>
+                  handleAddNewPlayer(index, event.target.value)
+                }
               />
               <IconButton
                 sx={{ color: "green" }}
@@ -116,9 +129,12 @@ const handleAddNewPlayer = (index, value) => {
             </div>
           ))}
 
-
           {/* Add new Player Button */}
-          <IconButton sx={{ color: "green" }} size="large"       onClick={()=>handleAddPlayer()}>
+          <IconButton
+            sx={{ color: "green" }}
+            size="large"
+            onClick={() => handleAddPlayer()}
+          >
             <AddRoundedIcon />
           </IconButton>
           <span style={{ color: "green" }}>Add a new player</span>
@@ -134,14 +150,44 @@ const handleAddNewPlayer = (index, value) => {
             disablePortal
             id="combo-box-demo"
             options={playerNames}
+            value={newWinner[0]}
             sx={{ width: 300 }}
             renderInput={(params) => (
               <TextField {...params} label="Select a winner" />
             )}
+            onChange={(index, value) =>
+              handleAddNewWinner(index, value)
+            }
           />
 
+          {winnerVal.map((winner, index) => (
+            <div key={`${winner.id}-${index}`} className="new-fields">
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={playerNames}
+                value={newWinner[index]}
+                sx={{ width: 300 }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Select a winner" />
+                )}
+                onChange={(event, value) =>
+                  handleAddNewPlayer(index, event.target.value)
+                }
+              />
+
+              <IconButton sx={{ color: "purple" }} size="large" onClick={()=>handleDeleteWinner(winner.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          ))}
+
           {/* Add new Winner Button */}
-          <IconButton sx={{ color: "purple" }} size="large">
+          <IconButton
+            sx={{ color: "purple" }}
+            size="large"
+            onClick={handleAddWinner}
+          >
             <AddRoundedIcon />
           </IconButton>
           <span style={{ color: "purple" }}>Add a new winner</span>
