@@ -1,11 +1,9 @@
-import { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { createContext, useState, useEffect } from "react";
+import axios from "axios";
 
 const Context = createContext();
 
-
 const StateContext = ({ children }) => {
-
   const [user, setUser] = useState({});
   const [players, setPlayers] = useState([]);
   const [groups, setGroups] = useState([]);
@@ -15,38 +13,37 @@ const StateContext = ({ children }) => {
   const [winnerVal, setWinnerVal] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/profile', { withCredentials: true })
-      .then(response => {
+    axios
+      .get("http://localhost:4000/api/profile", { withCredentials: true })
+      .then((response) => {
         setUser(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   }, []);
 
   const handleAddPlayer = () => {
-    const abc = [...playerVal, []]
-    setPlayerVal(abc)
+    const abc = [...playerVal, []];
+    setPlayerVal(abc);
   };
 
   const handleAddWinner = () => {
-    const abc = [...winnerVal, []]
-    setWinnerVal(abc)
+    const abc = [...winnerVal, []];
+    setWinnerVal(abc);
   };
 
   const handlePlayerSubmit = (e) => {
     e.preventDefault();
     setPlayers([...players, { name: e.target[0].value }]);
-    e.target[0].value = '';
+    e.target[0].value = "";
   };
 
   const handleGameSubmit = (e) => {
     e.preventDefault();
     setGames([...games, { name: e.target[0].value }]);
-    e.target[0].value = '';
+    e.target[0].value = "";
   };
-
-
 
   const handleMatchSubmit = (e) => {
     e.preventDefault();
@@ -55,18 +52,21 @@ const StateContext = ({ children }) => {
     // Create an array to store player values
     let players = [];
     for (let i = 1; i <= playerVal.length + 2; i++) {
-      const player = form.elements[`player${i}`] ? form.elements[`player${i}`].value : "";
+      const player = form.elements[`player${i}`]
+        ? form.elements[`player${i}`].value
+        : "";
       players.push(player);
     }
 
     let winners = [];
     for (let i = 1; i <= winnerVal.length + 1; i++) {
-      const winner = form.elements[`winner${i}`] ? form.elements[`winner${i}`].value : "";
+      const winner = form.elements[`winner${i}`]
+        ? form.elements[`winner${i}`].value
+        : "";
       winners.push(winner);
     }
 
     const game = form.elements["game"] ? form.elements["game"].value : "";
-
 
     // Create a new object with player values
     let match = {};
@@ -112,31 +112,32 @@ const StateContext = ({ children }) => {
   };
 
   return (
-    <Context.Provider value={{
-      players,
-      games,
-      matches,
-      playerVal,
-      orderPlayersByWins,
-      setPlayerVal,
-      setPlayers,
-      setGames,
-      setMatches,
-      handlePlayerSubmit,
-      handleAddPlayer,
-      handleGameSubmit,
-      handleMatchSubmit,
-      handleAddWinner,
-      winnerVal,
-      user,
-      setUser,
-      groups,
-      setGroups,
-
-    }}>
+    <Context.Provider
+      value={{
+        players,
+        games,
+        matches,
+        playerVal,
+        orderPlayersByWins,
+        setPlayerVal,
+        setPlayers,
+        setGames,
+        setMatches,
+        handlePlayerSubmit,
+        handleAddPlayer,
+        handleGameSubmit,
+        handleMatchSubmit,
+        handleAddWinner,
+        winnerVal,
+        user,
+        setUser,
+        groups,
+        setGroups,
+      }}
+    >
       {children}
     </Context.Provider>
   );
 };
 
-export { StateContext, Context};
+export { StateContext, Context };

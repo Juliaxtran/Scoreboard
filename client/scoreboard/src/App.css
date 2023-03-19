@@ -1,9 +1,8 @@
 *,
 body {
   margin: 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
-
 
 .App {
   text-align: center;
@@ -26,7 +25,7 @@ body {
 .matches {
   display: flex;
   flex-direction: column;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 /* Desktop Responsive */
@@ -53,9 +52,6 @@ body {
   width: 350;
 }
 
-
-
-
 /* Register and Login Component  */
 .authentication {
   background-color: #e1e1e1f5;
@@ -71,9 +67,6 @@ body {
 
 /* Mobile Responsive  */
 @media (max-width: 450px) {
-
-
-
   /* Leaderboard component */
   .leaderboard-game-match {
     display: block;
@@ -91,7 +84,4 @@ body {
   .box-container {
     display: block;
   }
-
-
-
 }

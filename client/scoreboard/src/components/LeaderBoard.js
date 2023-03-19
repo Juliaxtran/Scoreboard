@@ -12,13 +12,15 @@ const LeaderBoard = () => {
   const { setPlayers, players } = useContext(Context);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/group/players/${group_id}`, { withCredentials: true })
-      .then(res => {
-        setPlayers(res.data.players);
-        console.log('res',res.data.players)
+    axios
+      .get(`http://localhost:4000/group/players/${group_id}`, {
+        withCredentials: true,
       })
+      .then((res) => {
+        setPlayers(res.data.players);
+        console.log("res", res.data.players);
+      });
   }, [group_id]);
-
 
   return (
     <>
@@ -37,7 +39,10 @@ const LeaderBoard = () => {
         }}
       >
         <Paper sx={{ backgroundColor: "#cdcdcdf5" }} elevation={0}>
-          <Link to="/players" style={{ textDecoration: "none", color:'black' }}>
+          <Link
+            to="/players"
+            style={{ textDecoration: "none", color: "black" }}
+          >
             <h1>Leaderboard</h1>
           </Link>
           <Box
@@ -52,33 +57,33 @@ const LeaderBoard = () => {
               },
             }}
           >
-
             {/* Profile Container */}
-            {Array.isArray(players) && players.map(player => {
-              return (
-                <Paper key={player.id}>
-                <div className="leader-box">
-                  {/* Avatar icon */}
-                  <Avatar
-                    src="/broken-image.jpg"
-                    sx={{
-                      width: 120,
-                      height: 120,
-                      color: "coral",
-                      backgroundColor: "lightblue",
-                    }}
-                  />
-                  {/* Profile Info */}
-                  <div className="leader-info">
-                    <h1>{player.name}</h1>
-                    <h3>Wins: 10</h3>
-                    <h3>Losses: 2 (optional)</h3>
-                    <h3>Win Rate: 30%</h3>
-                  </div>
-                </div>
-              </Paper>
-              )
-            })}
+            {Array.isArray(players) &&
+              players.map((player) => {
+                return (
+                  <Paper key={player.id}>
+                    <div className="leader-box">
+                      {/* Avatar icon */}
+                      <Avatar
+                        src="/broken-image.jpg"
+                        sx={{
+                          width: 120,
+                          height: 120,
+                          color: "coral",
+                          backgroundColor: "lightblue",
+                        }}
+                      />
+                      {/* Profile Info */}
+                      <div className="leader-info">
+                        <h1>{player.name}</h1>
+                        <h3>Wins: 10</h3>
+                        <h3>Losses: 2 (optional)</h3>
+                        <h3>Win Rate: 30%</h3>
+                      </div>
+                    </div>
+                  </Paper>
+                );
+              })}
           </Box>
         </Paper>
       </Box>

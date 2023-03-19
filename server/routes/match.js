@@ -1,9 +1,8 @@
-const router = require("express").Router();
+const router = require('express').Router();
 
 module.exports = (db, dbQueries) => {
-
   // Create a new match for a group
-  router.post("/:groupId", async (req, res) => {
+  router.post('/:groupId', async (req, res) => {
     const { game_id, date, players } = req.body;
     const { groupId } = req.params;
     let match_id;
@@ -17,7 +16,7 @@ module.exports = (db, dbQueries) => {
       } else {
         res.status(400).send({
           success: false,
-          message: "Match not created",
+          message: 'Match not created',
           match: match,
         });
       }
@@ -30,7 +29,13 @@ module.exports = (db, dbQueries) => {
 
       // Step 3: Add players AND results to match
       for (const player of players) {
-        const matchResults = await dbQueries.addMatchPlayers(match_id, player.id, player.is_winner, player.is_loser, db);
+        const matchResults = await dbQueries.addMatchPlayers(
+          match_id,
+          player.id,
+          player.is_winner,
+          player.is_loser,
+          db,
+        );
         if (matchResults) {
           console.log(matchResults);
         }
@@ -38,24 +43,24 @@ module.exports = (db, dbQueries) => {
 
       res.status(200).send({
         success: true,
-        message: "Match created",
+        message: 'Match created',
         body: {
           game_id: game_id,
           date: date,
           players: players,
-        }
-      })
+        },
+      });
     } catch (error) {
       console.error(error);
       res.status(500).send({
         success: false,
-        message: "Server Error",
+        message: 'Server Error',
       });
     }
   });
 
   // Get all matches for a group
-  router.get("/:groupId", (req, res) => {
+  router.get('/:groupId', (req, res) => {
     const { groupId } = req.params;
     dbQueries
       .getMatchesByGroupId(groupId, db)
@@ -63,13 +68,13 @@ module.exports = (db, dbQueries) => {
         if (matches) {
           res.status(200).send({
             success: true,
-            message: "Matches found",
+            message: 'Matches found',
             matches: matches,
           });
         } else {
           res.status(400).send({
             success: false,
-            message: "Matches not found",
+            message: 'Matches not found',
           });
         }
       })
@@ -77,7 +82,6 @@ module.exports = (db, dbQueries) => {
         console.log(error);
       });
   });
-  
 
   return router;
 };

@@ -1,70 +1,60 @@
 const router = require('express').Router();
 
-
-
 module.exports = (db, dbQueries) => {
+  // User can add a game for group using groupId
+  router.post('/add/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, description } = req.body;
+    dbQueries
+      .addGameToGroup(name, description, id, db)
+      .then((game) => {
+        if (game) {
+          res.status(200).send({
+            success: true,
+            message: 'Game added',
+            game: game,
+          });
+        } else {
+          res.status(400).send({
+            success: false,
+            message: 'Game not added',
+            game: game,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
- // User can add a game for group using groupId
-    router.post("/add/:id", (req, res) => {
-        const { id } = req.params;
-        const { name, description } = req.body;
-        dbQueries
-            .addGameToGroup( name, description,id, db)
-            .then((game) => {
-                if (game) {
-                    res.status(200).send({
-                        success: true,
-                        message: "Game added",
-                        game: game,
-                    });
-                } else {
-                    res.status(400).send({
-                        success: false,
-                        message: "Game not added",
-                        game: game,
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    });
+  //  User can see all games in the group
 
-    //  User can see all games in the group
-
-    router.get("/all/:groupId", (req, res) => {
-        const { groupId } = req.params;
-        dbQueries
-            .getAllGamesByGroupId(groupId, db)
-            .then((games) => {
-                if (games) {
-                    res.status(200).send({
-                        success: true,
-                        message: "Games found",
-                        games: games,
-                    });
-                } else {
-                    res.status(400).send({
-                        success: false,
-                        message: "Games not found",
-                        games: games,
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    });
-
-
-
-
+  router.get('/all/:groupId', (req, res) => {
+    const { groupId } = req.params;
+    dbQueries
+      .getAllGamesByGroupId(groupId, db)
+      .then((games) => {
+        if (games) {
+          res.status(200).send({
+            success: true,
+            message: 'Games found',
+            games: games,
+          });
+        } else {
+          res.status(400).send({
+            success: false,
+            message: 'Games not found',
+            games: games,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   return router;
 };
-
-
-
 
 // Game Routes
 

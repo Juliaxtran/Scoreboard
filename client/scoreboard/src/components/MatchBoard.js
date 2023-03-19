@@ -19,7 +19,7 @@ const MatchBoard = () => {
     axios
       .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
       .then((res) => {
-       setMatches(res.data.matches);   
+        setMatches(res.data.matches);
       });
   }, [group_id, setMatches]);
 
@@ -55,49 +55,49 @@ const MatchBoard = () => {
               </Link>
             </div>
             <div className="box-container">
-       
-              {Array.isArray(matches) && matches.map((match) => {
-                return (
-                  <Paper
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      flexDirection: "column",
-                      height: 250,
-                      width: isMobile ? 310 : 350,
-                      mr: 2,
-                      mb: 6,
-                      mt: 2,
-                    }}
-                    key={match.id}
-                  >
-                    <div
-                      className="action_buttons"
-                      style={{
+              {Array.isArray(matches) &&
+                matches.map((match) => {
+                  return (
+                    <Paper
+                      sx={{
                         display: "flex",
-                        justifyContent: "space-between",
-                        marginTop: -50,
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        height: 250,
+                        width: isMobile ? 310 : 350,
+                        mr: 2,
+                        mb: 6,
+                        mt: 2,
                       }}
+                      key={match.id}
                     >
-                      <IconButton>
-                        <ClearIcon />
-                      </IconButton>
-                      <IconButton>
-                        <ModeEditIcon />
-                      </IconButton>
-                    </div>
-                    {/* Avatar icon */}
-                    <h1>{match.game_name}</h1>
-                    <h3>Winner(s): {match.winners}</h3>
-                    <h3>Players:</h3>
-                    <p> {match.player_names}</p>
-                    <h3>
-                      Date Played:{" "}
-                      {new Date(match.played_on).toISOString().slice(0, 10)}
-                    </h3>
-                  </Paper>
-                );
-              })}
+                      <div
+                        className="action_buttons"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginTop: -50,
+                        }}
+                      >
+                        <IconButton>
+                          <ClearIcon />
+                        </IconButton>
+                        <IconButton>
+                          <ModeEditIcon />
+                        </IconButton>
+                      </div>
+                      {/* Avatar icon */}
+                      <h1>{match.game_name}</h1>
+                      <h3>Winner(s): {match.winners}</h3>
+                      <h3>Players:</h3>
+                      <p> {match.player_names}</p>
+                      <h3>
+                        Date Played:{" "}
+                        {new Date(match.played_on).toISOString().slice(0, 10)}
+                      </h3>
+                    </Paper>
+                  );
+                })}
             </div>
           </div>
         </Paper>

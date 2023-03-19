@@ -25,7 +25,7 @@ const NewPlayerForm = () => {
       <Button
         size="large"
         variant="contained"
-        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2  }}
+        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
         color="warning"
         onClick={handleClickOpen}
       >
@@ -34,7 +34,7 @@ const NewPlayerForm = () => {
 
       {/* Dialog Component  */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{textAlign:'center'}}>New Player</DialogTitle>
+        <DialogTitle sx={{ textAlign: "center" }}>New Player</DialogTitle>
         <DialogContent>
           {/* Name Text Field */}
           <Typography
@@ -79,7 +79,6 @@ const NewPlayerForm = () => {
         </DialogContent>
 
         <DialogActions>
-          
           {/* Submit and Cancel Button */}
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose} color="error" variant="contained">

@@ -13,17 +13,22 @@ const LoginPage = () => {
     <div className="LoginPage">
       <NavBar />
       {error && (
-       <Alert
-       severity={
-         error === "Login Successful" ||
-         error === "Registration Successful, Please Login"
-           ? "success"
-           : "error"
-       }
-       style={{ position: "fixed", top: "80px", left: "50%", transform: "translateX(-50%)" }}
-     >
-       {error}
-     </Alert>
+        <Alert
+          severity={
+            error === "Login Successful" ||
+            error === "Registration Successful, Please Login"
+              ? "success"
+              : "error"
+          }
+          style={{
+            position: "fixed",
+            top: "80px",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          {error}
+        </Alert>
       )}
       <div className="login">
         <div className="loginCopy">
@@ -33,11 +38,11 @@ const LoginPage = () => {
           as individual and team statistics. Scorebook an app for the
           competitive friends.
         </div>
-          {isSignUp ? (
-            <LoginForm setIsSignUp={setIsSignUp} setError={setError} />
-          ) : (
-            <RegisterForm setIsSignUp={setIsSignUp} setError={setError} />
-          )}
+        {isSignUp ? (
+          <LoginForm setIsSignUp={setIsSignUp} setError={setError} />
+        ) : (
+          <RegisterForm setIsSignUp={setIsSignUp} setError={setError} />
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   useMediaQuery,
   Box,
@@ -9,24 +9,20 @@ import {
   Button,
 } from "@mui/material";
 import axios from "axios";
-import { Context } from '../context/StateContext';
-
+import { Context } from "../context/StateContext";
 
 export default function LoginForm({ setError, setIsSignUp }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  ;
   const [loading, setLoading] = useState(false);
-  const {  setUser } = useContext(Context);
+  const { setUser } = useContext(Context);
   const navigate = useNavigate();
 
   const handleClick = () => {
     setIsSignUp(false);
   };
-
-
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,27 +31,31 @@ export default function LoginForm({ setError, setIsSignUp }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
-      const player = res.data.player;
-      setUser(player);
-      setLoading(false);
-      const success = res.status === 200;
-      if (success) {
-        setError("Login Successful");
+    axios
+      .post("http://localhost:4000/player/login", formData, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        const player = res.data.player;
+        setUser(player);
+        setLoading(false);
+        const success = res.status === 200;
+        if (success) {
+          setError("Login Successful");
+          setTimeout(() => setError(null), 3000);
+          // sessionStorage.setItem('user', JSON.stringify(player)); // store user in sessionStorage
+          navigate("/group");
+        } else {
+          setError("Login Failed");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Email or Password is incorrect, try again");
+        setLoading(false);
         setTimeout(() => setError(null), 3000);
-        // sessionStorage.setItem('user', JSON.stringify(player)); // store user in sessionStorage
-        navigate('/group');
-      } else {
-        setError("Login Failed")
-      }
-    }).catch(error => {
-      console.log(error);
-      setError("Email or Password is incorrect, try again");
-      setLoading(false);
-      setTimeout(() => setError(null), 3000);
-    });
+      });
   };
-
 
   const isMobile = useMediaQuery("(max-width:420px)");
   return (
@@ -69,7 +69,7 @@ export default function LoginForm({ setError, setIsSignUp }) {
             px: 3,
             py: 4,
             backdropFilter: "blur(10px)",
-            backgroundColor: 'rgba(255, 255, 255, 0.3)'
+            backgroundColor: "rgba(255, 255, 255, 0.3)",
           },
         }}
       >
@@ -87,29 +87,38 @@ export default function LoginForm({ setError, setIsSignUp }) {
             Login
           </Typography>
           <div className="authentication-form">
-            <TextField required
+            <TextField
+              required
               label="Email"
-              name='email'
+              name="email"
               value={formData.email}
               onChange={handleChange}
-              autoComplete='username' />
+              autoComplete="username"
+            />
             <TextField
               id="outlined-password-input"
               label="Password*"
               type="password"
-              name='password'
+              name="password"
               value={formData.password}
               onChange={handleChange}
               autoComplete="current-password"
             />
 
-            <Button variant="contained" color="error" type="submit" disabled={loading}>
-              {loading ? 'Logging in...' : 'Login'}
+            <Button
+              variant="contained"
+              color="error"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </Button>
-            <Button onClick={handleClick}>Don't have an account Register</Button>
+            <Button onClick={handleClick}>
+              Don't have an account Register
+            </Button>
           </div>
         </Paper>
       </Box>
     </form>
-  )
+  );
 }

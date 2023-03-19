@@ -2,15 +2,21 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:reset": "node db/scripts/resetdb.js",
+    "format": "prettier --write --ignore-unknown '**/*'",
     "start": "nodemon app.js",
-    "db:reset": "node db/scripts/resetdb.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "lint-staged": {
+    "**/*": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -19,9 +25,12 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "lint-staged": "^13.2.0",
     "mongoose": "^6.9.2",
     "nodemon": "^2.0.20",
     "pg": "^8.10.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-packagejson": "^2.4.3",
     "socketio": "^1.0.0",
     "uuid": "^9.0.0"
   }

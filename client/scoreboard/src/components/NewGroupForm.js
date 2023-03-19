@@ -8,9 +8,8 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { Context } from '../context/StateContext';
+import { Context } from "../context/StateContext";
 import axios from "axios";
-
 
 const NewGroupForm = () => {
   const [open, setOpen] = useState(false);
@@ -45,7 +44,6 @@ const NewGroupForm = () => {
     setOpen(false);
   };
 
-
   return (
     <form onSubmit={handleSubmit}>
       <Button
@@ -60,9 +58,8 @@ const NewGroupForm = () => {
 
       {/* Dialog component  */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ textAlign: 'center' }}> New Group</DialogTitle>
+        <DialogTitle sx={{ textAlign: "center" }}> New Group</DialogTitle>
         <DialogContent>
-
           {/* Name  Text Field */}
           <Typography
             variant="h6"
@@ -76,7 +73,7 @@ const NewGroupForm = () => {
             id="date"
             type="text"
             variant="outlined"
-            name='name'
+            name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -85,7 +82,12 @@ const NewGroupForm = () => {
         {/* Submit and Cancel Button */}
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit} color="error" variant="contained" type='submit'>
+          <Button
+            onClick={handleSubmit}
+            color="error"
+            variant="contained"
+            type="submit"
+          >
             Submit
           </Button>
         </DialogActions>
