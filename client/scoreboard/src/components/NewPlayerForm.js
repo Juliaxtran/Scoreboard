@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogContent,
   Typography,
-  Alert,
   Tooltip
 } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
@@ -26,7 +25,7 @@ const NewPlayerForm = () => {
     setOpen(true);
   };
 
-const { setPlayers, players} = useContext(Context)
+const { setPlayers} = useContext(Context)
 
 const { group_id } = useParams();
 

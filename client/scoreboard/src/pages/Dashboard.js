@@ -1,23 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import AddButton from "../components/AddButton";
 import GameBoard from "../components/GameBoard";
 import LeaderBoard from "../components/LeaderBoard";
 import MatchBoard from "../components/MatchBoard";
 import NavBar from "../components/NavBar";
-import { Context } from '../context/StateContext';
+
 
 const Dashboard = ({setGroupId,groupId}) => {
 
 const {group_id} = useParams();
 
 
-  // useEffect(() => {
-  //   const storedGroupId = localStorage.getItem('groupId');
-  //   if (storedGroupId) {
-  //     setGroupId(storedGroupId);
-  //   }
-  // }, []);
 
 
   return (

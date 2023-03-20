@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Context } from '../context/StateContext';
+
 
 import {
   Box,
@@ -21,7 +21,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
   });
 
   const navigate = useNavigate();
-  const {user, setUser} = useContext(Context);
+
   const isMobile = useMediaQuery("(max-width:420px)");
 
   const handleClick = () => {
@@ -55,7 +55,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
         setTimeout(() => setError(null), 3000);
       });
   };
-  
+
   return (
       <form onSubmit={handleSubmit}>
         <Box
