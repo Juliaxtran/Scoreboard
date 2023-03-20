@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { StateContext } from './context/StateContext';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScoreBoard from './pages/ScoreBoard';
