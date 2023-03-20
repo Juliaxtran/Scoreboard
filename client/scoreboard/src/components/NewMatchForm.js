@@ -19,11 +19,7 @@ const NewMatchForm = () => {
   const [open, setOpen] = React.useState(false);
   const [newPlayer, setNewPlayer] = useState([]);
   const [newWinner, setNewWinner] = useState([]);
-  const handleClose = () => setOpen(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
+  const [newGame, setNewGame] = useState([]);
   const {
     players,
     handleAddPlayer,
@@ -32,7 +28,15 @@ const NewMatchForm = () => {
     winnerVal,
     handleAddWinner,
     handleDeleteWinner,
+    games,
+    setGames
   } = useContext(Context);
+
+  const handleClose = () => setOpen(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
 
   //list of names in the player array that store in array embbeded in the player object
   // needs to be mapped to an array of strings
@@ -50,6 +54,10 @@ const NewMatchForm = () => {
     newWinnerCopy[index] = value;
     setNewWinner(newWinnerCopy);
   };
+
+
+  // Set Game
+
 
   return (
     <>
@@ -84,6 +92,27 @@ const NewMatchForm = () => {
             fullWidth
             variant="outlined"
           />
+
+          {/* Select a game */}
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", fontFamily: "JetBrains Mono, monospace" }}
+          >
+            Select a game
+          </Typography>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={games.map((game) => game.name)}
+            value={newGame}
+            sx={{ width: 300 }}
+            renderInput={(params) => (
+              <TextField {...params} label="Select a game" />
+            )}
+            onChange={(event, value) => setNewGame(value)}
+          />
+
+
 
           {/* Add Player Select/Autocomplete component */}
           <Typography
@@ -176,7 +205,7 @@ const NewMatchForm = () => {
                 }
               />
 
-              <IconButton sx={{ color: "purple" }} size="large" onClick={()=>handleDeleteWinner(winner.id)}>
+              <IconButton sx={{ color: "purple" }} size="large" onClick={() => handleDeleteWinner(winner.id)}>
                 <DeleteIcon />
               </IconButton>
             </div>
