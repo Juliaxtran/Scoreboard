@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogContent,
   Typography,
-  Autocomplete,
+  Alert,
   Tooltip
 } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
@@ -16,6 +16,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../context/StateContext";
+
 
 const NewPlayerForm = () => {
   const [open, setOpen] = React.useState(false);
@@ -88,7 +89,7 @@ const { group_id } = useParams();
         </DialogContent>
 
         <DialogActions>
-          
+
           {/* Submit and Cancel Button */}
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmit} color="error" variant="contained" type="submit">
