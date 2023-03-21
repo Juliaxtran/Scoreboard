@@ -59,6 +59,17 @@ const NewMatchForm = () => {
     console.log("newPlayer", newPlayer, "newWinner", newWinner, "newGame", newGame);
   };
 
+  // Games
+  let gameNames = [];
+  let gameId = [];
+  if (Array.isArray(games) && games.length) {
+    gameNames = games.map((game) => game.name);
+    gameId = games.map((game) => game.id);
+    console.log("gameNames", gameNames);
+  } else {
+    console.log("games is empty or not an array");
+  }
+
 
 
   return (
@@ -112,7 +123,11 @@ const NewMatchForm = () => {
             renderInput={(params) => (
               <TextField {...params} label="Select a game" />
             )}
-            onChange={(event, value) => setNewGame(value)}
+            onChange={(event, value) => {
+              const selectedGameIndex = gameNames.indexOf(value);
+              const selectedGameId = gameId[selectedGameIndex];
+              setNewGame(selectedGameId);
+            }}
           />
 
 
@@ -137,7 +152,7 @@ const NewMatchForm = () => {
           />
 
           {playerVal.map((player, index) => (
-            <div key={`${player.id}-${index}`} className="new-fields">
+            <div key={`${player.id}`} className="new-fields">
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -193,7 +208,7 @@ const NewMatchForm = () => {
           />
 
           {winnerVal.map((winner, index) => (
-            <div key={`${winner.id}-${index}`} className="new-fields">
+            <div key={`${winner.id}`} className="new-fields">
               <Autocomplete
                 disablePortal
                 id="combo-box-demo"
@@ -228,7 +243,7 @@ const NewMatchForm = () => {
         {/* Submit and Cancel Button */}
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} color="error" variant="contained" type='submit'>
+          <Button onClick={handleSubmit} color="error" variant="contained" type='submit'>
             Submit
           </Button>
         </DialogActions>
