@@ -53,18 +53,13 @@ const NewMatchForm = () => {
   } else {
     playerNames = [];
   }
-  console.log(players)
 
-  console.log(newGameId, games, "hey", newPlayer);
 
   let gameNames = [];
   let gameId = [];
   if (Array.isArray(games) && games.length) {
     gameNames = games.map((game) => game.name);
     gameId = games.map((game) => game.id);
-    console.log("gameNames", gameNames);
-  } else {
-    console.log("games is empty or not an array");
   }
 
   //handleAddNewPlayer function to add new player to the newPlayer array
@@ -73,9 +68,7 @@ const NewMatchForm = () => {
   };
 
   const handleAddNewWinner = (index, value) => {
-    const newWinnerCopy = [...newWinner];
-    newWinnerCopy[index] = value;
-    setNewWinner(newWinnerCopy);
+   setNewWinner((prevWinner) => [...prevWinner, value]);
   };
 
   const handleDeleteNewPlayer = (index) => {
@@ -85,37 +78,41 @@ const NewMatchForm = () => {
   };
 
 
-console.log('new player needs to be a list of players',newPlayer)
 
-  // const handleAddMatch = (e) => {
-  //   e.preventDefault();
 
-  //   const payload = {
-  //     newGameId,
-  //     date,
-  //     newPlayer,
-  //   };
-  //   console.log("yo", payload);
-  //   axios
-  //     .post(`http://localhost:4000/match/${group_id}`, payload, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       const success = res.status === 200;
-  //       if (success) {
-  //         console.log("Add match successfully!");
-  //         setOpen(false);
-  //         setMatches(res.data.matches);
-  //         console.log(res.data);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
-  console.log("list", newGameId);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('date', date)
+    console.log('Players',newPlayer)
+    console.log("gameId", newGameId);
+    console.log("Winner", newWinner);
+
+    // const payload = {
+    //   newGameId,
+    //   date,
+    //   newPlayer,
+    // };
+    // console.log("yo", payload);
+    // axios
+    //   .post(`http://localhost:4000/match/${group_id}`, payload, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     const success = res.status === 200;
+    //     if (success) {
+    //       console.log("Add match successfully!");
+    //       setOpen(false);
+    //       setMatches(res.data.matches);
+    //       console.log(res.data);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+  };
+
 
   return (
     <>
@@ -201,7 +198,9 @@ console.log('new player needs to be a list of players',newPlayer)
               renderInput={(params) => (
                 <TextField {...params} label="Select a player" />
               )}
-              onChange={(event, value) => handleAddNewPlayer(value)}
+              onChange={(event, value) =>
+
+                handleAddNewPlayer(value)}
             />
 
             {playerVal.map((player, index) => (
@@ -300,10 +299,11 @@ console.log('new player needs to be a list of players',newPlayer)
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
             <Button
-    
+
               color="error"
               variant="contained"
               type="submit"
+              onClick={handleSubmit}
             >
               Submit
             </Button>
