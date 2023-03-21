@@ -86,7 +86,7 @@ const NewMatchForm = () => {
 
     const playerData = selectedPlayerIds.map(id => ({
       id,
-      isWinner: newWinner.includes(id)
+      is_winner: newWinner.includes(id)
     }))
 
 
