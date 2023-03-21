@@ -25,7 +25,7 @@ const NewMatchForm = () => {
   const [newGameId, setNewGameId] = useState(null);
   const [date, setDate] = useState(null);
   const [selectedPlayerIds, setSelectedPlayerIds] = useState([]);
-const [selectedWinnerIds, setSelectedWinnerIds] = useState([]);
+
 
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {
@@ -64,21 +64,10 @@ const [selectedWinnerIds, setSelectedWinnerIds] = useState([]);
   }
 
 
-let winnerNames = [];
-  let winnerIds = [];
-  if (Array.isArray(winnerVal) && winnerVal.length) {
-    winnerNames = winnerVal.map((winner) => winner.name);
-    winnerIds = winnerVal.map((winner) => winner.id);
-  }
 
-
-  //handleAddNewPlayer function to add new player to the newPlayer array
-  const handleAddNewPlayer = (value) => {
-    setNewPlayer((prevPlayers) => [...prevPlayers, value]);
-  };
-
-  const handleAddNewWinner = (value) => {
-    setNewWinner((prevWinner) => [...prevWinner, value]);
+  const handleAddNewWinner = (name) => {
+    const id = playerIds[playerNames.indexOf(name)];
+    setNewWinner([...newWinner, id]);
   };
 
   const handleDeleteNewPlayer = (index) => {
@@ -201,7 +190,7 @@ let winnerNames = [];
               disablePortal
               id="combo-box-demo"
               options={playerNames}
-           
+
               sx={{ width: 300 }}
               renderInput={(params) => (
                 <TextField {...params} label="Select a player" />
@@ -215,7 +204,7 @@ let winnerNames = [];
                   disablePortal
                   id="combo-box-demo"
                   options={playerNames}
-               
+
                   sx={{ width: 300 }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select a player" />
@@ -270,7 +259,7 @@ let winnerNames = [];
                   disablePortal
                   id="combo-box-demo"
                   options={playerNames}
-                  value={newWinner[index]}
+                  value={newWinner[index] ? playerNames[playerIds.indexOf(newWinner[index])] : ''}
                   sx={{ width: 300 }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select a winner" />
