@@ -70,11 +70,6 @@ const NewMatchForm = () => {
     setNewWinner([...newWinner, id]);
   };
 
-  const handleDeleteNewPlayer = (index) => {
-    const newPlayersCopy = [...newPlayer];
-    newPlayersCopy.splice(index, 1);
-    setNewPlayer(newPlayersCopy);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -198,7 +193,7 @@ const NewMatchForm = () => {
               id="combo-box-demo"
               options={playerNames}
 
-              sx={{ width: 300 }}
+              sx={{ width: 300, mb:2 }}
               renderInput={(params) => (
                 <TextField {...params} label="Select a player" />
               )}
@@ -212,7 +207,7 @@ const NewMatchForm = () => {
                   id="combo-box-demo"
                   options={playerNames}
 
-                  sx={{ width: 300 }}
+                  sx={{ width: 300 ,  mb:2 }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select a player" />
                   )}
@@ -221,7 +216,7 @@ const NewMatchForm = () => {
                 <IconButton
                   sx={{ color: "green" }}
                   size="large"
-                  onClick={() => handleDeleteNewPlayer(player.id)}
+                  onClick={() => handleDeletePlayer(player.id)}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -253,7 +248,7 @@ const NewMatchForm = () => {
               id="combo-box-demo"
               options={playerNames}
               value={newWinner[0]}
-              sx={{ width: 300 }}
+              sx={{ width: 300,  mb:2  }}
               renderInput={(params) => (
                 <TextField {...params} label="Select a winner" />
               )}
@@ -267,7 +262,7 @@ const NewMatchForm = () => {
                   id="combo-box-demo"
                   options={playerNames}
                   value={newWinner[index] ? playerNames[playerIds.indexOf(newWinner[index])] : ''}
-                  sx={{ width: 300 }}
+                  sx={{ width: 300,  mb:2 }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select a winner" />
                   )}
