@@ -7,7 +7,7 @@ import MatchBoard from "../components/MatchBoard";
 import NavBar from "../components/NavBar";
 
 
-const Dashboard = ({setGroupId,groupId}) => {
+const Dashboard = () => {
 
 const {group_id} = useParams();
 

@@ -29,7 +29,6 @@ const NewMatchForm = () => {
     handleAddWinner,
     handleDeleteWinner,
     games,
-    setGames
   } = useContext(Context);
 
   const handleClose = () => setOpen(false);
@@ -55,8 +54,11 @@ const NewMatchForm = () => {
     setNewWinner(newWinnerCopy);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("newPlayer", newPlayer, "newWinner", newWinner, "newGame", newGame);
+  };
 
-  // Set Game
 
 
   return (
@@ -74,6 +76,7 @@ const NewMatchForm = () => {
       </Button>
 
       {/* Dialog component  */}
+      <form onSubmit={handleSubmit}>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={{ textAlign: "center" }}> New Match</DialogTitle>
         <DialogContent>
@@ -225,11 +228,12 @@ const NewMatchForm = () => {
         {/* Submit and Cancel Button */}
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} color="error" variant="contained">
+          <Button onClick={handleClose} color="error" variant="contained" type='submit'>
             Submit
           </Button>
         </DialogActions>
       </Dialog>
+      </form>
     </>
   );
 };
