@@ -20,9 +20,8 @@ import { useParams } from "react-router-dom";
 const NewMatchForm = () => {
   const { group_id } = useParams();
   const [open, setOpen] = React.useState(false);
-  const [newPlayer, setNewPlayer] = useState([]);
-  const [newWinner, setNewWinner] = useState([]);
-  const [newGameId, setNewGameId] = useState(null);
+  const [winner, setWinner] = useState([]);
+  const [game_id, setGame_id] = useState(null);
   const [date, setDate] = useState(null);
   const [selectedPlayerIds, setSelectedPlayerIds] = useState([]);
 
@@ -40,10 +39,7 @@ const NewMatchForm = () => {
     winnerVal,
     handleAddWinner,
     handleDeleteWinner,
-    games,
-    setMatches,
-    matches,
-    setGames,
+    games
   } = useContext(Context);
 
   //list of names in the player array that store in array embbeded in the player object
@@ -67,26 +63,25 @@ const NewMatchForm = () => {
 
   const handleAddNewWinner = (name) => {
     const id = playerIds[playerNames.indexOf(name)];
-    setNewWinner([...newWinner, id]);
+    setWinner([...winner, id]);
   };
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("date", date);
-    console.log("Players", newPlayer);
     console.log("selectedPlayerIds", selectedPlayerIds);
-    console.log("gameId", newGameId);
-    console.log("Winner", newWinner);
+    console.log("gameId", game_id);
+    console.log("Winner", winner);
 
     const playerData = selectedPlayerIds.map(id => ({
       id,
-      is_winner: newWinner.includes(id)
+      is_winner: winner.includes(id)
     }))
 
 
     const payload = {
-      game_id : newGameId,
+      game_id, 
       date,
       players : playerData
     };
@@ -174,7 +169,7 @@ const NewMatchForm = () => {
               onChange={(event, value) => {
                 const selectedGameIndex = gameNames.indexOf(value);
                 const selectedGameId = gameId[selectedGameIndex];
-                setNewGameId(selectedGameId);
+                setGame_id(selectedGameId);
               }}
             />
 
@@ -247,7 +242,7 @@ const NewMatchForm = () => {
               disablePortal
               id="combo-box-demo"
               options={playerNames}
-              value={newWinner[0]}
+              value={winner[0]}
               sx={{ width: 300,  mb:2  }}
               renderInput={(params) => (
                 <TextField {...params} label="Select a winner" />
@@ -261,7 +256,7 @@ const NewMatchForm = () => {
                   disablePortal
                   id="combo-box-demo"
                   options={playerNames}
-                  value={newWinner[index] ? playerNames[playerIds.indexOf(newWinner[index])] : ''}
+                  value={winner[index] ? playerNames[playerIds.indexOf(winner[index])] : ''}
                   sx={{ width: 300,  mb:2 }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select a winner" />
