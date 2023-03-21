@@ -14,13 +14,8 @@ module.exports = (db, dbQueries) => {
       if (match) {
         match_id = match.id;
         console.log(match_id);
-      } else {
-        res.status(400).send({
-          success: false,
-          message: "Match not created",
-          match: match,
-        });
       }
+
       // Step 2: Add match to group
       const matchToGroup = await dbQueries.addGroupMatch(groupId, match_id, db);
 
@@ -30,7 +25,7 @@ module.exports = (db, dbQueries) => {
 
       // Step 3: Add players AND results to match
       for (const player of players) {
-        const matchResults = await dbQueries.addMatchPlayers(match_id, player.id, player.is_winner, player.is_loser, db);
+        const matchResults = await dbQueries.addMatchPlayers(match_id, player.id, player.is_winner, db);
         if (matchResults) {
           console.log(matchResults);
         }
@@ -77,7 +72,7 @@ module.exports = (db, dbQueries) => {
         console.log(error);
       });
   });
-  
+
 
   return router;
 };
