@@ -24,6 +24,8 @@ const NewMatchForm = () => {
   const [newWinner, setNewWinner] = useState([]);
   const [newGameId, setNewGameId] = useState(null);
   const [date, setDate] = useState(null);
+  const [selectedPlayerIds, setSelectedPlayerIds] = useState([]);
+const [selectedWinnerIds, setSelectedWinnerIds] = useState([]);
 
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {
@@ -48,12 +50,11 @@ const NewMatchForm = () => {
   // needs to be mapped to an array of strings
 
   let playerNames = [];
+  let playerIds = [];
   if (Array.isArray(players) && players.length) {
     playerNames = players.map((player) => player.name);
-  } else {
-    playerNames = [];
+    playerIds = players.map((player) => player.id);
   }
-
 
   let gameNames = [];
   let gameId = [];
@@ -62,13 +63,22 @@ const NewMatchForm = () => {
     gameId = games.map((game) => game.id);
   }
 
+
+let winnerNames = [];
+  let winnerIds = [];
+  if (Array.isArray(winnerVal) && winnerVal.length) {
+    winnerNames = winnerVal.map((winner) => winner.name);
+    winnerIds = winnerVal.map((winner) => winner.id);
+  }
+
+
   //handleAddNewPlayer function to add new player to the newPlayer array
   const handleAddNewPlayer = (value) => {
     setNewPlayer((prevPlayers) => [...prevPlayers, value]);
   };
 
-  const handleAddNewWinner = (index, value) => {
-   setNewWinner((prevWinner) => [...prevWinner, value]);
+  const handleAddNewWinner = (value) => {
+    setNewWinner((prevWinner) => [...prevWinner, value]);
   };
 
   const handleDeleteNewPlayer = (index) => {
@@ -77,13 +87,11 @@ const NewMatchForm = () => {
     setNewPlayer(newPlayersCopy);
   };
 
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('date', date)
-    console.log('Players',newPlayer)
+    console.log("date", date);
+    console.log("Players", newPlayer);
+    console.log("selectedPlayerIds", selectedPlayerIds);
     console.log("gameId", newGameId);
     console.log("Winner", newWinner);
 
@@ -112,7 +120,6 @@ const NewMatchForm = () => {
     //     console.error(error);
     //   });
   };
-
 
   return (
     <>
@@ -194,13 +201,12 @@ const NewMatchForm = () => {
               disablePortal
               id="combo-box-demo"
               options={playerNames}
+           
               sx={{ width: 300 }}
               renderInput={(params) => (
                 <TextField {...params} label="Select a player" />
               )}
-              onChange={(event, value) =>
-
-                handleAddNewPlayer(value)}
+              onChange={(event, value) => setSelectedPlayerIds([...selectedPlayerIds, playerIds[playerNames.indexOf(value)]])}
             />
 
             {playerVal.map((player, index) => (
@@ -209,12 +215,12 @@ const NewMatchForm = () => {
                   disablePortal
                   id="combo-box-demo"
                   options={playerNames}
-                  getOptionLabel={(option) => option}
+               
                   sx={{ width: 300 }}
                   renderInput={(params) => (
                     <TextField {...params} label="Select a player" />
                   )}
-                  onChange={(event, value) => handleAddNewPlayer(value)}
+                  onChange={(event, value) => setSelectedPlayerIds([...selectedPlayerIds, playerIds[playerNames.indexOf(value)]])}
                 />
                 <IconButton
                   sx={{ color: "green" }}
@@ -269,9 +275,7 @@ const NewMatchForm = () => {
                   renderInput={(params) => (
                     <TextField {...params} label="Select a winner" />
                   )}
-                  onChange={(event, value) =>
-                     handleAddNewWinner(value)
-                  }
+                  onChange={(event, value) => handleAddNewWinner(value)}
                 />
 
                 <IconButton
@@ -299,7 +303,6 @@ const NewMatchForm = () => {
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
             <Button
-
               color="error"
               variant="contained"
               type="submit"
