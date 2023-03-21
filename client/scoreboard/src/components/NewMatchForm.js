@@ -84,30 +84,37 @@ const NewMatchForm = () => {
     console.log("gameId", newGameId);
     console.log("Winner", newWinner);
 
-    // const payload = {
-    //   newGameId,
-    //   date,
-    //   newPlayer,
-    // };
-    // console.log("yo", payload);
-    // axios
-    //   .post(`http://localhost:4000/match/${group_id}`, payload, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //   .then((res) => {
-    //     const success = res.status === 200;
-    //     if (success) {
-    //       console.log("Add match successfully!");
-    //       setOpen(false);
-    //       setMatches(res.data.matches);
-    //       console.log(res.data);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
+    const playerData = selectedPlayerIds.map(id => ({
+      id,
+      isWinner: newWinner.includes(id)
+    }))
+
+
+    const payload = {
+      game_id : newGameId,
+      date,
+      players : playerData
+    };
+    console.log("PlayLoad", payload);
+    axios
+      .post(`http://localhost:4000/match/${group_id}`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        const success = res.status === 200;
+        if (success) {
+          console.log("Add match successfully!");
+          setOpen(false);
+          // setMatches(res.data.matches);
+          console.log(res.data);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
