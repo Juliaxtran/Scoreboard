@@ -39,7 +39,8 @@ const NewMatchForm = () => {
     winnerVal,
     handleAddWinner,
     handleDeleteWinner,
-    games
+    games, 
+    setMatches
   } = useContext(Context);
 
   //list of names in the player array that store in array embbeded in the player object
@@ -96,10 +97,9 @@ const NewMatchForm = () => {
         console.log(res);
         const success = res.status === 200;
         if (success) {
-          console.log("Add match successfully!");
           setOpen(false);
-          // setMatches(res.data.matches);
-          console.log(res.data);
+          setMatches(res.data.matches);
+          window.location.reload();
         }
       })
       .catch((error) => {
