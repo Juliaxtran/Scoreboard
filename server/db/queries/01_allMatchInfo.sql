@@ -34,12 +34,13 @@ JOIN Players p ON mp.player_id = p.id
 GROUP BY p.id, p.name;
 
 
+---- stats for each player in a group based on the match---
 SELECT p.id, p.name, 
   COUNT(CASE WHEN mp.is_winner THEN 1 END) AS wins, 
   (SELECT COUNT(*) FROM Matches_Players mp2
     JOIN Matches m ON m.id = mp2.match_id
     JOIN Games g ON g.id = m.game_id
-    WHERE mp2.player_id = p.id AND g.group_id = 2
+    WHERE mp2.player_id = p.id AND g.group_id = 1
   ) - COUNT(CASE WHEN mp.is_winner THEN 1 END) AS losses, 
     (COUNT(CASE WHEN mp.is_winner THEN 1 END) / count(*) *100) AS win_rate
 FROM Matches_Players mp

@@ -28,10 +28,10 @@ join groups on games.group_id = groups.id
 join matches on games.id = matches.game_id
 join matches_players on matches.id = matches_players.match_id
 join players on matches_players.player_id = players.id
-where groups.id = 2
-and games.id = 4
+where groups.id = 1
+and games.id = 2
 group by games.name, players.name
-order by losses, played_on desc
+order by wins desc
 limit 1
 ; 
 
