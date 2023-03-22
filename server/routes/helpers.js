@@ -23,11 +23,12 @@ const getUserByEmail = function (email, db) {
 // Group Queries
 
 const getGroupByPlayerId = function (player_id, db) {
-  const queryString = `
-  SELECT g.*, p.name AS owner_name
+  const queryString = `SELECT g.*, p.name AS owner_name
   FROM Groups g
   JOIN Players p ON g.owner_id = p.id
-  WHERE g.owner_id = $1;`
+  JOIN Groups_Players gp ON g.id = gp.group_id
+  WHERE gp.player_id = $1;
+  `;
   const values = [player_id];
   return db
     .query(queryString, values)
