@@ -18,9 +18,9 @@ const port = process.env.PORT || 4000;
 app.use(bodyParser.json());
 
 //CORS for all routes
-app.use(cors({ 
-  origin: "http://localhost:3000", 
-  credentials: true, 
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
 methods:['GET','POST','PUT','DELETE', 'HEAD']
 }));
 
@@ -29,7 +29,9 @@ app.use(
   cookieSession({
     name: "session",
     keys: ["iAMaKEyyyyyyyyyy", "IaMTheSecondKey"],
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours,
+    resave: false,
+  saveUninitialized: true,
   })
 );
 app.use(cookieParser());

@@ -111,6 +111,17 @@ module.exports = (db, dbQueries) => {
     }
   });
 
+ // Logout Route
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.status(200).send({
+      success: true,
+      message: "Logout successful",
+    });
+  });
+  
+
+
   return router;
 };
 

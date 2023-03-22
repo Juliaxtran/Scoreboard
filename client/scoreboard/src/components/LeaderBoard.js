@@ -79,10 +79,10 @@ const LeaderBoard = () => {
                     <Avatar
                       src={trophyImage}
                       sx={{
-                        width: 100,
-                        height: 100,
+                        width: 75,
+                        height: 75,
                         backgroundColor: "#cdcdcdf5",
-                        padding: 1, 
+                        padding: 1,
                       }}
                     />
                     {/* Profile Info */}
