@@ -56,6 +56,8 @@ module.exports = (db, dbQueries) => {
             });
     });
 
+    // User can see most win and most loses in a game for a group
+
 
 
 
