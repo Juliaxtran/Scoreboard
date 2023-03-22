@@ -12,9 +12,9 @@ const LeaderBoard = () => {
   const { setPlayers, players } = useContext(Context);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/group/players/${group_id}`, { withCredentials: true })
+    axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, { withCredentials: true })
       .then(res => {
-        setPlayers(res.data.players);
+        setPlayers(res.data.leaderboard);
       })
   }, [group_id]);
 
@@ -29,6 +29,7 @@ const LeaderBoard = () => {
           textAlign: "center",
           "& > :not(style)": {
             m: 1,
+            p: 3,
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
             height: isMobile ? 820 : 1000,
@@ -70,9 +71,9 @@ const LeaderBoard = () => {
                   {/* Profile Info */}
                   <div className="leader-info">
                     <h1>{player.name}</h1>
-                    <h3>Wins: 10</h3>
-                    <h3>Losses: 2 (optional)</h3>
-                    <h3>Win Rate: 30%</h3>
+                    <h3>Wins: {player.total_wins}</h3>
+                    <h3>Total matches : {player.total_matches}</h3>
+                    <h3>Win Rate: % {Number(player.win_ratio).toFixed(1)}</h3>
                   </div>
                 </div>
               </Paper>

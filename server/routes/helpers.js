@@ -103,6 +103,44 @@ const addPlayerToGroup = function (group_id, player_id, db) {
     });
 };
 
+// leaderboard for group
+
+const getLeaderBoardByGroupId = function (group_id, db) {
+  const queryString = `SELECT
+  mp.player_id as id,
+  p.name AS name,
+  COUNT(mp.is_winner) FILTER (WHERE mp.is_winner) AS total_wins,
+  COUNT(mp.is_winner) AS total_matches,
+  COUNT(mp.is_winner) FILTER (WHERE mp.is_winner) * 100.0 / COUNT(mp.is_winner) AS win_ratio
+FROM
+  Groups g
+  JOIN Groups_Matches gm ON g.id = gm.group_id
+  JOIN Matches_Players mp ON gm.match_id = mp.match_id
+  JOIN Players p ON mp.player_id = p.id
+WHERE
+  g.id = $1
+GROUP BY
+  mp.player_id, p.name;`
+  const values = [group_id];
+  return db
+   .query(queryString, values)
+    .then((result) => {
+      if (result.rows.length === 0) {
+        console.log("No players found");
+        return "No players found";
+      } else {
+        return result.rows;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+
+
+
+
 // Game helpers
 const addGameToGroup = function (name, description, group_id, db) {
   const queryString = `INSERT INTO games (name, description, group_id) VALUES ($1, $2, $3) RETURNING *;`
@@ -240,5 +278,6 @@ module.exports = {
   createMatch,
   addGroupMatch,
   addMatchPlayers,
-  getMatchesByGroupId
+  getMatchesByGroupId,
+  getLeaderBoardByGroupId
 }

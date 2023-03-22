@@ -28,6 +28,8 @@ module.exports = (db, dbQueries) => {
       });
   });
 
+  // Create a new group
+
   router.post("/create", (req, res) => {
     const { name, owner_id } = req.body;
     console.log("Create group", "name", name, "owner_id", owner_id);
@@ -123,6 +125,31 @@ module.exports = (db, dbQueries) => {
       });
   });
 
+  // Leader board for a group by group id
+
+  router.get("/leaderboard/:group_id", (req, res) => {
+    const { group_id } = req.params;
+    dbQueries
+      .getLeaderBoardByGroupId(group_id, db)
+      .then((leaderboard) => {
+        if (leaderboard) {
+          res.status(200).send({
+            success: true,
+            message: "Leaderboard found",
+            leaderboard: leaderboard,
+          });
+        } else {
+          res.status(400).send({
+            success: false,
+            message: "Leaderboard not found",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+  
 
 
 
