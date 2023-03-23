@@ -16,14 +16,11 @@ function Group() {
 
 
 
-
-
   // Show groups for user
   useEffect(() => {
-    // const storedUser = sessionStorage.getItem('user');
-    // console.log(storedUser);
+
     if (user) {
-      // setUser(JSON.parse(storedUser));
+
       axios
         .get(`http://localhost:4000/group`, { withCredentials: true })
         .then((res) => {
@@ -90,8 +87,6 @@ function Group() {
                     color="warning"
                     key={group.id}
                     onClick={() => {
-                      // setGroupId(group.id);
-                      // localStorage.setItem('groupId', group.id); // set the groupId in localStorage
                       navigate(`/dashboard/${group.id}`);
                     }}
                   >
