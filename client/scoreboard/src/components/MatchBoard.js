@@ -19,7 +19,7 @@ const MatchBoard = () => {
     axios
       .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
       .then((res) => {
-       setMatches(res.data.matches);
+        setMatches(res.data.matches);
       });
   }, [group_id, setMatches]);
 
@@ -43,6 +43,7 @@ const MatchBoard = () => {
             "& > :not(style)": {
               m: 1,
             },
+            
           }}
           elevation={0}
         >
@@ -52,12 +53,12 @@ const MatchBoard = () => {
                 to="/matches"
                 style={{ textDecoration: "none", color: "black" }}
               >
-                <h1 style={{ textAlign :  'left', mt: 2}}>Previous Matches</h1>
+                <h1 style={{ textAlign: 'left', mt: 2 }}>Previous Matches</h1>
               </Link>
             </div>
             <div className="box-container">
 
-              {Array.isArray(matches) && matches.map((match) => {
+            {Array.isArray(matches) && matches.slice(0, 4).map((match) => {
                 return (
                   <Paper
                     sx={{

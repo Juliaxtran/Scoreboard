@@ -31,6 +31,7 @@ const GameBoard = () => {
           m: 1,
           width: isMobile ? 335 : 905,
           height: isMobile ? 1000 : 350,
+          p:1
         },
       }}
     >
@@ -42,7 +43,7 @@ const GameBoard = () => {
             width: 850,
           },
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "center",
           textAlign: "center",
         }}
         elevation={0}
@@ -53,13 +54,12 @@ const GameBoard = () => {
               to="/games"
               style={{ textDecoration: "none", color: "black" }}
             >
-              <h1 style={{ marginRight: 750 }}>Games</h1>
+              <h1 style={{ textAlign: 'left', mt: 2 }}>Games</h1>
             </Link>
           </div>
           <div className="box-container">
             {/* Game container */}
-            {Array.isArray(games) &&
-              games.map((game) => {
+            {Array.isArray(games) && games.slice(0, 4).map((game) => {
                 return (
                   <React.Fragment key={game.id}>
                     <Paper
@@ -70,8 +70,8 @@ const GameBoard = () => {
                         height: 250,
                         width: isMobile ? 310 : 350,
                         mr: 2,
-                        mb: 6,
-                        mt: 2,
+                        px: 1,
+
                       }}
                       key={game.id}
                     >
