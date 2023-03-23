@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+
 const NewGameForm = () => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
@@ -21,6 +22,7 @@ const NewGameForm = () => {
 const { group_id } = useParams();
 const [name, setName] = React.useState("");
 const [description, setDescription] = React.useState("");
+
 
   //add game to a group
   const handleSubmit = (e) => {

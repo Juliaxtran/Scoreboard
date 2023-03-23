@@ -20,7 +20,7 @@ const LeaderBoard = () => {
       .then(res => {
         setPlayers(res.data.leaderboard);
       })
-  }, [group_id]);
+  }, [setPlayers, group_id]);
 
 
   return (
