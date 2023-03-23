@@ -72,6 +72,7 @@ function Group() {
             <p> To start please choose a group or create a new group</p>
           </div>
           <NewGroupForm />
+
         </div>
 
         <div className='groups'>

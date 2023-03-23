@@ -14,7 +14,6 @@
 .groupInfo {
   display: flex;
   justify-content: space-around;
-  align-items: center;
   gap: 2em;
   top: 50%;
   margin-left: auto;
@@ -27,13 +26,14 @@
 .groupCopy {
   color: black;
   width: 300px;
-  height: 250px;
+  height: 200px;
   padding: 1.5em;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-around;
-  gap: 1em;
+  gap: .5em;
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
@@ -41,6 +41,8 @@
 .groupCopy-text {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  align-items: center;
   gap: 1.2em;
 }
 
@@ -56,10 +58,11 @@
     flex-direction: column;
     gap: 1em;
     margin-top: 10%;
+    width: 75%;
   }
 
   .groupCopy {
-    width: 100%;
+    width: 85%;
     height: 100%;
     padding: 1em;
   }
