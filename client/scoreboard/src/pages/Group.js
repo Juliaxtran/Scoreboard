@@ -31,12 +31,10 @@ function Group() {
 
           if (res.status === 200) {
             const groupData = res.data.group;
-            console.log('Group data: ', groupData);
             const groupsArray = groupData
               ? Object.keys(groupData).map((key) => ({ id: key, ...groupData[key] }))
               : [];
             setGroups(groupsArray);
-            console.log('groups', groupsArray);
           } else if (res.status === 400) {
             setGroups([]);
           }
