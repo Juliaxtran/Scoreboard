@@ -199,7 +199,7 @@ const getGameStats  = function (group_id, db) {
 FROM games g
 LEFT JOIN matches m ON m.game_id = g.id
 LEFT JOIN groups_matches gm ON gm.match_id = m.id
-WHERE gm.group_id = $1 
+WHERE gm.group_id = $1 OR gm.group_id IS NULL
 GROUP BY g.id, g.name, m.id
 ORDER BY g.id;`
   const values = [group_id];
