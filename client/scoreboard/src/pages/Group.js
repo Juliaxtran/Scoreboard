@@ -10,7 +10,7 @@ import "./Group.css";
 
 
 function Group() {
-  const { user, setUser, groups, setGroups } = useContext(Context);
+  const { user, setUser, groups, setGroups, setGroupName } = useContext(Context);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -87,6 +87,7 @@ function Group() {
                     color="warning"
                     key={group.id}
                     onClick={() => {
+                      setGroupName(group.name);
                       navigate(`/dashboard/${group.id}`);
                     }}
                   >

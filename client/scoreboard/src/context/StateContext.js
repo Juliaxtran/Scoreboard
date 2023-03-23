@@ -13,6 +13,7 @@ const StateContext = ({ children }) => {
   const [matches, setMatches] = useState([]);
   const [playerVal, setPlayerVal] = useState([]);
   const [winnerVal, setWinnerVal] = useState([]);
+  const [groupName, setGroupName] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:4000/api/profile', { withCredentials: true })
@@ -145,7 +146,9 @@ const handleDeleteWinner = (index) => {
       groups,
       setGroups,
       handleDeletePlayer,
-      handleDeleteWinner
+      handleDeleteWinner,
+      groupName,
+      setGroupName
 
     }}>
       {children}

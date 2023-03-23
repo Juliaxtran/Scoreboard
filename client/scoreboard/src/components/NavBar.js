@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const { user , setUser} = useContext(Context);
+  const { user , setUser, groupName} = useContext(Context);
   const { group_id } = useParams();
 
   const logOut = (e) => {
@@ -73,7 +73,7 @@ function ResponsiveAppBar() {
               textAlign: "center",
             }}
           >
-            {group_id  ? `Group ${group_id}` : `${user?.name} ${user?.lastname}`}
+            {group_id  ? `${groupName}` : `${user?.name} ${user?.lastname}`}
           </Typography>
           ) : (
             <Typography
