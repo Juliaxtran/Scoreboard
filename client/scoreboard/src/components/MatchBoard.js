@@ -58,7 +58,7 @@ const MatchBoard = () => {
             </div>
             <div className="box-container">
 
-            {Array.isArray(matches) && matches.slice(0, 4).map((match) => {
+            {Array.isArray(matches) && matches.slice(0,4).map((match) => {
                 return (
                   <Paper
                     sx={{

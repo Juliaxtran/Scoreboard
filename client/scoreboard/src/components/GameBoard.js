@@ -21,7 +21,7 @@ const GameBoard = () => {
 
       if (!gamesObj[gameId]) {
         gamesObj[gameId] = {
-          game_id: gameId,
+          id: gameId,
           name: game.name,
           description: game.description,
           player_most_wins: [game.player_most_wins],
@@ -56,7 +56,9 @@ const GameBoard = () => {
       })
       .then((res) => {
        let data = generateNewArray(res.data.games);
+       console.log(data);
         setGames(data);
+
 
       });
   }, [group_id, setGames]);

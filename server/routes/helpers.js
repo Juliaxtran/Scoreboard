@@ -180,6 +180,44 @@ const getAllGamesByGroupId = function (group_id, db) {
   });
 };
 
+const getGameStats  = function (group_id, db) {
+  const queryString = `SELECT g.id AS game_id, g.name AS name, g.description As description,
+  COALESCE(
+    (SELECT p.name FROM matches_players mp
+     JOIN players p ON mp.player_id = p.id
+     WHERE mp.match_id = m.id AND mp.is_winner = TRUE
+     GROUP BY mp.player_id, p.name ORDER BY COUNT(*) DESC LIMIT 1),
+    'To Be Determined'
+  ) AS player_most_wins,
+  COALESCE(
+    (SELECT p.name FROM matches_players mp
+     JOIN players p ON mp.player_id = p.id
+     WHERE mp.match_id = m.id AND mp.is_winner = FALSE
+     GROUP BY mp.player_id, p.name ORDER BY COUNT(*) DESC LIMIT 1),
+    'To Be Determined'
+  ) AS player_most_losses
+FROM games g
+LEFT JOIN matches m ON m.game_id = g.id
+LEFT JOIN groups_matches gm ON gm.match_id = m.id
+WHERE gm.group_id = $1 OR gm.group_id IS NULL
+GROUP BY g.id, g.name, m.id
+ORDER BY g.id;`
+  const values = [group_id];
+  return db
+  .query(queryString, values)
+  .then((result) => {
+    if (result.rows.length === 0) {
+      console.log("No games found");
+      return "No games found";
+    } else {
+      return result.rows;
+    }
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+};
+
 // Matches queries
 const createMatch = function (game_id, date, db) {
   const queryString = `INSERT INTO Matches (game_id, date) VALUES ($1, $2) RETURNING *;`;
@@ -280,5 +318,6 @@ module.exports = {
   addGroupMatch,
   addMatchPlayers,
   getMatchesByGroupId,
-  getLeaderBoardByGroupId
+  getLeaderBoardByGroupId,
+  getGameStats
 }

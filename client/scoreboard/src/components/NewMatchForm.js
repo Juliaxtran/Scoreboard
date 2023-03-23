@@ -39,7 +39,7 @@ const NewMatchForm = () => {
     winnerVal,
     handleAddWinner,
     handleDeleteWinner,
-    games, 
+    games,
     setMatches
   } = useContext(Context);
 
@@ -80,9 +80,10 @@ const NewMatchForm = () => {
       is_winner: winner.includes(id)
     }))
 
+    console.log(playerData)
 
     const payload = {
-      game_id, 
+      game_id,
       date,
       players : playerData
     };
