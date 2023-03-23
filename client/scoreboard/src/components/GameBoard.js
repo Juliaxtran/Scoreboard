@@ -81,8 +81,10 @@ const GameBoard = () => {
                       <h3>Description:</h3>
                       <p>{game.description}</p>
                       {/* TODO:Query or equation to calculate most wins and losses */}
-                      <h3>Most WINS: Patrice</h3>
-                      <h3>Most Losses: Ryan</h3>
+                      <h3>Most WINS</h3>
+                      <p>Patrice</p>
+                      <h3>Most Losses</h3>
+                      <p>Ryan</p>
                     </Paper>
                   </React.Fragment>
                 );

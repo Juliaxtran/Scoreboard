@@ -50,3 +50,25 @@
   width: 300px;
   gap: 1em;
 }
+
+@media only screen and (max-width: 450px) {
+  .groupInfo {
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 10%;
+  }
+
+  .groupCopy {
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+  }
+
+  .groupCopy-text {
+    gap: 0.5em;
+  }
+
+  .groups {
+    width: 100%;
+  }
+}
