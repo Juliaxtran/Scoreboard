@@ -43,7 +43,7 @@ const MatchBoard = () => {
             "& > :not(style)": {
               m: 1,
             },
-            
+
           }}
           elevation={0}
         >
@@ -94,10 +94,9 @@ const MatchBoard = () => {
                     <p>  {match.winners}</p>
                     <h3>Players:</h3>
                     <p> {match.player_names}</p>
-                    <h3>
-                      Date Played:{" "}
-                      {new Date(match.played_on).toISOString().slice(0, 10)}
-                    </h3>
+                    <h3> Date Played:{" "}  </h3>
+                    <p>  {new Date(match.played_on).toISOString().slice(0, 10)}</p>
+
                   </Paper>
                 );
               })}

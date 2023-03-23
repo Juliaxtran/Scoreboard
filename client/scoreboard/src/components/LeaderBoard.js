@@ -58,7 +58,7 @@ const LeaderBoard = () => {
           >
 
             {/* Profile Container */}
-            {Array.isArray(players) && players.map((player, index) => {
+            {Array.isArray(players) && players.slice(0,6).map((player, index) => {
                 let trophyImage;
                 if (index === 0) {
                   trophyImage = trophy1;
