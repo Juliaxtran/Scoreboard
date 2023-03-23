@@ -119,7 +119,7 @@ function ResponsiveAppBar() {
                 Join The Game
               </Button>
             </Link>
-          
+
           </Box>
         </Toolbar>
       </Container>

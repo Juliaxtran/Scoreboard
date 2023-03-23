@@ -15,3 +15,8 @@ WHERE
   g.id = <group_id>
 GROUP BY
   mp.player_id, p.name;
+
+
+  --
+
+  

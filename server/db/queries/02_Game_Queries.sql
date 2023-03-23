@@ -49,3 +49,20 @@ limit 1
 -- and games.name = 'Catan'
 -- group by games.name, players.name
 -- ;
+
+--  Gives you group Id , game , player name and all wins and loses for per game
+-- Good stats
+SELECT gm.group_id, g.name AS game_name, p.id, p.name,
+       COUNT(CASE WHEN mp.is_winner = TRUE THEN 1 END) AS total_wins,
+       COUNT(CASE WHEN mp.is_winner = FALSE THEN 1 END) AS total_losses
+FROM groups_matches gm
+JOIN matches m ON m.id = gm.match_id
+JOIN games g ON g.id = m.game_id
+JOIN matches_players mp ON mp.match_id = m.id
+JOIN players p ON p.id = mp.player_id
+WHERE gm.group_id = <groupId>
+GROUP BY gm.group_id, g.id, p.id, p.name
+ORDER BY gm.group_id, g.id, total_wins DESC, total_losses DESC
+
+--  
+
