@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import { useMediaQuery } from "@mui/material";
 import { Link, useParams} from "react-router-dom";
 import { Context } from '../context/StateContext';
 import axios from "axios";
@@ -16,7 +17,13 @@ import { useNavigate } from "react-router-dom";
 
 
 
+
 function ResponsiveAppBar() {
+  const { user , setUser, groupName} = useContext(Context);
+  const { group_id } = useParams();
+  const isMobile = useMediaQuery("(max-width:450px)");
+
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   let navigate = useNavigate();
 
@@ -28,8 +35,7 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const { user , setUser, groupName} = useContext(Context);
-  const { group_id } = useParams();
+
 
   const logOut = (e) => {
     e.preventDefault();
@@ -62,7 +68,7 @@ function ResponsiveAppBar() {
         </Link>
         {/* Navbar tile homepage */}
         {
-          user ? (
+          user && !isMobile ? (
 
             <Typography
             variant="h6"
