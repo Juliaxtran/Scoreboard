@@ -246,7 +246,8 @@ const createMatch = function (game_id, date, db) {
     JOIN Groups g2 ON g2.id = g.group_id AND g2.id = $1
     JOIN Matches_Players mp ON m.id = mp.match_id
     JOIN Players p ON mp.player_id = p.id
-    GROUP BY m.id, g.name, played_on, g2.id;`
+    GROUP BY m.id, g.name, played_on, g2.id
+    ORDER BY m.date DESC;`
     const values = [group_id];
     return db
     .query(queryString, values)

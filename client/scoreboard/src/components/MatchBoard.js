@@ -19,7 +19,7 @@ const MatchBoard = () => {
     axios
       .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
       .then((res) => {
-       setMatches(res.data.matches);   
+       setMatches(res.data.matches);
       });
   }, [group_id, setMatches]);
 
@@ -33,6 +33,7 @@ const MatchBoard = () => {
             m: 1,
             width: isMobile ? 335 : 905,
             height: isMobile ? 1000 : 350,
+            p: 2
           },
         }}
       >
@@ -51,11 +52,11 @@ const MatchBoard = () => {
                 to="/matches"
                 style={{ textDecoration: "none", color: "black" }}
               >
-                <h1 style={{ marginRight: 750 }}>Previous Matches</h1>
+                <h1 style={{ textAlign :  'left', mt: 2}}>Previous Matches</h1>
               </Link>
             </div>
             <div className="box-container">
-       
+
               {Array.isArray(matches) && matches.map((match) => {
                 return (
                   <Paper
@@ -88,7 +89,8 @@ const MatchBoard = () => {
                     </div>
                     {/* Avatar icon */}
                     <h1>{match.game_name}</h1>
-                    <h3>Winner(s): {match.winners}</h3>
+                    <h3>Winner(s): </h3>
+                    <p>  {match.winners}</p>
                     <h3>Players:</h3>
                     <p> {match.player_names}</p>
                     <h3>
