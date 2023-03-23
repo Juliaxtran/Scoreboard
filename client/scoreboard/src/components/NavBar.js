@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 import { Context } from '../context/StateContext';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +29,7 @@ function ResponsiveAppBar() {
   };
 
   const { user , setUser} = useContext(Context);
+  const { group_id } = useParams();
 
   const logOut = (e) => {
     e.preventDefault();
@@ -60,17 +61,38 @@ function ResponsiveAppBar() {
           </Typography>
         </Link>
         {/* Navbar tile homepage */}
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{
-            flexGrow: 4,
-            fontFamily: "JetBrains Mono, monospace",
-            textAlign: "center",
-          }}
-        >
-          Dashboard
-        </Typography>
+        {
+          user ? (
+
+            <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              flexGrow: 4,
+              fontFamily: "JetBrains Mono, monospace",
+              textAlign: "center",
+            }}
+          >
+            {group_id  ? `Group ${group_id}` : `${user?.name} ${user?.lastname}`}
+          </Typography>
+          ) : (
+            <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              flexGrow: 4,
+              fontFamily: "JetBrains Mono, monospace",
+              textAlign: "center",
+              color: "black"
+            }}
+          >
+            Welcome to Scoreboard
+          </Typography>
+          )
+
+
+        }
+
         {user ? (
           /* Mobile Responsive with Menu Icon  */
           <>
