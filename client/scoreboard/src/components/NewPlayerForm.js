@@ -29,24 +29,6 @@ const { players, setPlayers} = useContext(Context)
 
 const { group_id } = useParams();
 
-//add player to group
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post(`http://localhost:4000/group/add/${group_id}`, { email })
-  //     .then((res) => {
-  //       const success = res.status === 200;
-  //       if (success) {
-  //         console.log("Add player to group successfully!");
-  //         setOpen(false);
-  //         setPlayers(res.data.players)
-  //         window.location.reload();
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
 
 
 
@@ -61,6 +43,7 @@ const { group_id } = useParams();
           console.log("response", response.data.players);
           const newPlayers = response.data.players;
           setPlayers(newPlayers);
+                setOpen(false);
         })
         .catch((error) => {
           console.log(error);
