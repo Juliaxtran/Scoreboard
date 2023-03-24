@@ -12,22 +12,25 @@ import axios from "axios";
 
 const Dashboard = () => {
 
-  const { setGames, setPlayers} = useContext(Context);
+  const { setGames, setPlayers, setMatches} = useContext(Context);
   const { group_id } = useParams();
 
   useEffect(() => {
-    Promise.all([
+    axios.all([
       axios.get(`http://localhost:4000/game/all/${group_id}`),
-      axios.get(`http://localhost:4000/group/players/${group_id}`)
-    ]).then(([gamesResponse, playersResponse]) => {
+      axios.get(`http://localhost:4000/group/players/${group_id}`),
+      axios.get(`http://localhost:4000/match/${group_id}`)
+    ]).then(axios.spread((gamesResponse, playersResponse, matchResponse) => {
       const newGames = gamesResponse.data.games;
       const newPlayers = playersResponse.data.players;
+      const newMatches = matchResponse.data.matches;
       setGames(newGames);
       setPlayers(newPlayers);
-    }).catch((error) => {
+      setMatches(newMatches);
+    })).catch((error) => {
       console.log(error);
     });
-  }, []);
+  });
 
   return (
     <>

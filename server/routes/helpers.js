@@ -292,7 +292,7 @@ const createMatch = function (game_id, date, db) {
     .then((result) => {
       if (result.rows.length === 0) {
         console.log("No matches found");
-        return "No matches found";
+        return [];
       } else {
         return result.rows;
       }

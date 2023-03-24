@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useState } from "react";
 import { Context } from "../context/StateContext";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const NewMatchForm = () => {
   const { group_id } = useParams();

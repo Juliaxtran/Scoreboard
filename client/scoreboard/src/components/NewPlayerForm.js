@@ -12,7 +12,7 @@ import {
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
 import axios from "axios";
-import { useParams, useNavigate} from "react-router-dom";
+import { useParams} from "react-router-dom";
 
 
 
@@ -26,7 +26,7 @@ const NewPlayerForm = () => {
 
 
 const { group_id } = useParams();
-const navigate = useNavigate();
+
 
 
 const handleSubmit = (e) => {

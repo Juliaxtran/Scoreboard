@@ -16,6 +16,7 @@ const LeaderBoard = () => {
   const [leaderboard, setLeaderboard] = useState([])
   const { players, setPlayers, matches } = useContext(Context);
 
+
   useEffect(() => {
     axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, { withCredentials: true })
       .then(res => {
@@ -57,9 +58,13 @@ const LeaderBoard = () => {
               },
             }}
           >
+
+
             {matches.length === 0 && Array.isArray(players) && players.slice(0, 6).map((player) => (
               <h1 key={player.id}>{player.name}</h1>
             ))}
+
+
             {matches.length > 0 && Array.isArray(leaderboard) && leaderboard.slice(0, 6).map((player, index) => {
               let trophyImage;
               if (index === 0) {

@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 
@@ -23,6 +23,7 @@ const NewGameForm = () => {
 const { group_id } = useParams();
 const [name, setName] = React.useState("");
 const [description, setDescription] = React.useState("");
+
 
 
 
@@ -48,47 +49,6 @@ const [description, setDescription] = React.useState("");
       });
   };
 
-//   const handleSubmit = async (e) => {
-//   e.preventDefault();
-//   const res = await axios.post(`http://localhost:4000/game/add/${group_id}`, { name, description});
-//   const success = res.status === 200;
-//   if (success) {
-//     console.log("Game added to group successfully!");
-//     await axios.get(`http://localhost:4000/game/all/${group_id}`)
-//       .then((response) => {
-//         console.log("response", response.data.games);
-//         const newGames = response.data.games;
-//         setGames(newGames);
-//         console.log(newGames);
-//         setOpen(false);
-//         window.location.reload();
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }
-// };
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-//   const res = await axios.post(`http://localhost:4000/game/add/${group_id}`, { name, description});
-//   const success = res.status === 200;
-//   if (success) {
-//     console.log("Game added to group successfully!");
-//     await axios.get(`http://localhost:4000/game/all/${group_id}`)
-//       .then((response) => {
-//         console.log("response", response.data.games);
-//         const newGames = response.data.games;
-//         setGames(newGames);
-//         console.log(newGames);
-//         setOpen(false);
-//         navigate(`/dashboard/${group_id}`); // use navigate instead of history.push
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }
-// };
 
 
   return (
