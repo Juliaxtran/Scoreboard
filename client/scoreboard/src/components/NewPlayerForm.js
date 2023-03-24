@@ -12,9 +12,8 @@ import {
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../context/StateContext";
+import { useParams, useNavigate} from "react-router-dom";
+
 
 
 const NewPlayerForm = () => {
@@ -25,31 +24,31 @@ const NewPlayerForm = () => {
     setOpen(true);
   };
 
-const { players, setPlayers} = useContext(Context)
 
 const { group_id } = useParams();
+const navigate = useNavigate();
+
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  axios
+    .post(`http://localhost:4000/group/add/${group_id}`, { email})
+    .then((res) => {
+      const success = res.status === 200;
+      if (success) {
+        console.log("Player successfully added to group!");
+        setOpen(false);
+        window.location.reload();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await axios.post(`http://localhost:4000/group/add/${group_id}`, { email });
-    const success = res.status === 200;
-    if (success) {
-      console.log("Add player to group successfully!");
-      axios.get(`http://localhost:4000/group/players/${group_id}`)
-        .then((response) => {
-          console.log("response", response.data.players);
-          const newPlayers = response.data.players;
-          setPlayers(newPlayers);
-                setOpen(false);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
 
 
   return (

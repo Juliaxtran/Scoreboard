@@ -5,7 +5,7 @@ import NewPlayerForm from "./NewPlayerForm";
 import { Box } from "@mui/system";
 
 
-const AddButton = () => {
+const AddButton = ({setPromise}) => {
 
 
   return (
@@ -15,8 +15,8 @@ const AddButton = () => {
         justifyContent: "center",
         mt: 2
 
-      }}> <NewPlayerForm />
-      <NewGameForm />
+      }}> <NewPlayerForm setPromise={setPromise}/>
+      <NewGameForm setPromise={setPromise}/>
       <NewMatchForm />
 
 

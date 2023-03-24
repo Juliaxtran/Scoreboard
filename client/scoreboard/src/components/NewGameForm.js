@@ -9,8 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Context } from "../context/StateContext";
+import { useParams, useNavigate } from "react-router-dom";
+
+
 
 const NewGameForm = () => {
   const [open, setOpen] = React.useState(false);
@@ -23,49 +24,71 @@ const { group_id } = useParams();
 const [name, setName] = React.useState("");
 const [description, setDescription] = React.useState("");
 
-const {games, setGames} = React.useContext(Context)
 
 
 
 
 
   //add game to a group
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post(`http://localhost:4000/game/add/${group_id}`, { name, description})
-  //     .then((res) => {
-  //       const success = res.status === 200;
-  //       if (success) {
-  //         console.log("Add Group to group successfully");
-  //         setOpen(false);
-  //         window.location.reload();
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(`http://localhost:4000/game/add/${group_id}`, { name, description})
+      .then((res) => {
+        const success = res.status === 200;
+        if (success) {
+          console.log("Add Game to group successfully");
+          window.location.reload();
+          setOpen(false);
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  const res = await axios.post(`http://localhost:4000/game/add/${group_id}`, { name, description});
-  const success = res.status === 200;
-  if (success) {
-    console.log("Game added to group successfully!");
-    axios.get(`http://localhost:4000/game/all/${group_id}`)
-      .then((response) => {
-        console.log("response", response.data.games);
-        const newGames = response.data.games;
-        setGames(newGames);
-        console.log(newGames);
-        setOpen(false);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-  }
-};
+  };
+
+//   const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   const res = await axios.post(`http://localhost:4000/game/add/${group_id}`, { name, description});
+//   const success = res.status === 200;
+//   if (success) {
+//     console.log("Game added to group successfully!");
+//     await axios.get(`http://localhost:4000/game/all/${group_id}`)
+//       .then((response) => {
+//         console.log("response", response.data.games);
+//         const newGames = response.data.games;
+//         setGames(newGames);
+//         console.log(newGames);
+//         setOpen(false);
+//         window.location.reload();
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   }
+// };
+
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
+//   const res = await axios.post(`http://localhost:4000/game/add/${group_id}`, { name, description});
+//   const success = res.status === 200;
+//   if (success) {
+//     console.log("Game added to group successfully!");
+//     await axios.get(`http://localhost:4000/game/all/${group_id}`)
+//       .then((response) => {
+//         console.log("response", response.data.games);
+//         const newGames = response.data.games;
+//         setGames(newGames);
+//         console.log(newGames);
+//         setOpen(false);
+//         navigate(`/dashboard/${group_id}`); // use navigate instead of history.push
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   }
+// };
 
 
   return (

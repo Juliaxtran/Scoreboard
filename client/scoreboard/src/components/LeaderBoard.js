@@ -14,14 +14,14 @@ const LeaderBoard = () => {
 
   const { group_id } = useParams();
   const [leaderboard, setLeaderboard] = useState([])
-  const { setPlayers } = useContext(Context);
+  const { players, setPlayers, matches } = useContext(Context);
 
   useEffect(() => {
     axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, { withCredentials: true })
       .then(res => {
         setLeaderboard(res.data.leaderboard);
       })
-  }, [ group_id, setPlayers]);
+  }, [group_id, setPlayers]);
 
 
   return (
@@ -57,19 +57,20 @@ const LeaderBoard = () => {
               },
             }}
           >
-
-            {/* Profile Container */}
-            {Array.isArray(leaderboard) && leaderboard.slice(0,6).map((player, index) => {
-                let trophyImage;
-                if (index === 0) {
-                  trophyImage = trophy1;
-                } else if (index === 1) {
-                  trophyImage = trophy2 ;
-                } else if (index === 2) {
-                  trophyImage = trophy3;
-                } else {
-                  trophyImage = trophy4;
-                }
+            {matches.length === 0 && Array.isArray(players) && players.slice(0, 6).map((player) => (
+              <h1 key={player.id}>{player.name}</h1>
+            ))}
+            {matches.length > 0 && Array.isArray(leaderboard) && leaderboard.slice(0, 6).map((player, index) => {
+              let trophyImage;
+              if (index === 0) {
+                trophyImage = trophy1;
+              } else if (index === 1) {
+                trophyImage = trophy2;
+              } else if (index === 2) {
+                trophyImage = trophy3;
+              } else {
+                trophyImage = trophy4;
+              }
 
 
               return (

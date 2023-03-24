@@ -15,7 +15,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useState } from "react";
 import { Context } from "../context/StateContext";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const NewMatchForm = () => {
   const { group_id } = useParams();
@@ -24,6 +24,7 @@ const NewMatchForm = () => {
   const [game_id, setGame_id] = useState(null);
   const [date, setDate] = useState(null);
   const [selectedPlayerIds, setSelectedPlayerIds] = useState([]);
+
 
 
   const handleClose = () => setOpen(false);
@@ -99,8 +100,9 @@ const NewMatchForm = () => {
         console.log(res);
         const success = res.status === 200;
         if (success) {
-          setOpen(false);
+
           setMatches(res.data.matches);
+          setOpen(false);
           window.location.reload();
         }
       })

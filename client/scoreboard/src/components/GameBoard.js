@@ -57,7 +57,6 @@ const GameBoard = () => {
       })
       .then((res) => {
        let data = generateNewArray(res.data.games);
-       console.log(data);
         setGames(data);
       });
   }, [group_id, setContextGames]);
