@@ -74,38 +74,39 @@ const NewMatchForm = () => {
     console.log("selectedPlayerIds", selectedPlayerIds);
     console.log("gameId", game_id);
     console.log("Winner", winner);
+    console.log(players);
 
-    const playerData = selectedPlayerIds.map(id => ({
-      id,
-      is_winner: winner.includes(id)
-    }))
+    // const playerData = selectedPlayerIds.map(id => ({
+    //   id,
+    //   is_winner: winner.includes(id)
+    // }))
 
-    console.log(playerData)
+    // console.log(playerData)
 
-    const payload = {
-      game_id,
-      date,
-      players : playerData
-    };
-    console.log("PlayLoad", payload);
-    axios
-      .post(`http://localhost:4000/match/${group_id}`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        const success = res.status === 200;
-        if (success) {
-          setOpen(false);
-          setMatches(res.data.matches);
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // const payload = {
+    //   game_id,
+    //   date,
+    //   players : playerData
+    // };
+    // console.log("PlayLoad", payload);
+    // axios
+    //   .post(`http://localhost:4000/match/${group_id}`, payload, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     const success = res.status === 200;
+    //     if (success) {
+    //       setOpen(false);
+    //       setMatches(res.data.matches);
+    //       window.location.reload();
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   return (

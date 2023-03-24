@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Paper, Avatar, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link, useParams } from "react-router-dom";
@@ -12,15 +12,16 @@ import trophy4 from '../assets/trophy4.png';
 const LeaderBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
 
-  const { group_id } = useParams();
-  const { setPlayers, players } = useContext(Context);
+  // const { group_id } = useParams();
+  // const [leaderboard, setLeaderboard] = useState([])
+  const {  players } = useContext(Context);
 
-  useEffect(() => {
-    axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, { withCredentials: true })
-      .then(res => {
-        setPlayers(res.data.leaderboard);
-      })
-  }, [setPlayers, group_id]);
+  // useEffect(() => {
+  //   axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, { withCredentials: true })
+  //     .then(res => {
+  //       setLeaderboard(res.data.leaderboard);
+  //     })
+  // }, [ group_id]);
 
 
   return (
@@ -88,9 +89,9 @@ const LeaderBoard = () => {
                     {/* Profile Info */}
                     <div className="leader-info">
                       <h1>{player.name}</h1>
-                      <h3>Wins: {player.total_wins}</h3>
+                      {/* <h3>Wins: {player.total_wins}</h3>
                       <h3>Total matches : {player.total_matches}</h3>
-                      <h3>Win Rate: % {Number(player.win_ratio).toFixed(1)}</h3>
+                      <h3>Win Rate: % {Number(player.win_ratio).toFixed(1)}</h3> */}
                     </div>
                   </div>
                 </Paper>

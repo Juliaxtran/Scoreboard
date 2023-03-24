@@ -2,15 +2,16 @@ import React from "react";
 import { Paper, Box, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Context } from "../context/StateContext";
 import { useParams } from "react-router-dom";
-import {  useContext, useEffect } from "react";
+import {  useContext, useEffect , useState} from "react";
+import { Context } from "../context/StateContext";
 
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
   const { group_id } = useParams();
-  const { games, setGames } = useContext(Context);
+  const [games, setGames] = useState([]);
 
+  const { setGames: setContextGames } = useContext(Context);
 
   function generateNewArray(gameData) {
     let gamesObj = {};
@@ -58,10 +59,12 @@ const GameBoard = () => {
        let data = generateNewArray(res.data.games);
        console.log(data);
         setGames(data);
-
-
       });
-  }, [group_id, setGames]);
+  }, [group_id, setContextGames]);
+
+
+
+
 
 
 

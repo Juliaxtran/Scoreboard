@@ -25,28 +25,49 @@ const NewPlayerForm = () => {
     setOpen(true);
   };
 
-const { setPlayers} = useContext(Context)
+const { players, setPlayers} = useContext(Context)
 
 const { group_id } = useParams();
 
 //add player to group
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post(`http://localhost:4000/group/add/${group_id}`, { email })
+  //     .then((res) => {
+  //       const success = res.status === 200;
+  //       if (success) {
+  //         console.log("Add player to group successfully!");
+  //         setOpen(false);
+  //         setPlayers(res.data.players)
+  //         window.location.reload();
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`http://localhost:4000/group/add/${group_id}`, { email })
-      .then((res) => {
-        const success = res.status === 200;
-        if (success) {
-          console.log("Add player to group successfully!");
-          setOpen(false);
-          setPlayers(res.data.players)
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const res = await axios.post(`http://localhost:4000/group/add/${group_id}`, { email });
+    const success = res.status === 200;
+    if (success) {
+      console.log("Add player to group successfully!");
+      axios.get(`http://localhost:4000/group/players/${group_id}`)
+        .then((response) => {
+          console.log("response", response.data.players);
+          const newPlayers = response.data.players;
+          setPlayers(newPlayers);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
+
 
   return (
     <>
