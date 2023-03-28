@@ -9,6 +9,7 @@ const AddButton = () => {
 
 
   return (
+    <div className="add-buttons">
     <Box
       sx={{
         display: "flex",
@@ -21,6 +22,7 @@ const AddButton = () => {
 
 
     </Box>
+    </div>
   );
 };
 
