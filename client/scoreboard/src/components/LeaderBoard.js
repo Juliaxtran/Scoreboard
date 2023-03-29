@@ -24,6 +24,36 @@ const LeaderBoard = () => {
       })
   }, [group_id, setPlayers]);
 
+  // String Avatar
+  function stringToColor(string: string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+      hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = '#';
+
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+  }
+
+  function stringAvatar(name: string) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+  }
+
 
   return (
     <>
@@ -38,13 +68,19 @@ const LeaderBoard = () => {
             p: 3,
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
-            height: isMobile ? 820 : 1000,
+            height: "100vh",
+            background: "rgba( 9, 9, 9, 0.4 )",
+            boxShadow: "0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+            backdropFilter: "blur( 8.5px )",
+            "-webkit-backdrop-filter": "blur( 8.5px )",
+            borderRadius: "10px",
+            border: "1px solid rgba( 255, 255, 255, 0.18 )",
           },
         }}
       >
-        <Paper sx={{ backgroundColor: "#cdcdcdf5" }} elevation={0}>
+        <Paper elevation={0}>
           <Link to="/players" style={{ textDecoration: "none", color: 'black' }}>
-            <h1>Leaderboard</h1>
+            <h1 style={{color: "white"}}>Leaderboard</h1>
           </Link>
           <Box
             sx={{
@@ -60,7 +96,7 @@ const LeaderBoard = () => {
           >
 
 
-            {matches.length === 0 && Array.isArray(players) && players.slice(0, 6).map((player) => (
+            {matches.length === 0 && Array.isArray(players) && players.slice(0, 4).map((player) => (
               <h1 key={player.id}>{player.name}</h1>
             ))}
 
