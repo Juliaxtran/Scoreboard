@@ -53,7 +53,11 @@ body {
   width: 350;
 }
 
-
+.add-buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 /* New Match Form  */
 .new-fields{
   display: flex;
@@ -81,6 +85,8 @@ body {
   /* Leaderboard component */
   .leaderboard-game-match {
     display: block;
+    margin-left: 13px;
+    margin-top: -15em;
   }
 
   .leaderboard-button {
@@ -89,6 +95,11 @@ body {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
+  }
+
+  .add-buttons{
+flex-direction: column;
+text-align: center;
   }
 
   /* Match Component */

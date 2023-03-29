@@ -9,6 +9,7 @@ const AddButton = ({setPromise}) => {
 
 
   return (
+    <div className="add-buttons">
     <Box
       sx={{
         display: "flex",
@@ -21,6 +22,7 @@ const AddButton = ({setPromise}) => {
 
 
     </Box>
+    </div>
   );
 };
 
