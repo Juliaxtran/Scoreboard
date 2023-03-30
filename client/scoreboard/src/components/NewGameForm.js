@@ -46,7 +46,7 @@ const [description, setDescription] = React.useState("");
         }
       })
       .catch((error) => {
-        setError('Game not added to group!');
+        setError('Game not created, please try again');
         console.log(error);
       });
   };

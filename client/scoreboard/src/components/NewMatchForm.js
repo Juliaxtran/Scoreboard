@@ -107,6 +107,7 @@ const NewMatchForm = ({setError}) => {
         }
       })
       .catch((error) => {
+        setError('Match not created, please try again');
         console.error(error);
       });
   };
