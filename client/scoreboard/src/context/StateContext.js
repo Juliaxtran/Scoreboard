@@ -1,6 +1,7 @@
 import React,{ createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const Context = createContext();
 
 
@@ -15,6 +16,7 @@ const StateContext = ({ children }) => {
   const [winnerVal, setWinnerVal] = useState([]);
   const [groupName, setGroupName] = useState([]);
 
+
   useEffect(() => {
     axios.get('http://localhost:4000/api/profile', { withCredentials: true })
       .then(response => {
@@ -24,6 +26,8 @@ const StateContext = ({ children }) => {
         console.error(error);
       });
   }, []);
+
+
 
   const handleAddPlayer = () => {
     const abc = [...playerVal, []]

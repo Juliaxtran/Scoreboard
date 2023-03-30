@@ -90,13 +90,13 @@ const LeaderBoard = () => {
 
 
 {/* This conditions renders the page a lot of times when its called */}
-            {/* {matches.length === 0 && Array.isArray(players) && players.slice(0, 4).map((player, index) => {
+            {matches.length === 0 && Array.isArray(players) && players.slice(0, 4).map((player, index) => {
 
               return (
                 <div className="leader-box-empty" key={player.id}>
-                  <h1>{index + 1}</h1> */}
+                  <h1>{index + 1}</h1>
                   {/* Avatar icon */}
-                  {/* <Avatar
+                  <Avatar
                     sx={{
                       width: 56,
                       height: 56,
@@ -105,15 +105,15 @@ const LeaderBoard = () => {
                     }}
                   >
                     {player.name[0]}{player.lastname[0]}
-                  </Avatar> */}
+                  </Avatar>
                   {/* Profile Info */}
-                  {/* <div className="leader-info">
+                  <div className="leader-info">
                     <h2 style={{ fontWeight: 'bold' }}>{player.name}</h2>
                   </div>
                 </div>
               );
             })
-            } */}
+            }
 
 
 

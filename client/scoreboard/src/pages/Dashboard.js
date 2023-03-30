@@ -31,7 +31,7 @@ const Dashboard = () => {
     })).catch((error) => {
       console.log(error);
     });
-  });
+  },[]);
 
   setTimeout(() => {
     setError(null);
