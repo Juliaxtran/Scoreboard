@@ -13,7 +13,7 @@ import { useParams } from "react-router-dom";
 
 
 
-const NewGameForm = () => {
+const NewGameForm = ({setError}) => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => {
@@ -38,6 +38,7 @@ const [description, setDescription] = React.useState("");
       .then((res) => {
         const success = res.status === 200;
         if (success) {
+          setError('Success');
           console.log("Add Game to group successfully");
           window.location.reload();
           setOpen(false);
@@ -45,6 +46,7 @@ const [description, setDescription] = React.useState("");
         }
       })
       .catch((error) => {
+        setError('Game not added to group!');
         console.log(error);
       });
   };

@@ -12,7 +12,13 @@ import { Alert } from "@mui/material";
 
 
 const Dashboard = () => {
-  const [error, setError] = React.useState(null);
+  const getErrorMessage = () => {
+    const error = localStorage.getItem('error');
+    localStorage.removeItem('error');
+    return error;
+  }
+
+    const [error, setError] = React.useState(getErrorMessage());
   const { setGames, setPlayers, setMatches} = useContext(Context);
   const { group_id } = useParams();
 
@@ -28,6 +34,7 @@ const Dashboard = () => {
       setGames(newGames);
       setPlayers(newPlayers);
       setMatches(newMatches);
+
     })).catch((error) => {
       console.log(error);
     });
@@ -44,7 +51,7 @@ const Dashboard = () => {
       {error && (
        <Alert
        severity={
-         error === "Player successfully added to group!"
+         error === "Success"
            ? "success"
            : "error"
        }

@@ -5,23 +5,21 @@ import NewPlayerForm from "./NewPlayerForm";
 import { Box } from "@mui/system";
 
 
-const AddButton = ({setError, error}) => {
+const AddButton = ({ setError }) => {
 
 
   return (
     <div className="add-buttons">
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        mt: 2
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          mt: 2
 
-      }}> <NewPlayerForm setError={setError} error={error}/>
-      <NewGameForm setError={setError} error={error}/>
-      <NewMatchForm  setError={setError} error={error}/>
-
-
-    </Box>
+        }}> <NewPlayerForm setError={setError} />
+        <NewGameForm setError={setError} />
+        <NewMatchForm setError={setError} />
+      </Box>
     </div>
   );
 };

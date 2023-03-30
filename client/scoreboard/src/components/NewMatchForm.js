@@ -17,7 +17,7 @@ import { Context } from "../context/StateContext";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const NewMatchForm = () => {
+const NewMatchForm = ({setError}) => {
   const { group_id } = useParams();
   const [open, setOpen] = React.useState(false);
   const [winner, setWinner] = useState([]);
@@ -100,7 +100,7 @@ const NewMatchForm = () => {
         console.log(res);
         const success = res.status === 200;
         if (success) {
-
+          setError('Success');
           setMatches(res.data.matches);
           setOpen(false);
           window.location.reload();
