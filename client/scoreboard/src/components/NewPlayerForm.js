@@ -16,7 +16,7 @@ import { useParams} from "react-router-dom";
 
 
 
-const NewPlayerForm = () => {
+const NewPlayerForm = ({setError, error}) => {
   const [open, setOpen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const handleClose = () => setOpen(false);
@@ -39,17 +39,14 @@ const handleSubmit = (e) => {
         console.log("Player successfully added to group!");
         setOpen(false);
         window.location.reload();
+        setError('Player successfully added to group!')
       }
     })
     .catch((error) => {
       console.log(error);
+      setError('Player not added to group! Make sure the player has an account.')
     });
 };
-
-
-
-
-
 
   return (
     <>

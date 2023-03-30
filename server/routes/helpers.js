@@ -83,7 +83,7 @@ const addPlayerToGroup = function (group_id, player_id, db) {
 
 
  const getPlayersByGroupId = function (group_id, db) {
-  const queryString = `SELECT p.name, p.id
+  const queryString = `SELECT p.name, p.id, p.lastName
   FROM Groups_Players gp
   JOIN Players p ON gp.player_id = p.id
   WHERE gp.group_id = $1;`

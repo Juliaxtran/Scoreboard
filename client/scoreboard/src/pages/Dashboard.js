@@ -8,6 +8,7 @@ import NavBar from "../components/NavBar";
 import "./Dashboard.css";
 import {Context} from "../context/StateContext";
 import axios from "axios";
+import { Alert } from "@mui/material";
 
 
 const Dashboard = () => {
@@ -32,23 +33,27 @@ const Dashboard = () => {
     });
   });
 
+  setTimeout(() => {
+    setError(null);
+  }, 5000);
+
+
   return (
     <div className="dashboard">
       <NavBar />
       {error && (
        <Alert
        severity={
-         error === "Login Successful" ||
-         error === "Registration Successful, Please Login"
+         error === "Player successfully added to group!"
            ? "success"
            : "error"
        }
-       style={{ position: "fixed", top: "80px", left: "50%", transform: "translateX(-50%)" }}
+       style={{ position: "fixed", top: "80px", left: "50%", transform: "translateX(-50%)", zIndex: 1000}}
      >
        {error}
      </Alert>
       )}
-      <AddButton className='addButtons'/>
+      <AddButton className='addButtons' error={error} setError={setError}/>
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
         <div className="game-match">
