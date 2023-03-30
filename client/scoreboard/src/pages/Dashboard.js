@@ -11,7 +11,7 @@ import axios from "axios";
 
 
 const Dashboard = () => {
-
+  const [error, setError] = React.useState(null);
   const { setGames, setPlayers, setMatches} = useContext(Context);
   const { group_id } = useParams();
 
@@ -33,8 +33,21 @@ const Dashboard = () => {
   });
 
   return (
-    <>
+    <div className="dashboard">
       <NavBar />
+      {error && (
+       <Alert
+       severity={
+         error === "Login Successful" ||
+         error === "Registration Successful, Please Login"
+           ? "success"
+           : "error"
+       }
+       style={{ position: "fixed", top: "80px", left: "50%", transform: "translateX(-50%)" }}
+     >
+       {error}
+     </Alert>
+      )}
       <AddButton className='addButtons'/>
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
@@ -46,7 +59,7 @@ const Dashboard = () => {
           <GameBoard />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
