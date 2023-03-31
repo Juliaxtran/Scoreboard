@@ -12,13 +12,8 @@ import { Alert } from "@mui/material";
 
 
 const Dashboard = () => {
-  const getErrorMessage = () => {
-    const error = localStorage.getItem('error');
-    localStorage.removeItem('error');
-    return error;
-  }
 
-    const [error, setError] = React.useState(getErrorMessage());
+    const [error, setError] = React.useState(null);
   const { setGames, setPlayers, setMatches} = useContext(Context);
   const { group_id } = useParams();
 

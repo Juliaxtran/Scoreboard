@@ -1,4 +1,4 @@
-
+// Login and register Queries
 const getUserByEmail = function (email, db) {
   const queryStringEmail = `SELECT *
   FROM players
@@ -218,6 +218,34 @@ ORDER BY g.id;`
   });
 };
 
+const gameStatsTable = function (group_id, db) {
+  const queryString = `SELECT gm.group_id, g.name AS game_name, p.id, p.name,
+  COUNT(CASE WHEN mp.is_winner = TRUE THEN 1 END) AS total_wins,
+  COUNT(CASE WHEN mp.is_winner = FALSE THEN 1 END) AS total_losses
+FROM groups_matches gm
+JOIN matches m ON m.id = gm.match_id
+JOIN games g ON g.id = m.game_id
+JOIN matches_players mp ON mp.match_id = m.id
+JOIN players p ON p.id = mp.player_id
+WHERE gm.group_id = $1
+GROUP BY gm.group_id, g.id, p.id, p.name
+ORDER BY gm.group_id, g.id, total_wins DESC, total_losses DESC;`
+  const values = [group_id];
+  return db
+  .query(queryString, values)
+  .then((result) => {
+    if (result.rows.length === 0) {
+      console.log("No games statsTable");
+      return [];
+    } else {
+      return result.rows;
+    }
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+};
+
 // Matches queries
 const createMatch = function (game_id, date, db) {
   const queryString = `INSERT INTO Matches (game_id, date) VALUES ($1, $2) RETURNING *;`;
@@ -319,5 +347,6 @@ module.exports = {
   addMatchPlayers,
   getMatchesByGroupId,
   getLeaderBoardByGroupId,
-  getGameStats
+  getGameStats,
+  gameStatsTable
 }
