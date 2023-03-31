@@ -13,49 +13,6 @@ const GameBoard = () => {
 
   const { setGames: setContextGames, matches} = useContext(Context);
 
-  // function getWinnersAndLosers(games) {
-  //   const results = {};
-  //   games.forEach((game) => {
-  //     const { game: gameName, player, wins, losses } = game;
-  //     if (!results[gameName]) {
-  //       results[gameName] = {
-  //         players: {},
-  //         highestWins: 0,
-  //         highestLosses: 0,
-  //       };
-  //     }
-  //     const gameResults = results[gameName];
-  //     if (!gameResults.players[player]) {
-  //       gameResults.players[player] = {
-  //         wins: 0,
-  //         losses: 0,
-  //       };
-  //     }
-  //     const playerResults = gameResults.players[player];
-  //     playerResults.wins += parseInt(wins);
-  //     playerResults.losses += parseInt(losses);
-  //     if (playerResults.wins > gameResults.highestWins) {
-  //       gameResults.highestWins = playerResults.wins;
-  //     }
-  //     if (playerResults.losses > gameResults.highestLosses) {
-  //       gameResults.highestLosses = playerResults.losses;
-  //     }
-  //   });
-  //   return Object.entries(results).map(([game, gameResults]) => {
-  //     const winners = [];
-  //     const losers = [];
-  //     Object.entries(gameResults.players).forEach(([player, playerResults]) => {
-  //       if (playerResults.wins === gameResults.highestWins) {
-  //         winners.push(player);
-  //       }
-  //       if (playerResults.losses === gameResults.highestLosses) {
-  //         losers.push(player);
-  //       }
-  //     });
-  //     return { game, winners, losers };
-  //   });
-  // }
-
   function getWinnersAndLosers(games) {
     const results = {};
     games.forEach((game) => {
@@ -150,7 +107,7 @@ const GameBoard = () => {
         <div>
           <div>
             <Link
-              to="/games"
+              to={`/games/${group_id}/`}
               style={{ textDecoration: "none", color: "black" }}
             >
               <h1 style={{ textAlign: 'left', mt: 2 }}>Games</h1>

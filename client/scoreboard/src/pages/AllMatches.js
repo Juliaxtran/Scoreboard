@@ -28,17 +28,17 @@ const AllMatches = () => {
   <table>
       <thead>
         <tr>
-          <th>Match ID</th>
+          <th>Match</th>
           <th>Game Name</th>
           <th>Player Names</th>
-          <th>Winners</th>
+          <th>Winner(s)</th>
           <th>Played On</th>
         </tr>
       </thead>
       <tbody>
-        {matches.map((match) => (
+        {matches.map((match, index) => (
           <tr key={match.match_id}>
-            <td>{match.match_id}</td>
+            <td>{index + 1}</td>
             <td>{match.game_name}</td>
             <td>{match.player_names}</td>
             <td>{match.winners}</td>
