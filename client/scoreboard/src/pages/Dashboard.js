@@ -59,9 +59,6 @@ const Dashboard = () => {
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
         <div className="game-match">
-          <div className="leaderboard-button">
-
-          </div>
           <MatchBoard />
           <GameBoard />
         </div>
