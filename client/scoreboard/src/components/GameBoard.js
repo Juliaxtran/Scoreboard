@@ -78,7 +78,6 @@ const GameBoard = () => {
           width: 'fit-content',
           height: isMobile ? 1000 : 350,
           p:1,
-          border: '1px solid red'
         },
       }}
     >
@@ -92,7 +91,6 @@ const GameBoard = () => {
           display: "flex",
           justifyContent: "center",
           textAlign: "center",
-          border: '1px solid blue'
         }}
         elevation={0}
       >
