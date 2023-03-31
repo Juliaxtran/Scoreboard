@@ -1,28 +1,148 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 const AllPlayers = () => {
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [playerStats, setPlayerStats] = useState([]);
 
 
   const { group_id } = useParams();
 
+  function restructureData(data) {
+    const result = {};
+    for (const game of data.games) {
+      const name = game.name;
+
+      const gameName = game.game_name;
+      const totalWins = parseInt(game.total_wins);
+      const totalLosses = parseInt(game.total_losses);
+
+      if (!(name in result)) {
+        result[name] = {};
+      }
+
+      if (!(gameName in result[name])) {
+        result[name][gameName] = {totalWins, totalLosses};
+      } else {
+        result[name][gameName].totalWins += totalWins;
+        result[name][gameName].totalLosses += totalLosses;
+      }
+    }
+
+    const finalResult = [];
+    for (const [name, games] of Object.entries(result)) {
+      for (const [gameName, stats] of Object.entries(games)) {
+        const totalMatches = stats.totalWins + stats.totalLosses;
+        const winRate = totalMatches === 0 ? 0 : stats.totalWins / totalMatches;
+        const winRateRounded = Math.round(winRate * 100).toFixed(1) ;
+        finalResult.push({
+          name,
+          gameName,
+          totalWins: stats.totalWins,
+          totalLosses: stats.totalLosses,
+          totalMatches,
+          winRateRounded,
+        });
+      }
+    }
+
+    return finalResult;
+  }
+
+
+
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:4000/game/stats/table/${group_id}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       const data = restructureData(res.data);
+  //       console.log(data);
+  //       setPlayerStats(data);
+  //     });
+  // }, []);
+
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:4000/game/stats/table/${group_id}`, {
+    axios.all([
+      axios.get(`http://localhost:4000/game/stats/table/${group_id}`, {
+        withCredentials: true,
+      }),
+      axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, {
         withCredentials: true,
       })
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, []);
+    ]).then(axios.spread((statsResponse, leaderboardResponse) => {
+      const statsPerGame = restructureData(statsResponse.data);
+     const leaderboardData = leaderboardResponse.data.leaderboard;
+      setPlayerStats(statsPerGame);
+      setLeaderboard(leaderboardData);
+    })).catch((error) => {
+      console.log(error);
+    });
+  }, [group_id]);
 
 
 
   return (
     <>
       <NavBar />
+      <h1>Win rates</h1>
+      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Matches</th>
+            <th>Wins</th>
+
+            <th>Win Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboard.map((player) => (
+            <tr key={player.id}>
+              <td>{player.name}</td>
+              <td>{player.total_matches}</td>
+              <td>{player.total_wins}</td>
+              <td>%{Number(player.win_ratio).toFixed(1)}</td>
+
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+      <>
+      <h2>Stats Per Game </h2>
+      <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Game</th>
+          <th>Matches</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>WinRate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {playerStats.map((player) => (
+          <tr key={player.name}>
+            <td>{player.name}</td>
+            <td>{player.gameName}</td>
+            <td>{player.totalMatches}</td>
+            <td>{player.totalWins}</td>
+            <td>{player.totalLosses}</td>
+            <td>%{player.winRateRounded}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    </>
+
 
     </>
   )

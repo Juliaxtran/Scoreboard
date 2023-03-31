@@ -85,13 +85,10 @@ module.exports = (db, dbQueries) => {
 
     router.get("/stats/table/:groupId", (req, res) => {
         const { groupId  } = req.params;
-        console.log('Group Id', groupId);
         dbQueries
             .gameStatsTable(groupId, db)
             .then((games) => {
                 if (games) {
-                    console.log('Game table stats being called')
-                    console.log(games)
                     res.status(200).send({
                         success: true,
                         message: "Stats found",
