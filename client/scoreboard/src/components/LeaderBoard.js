@@ -30,6 +30,8 @@ const LeaderBoard = () => {
         setLeaderboard(leaderboard);
       });
 
+
+
   }, [group_id, setPlayers, setLeaderboard]);
 
 
@@ -70,7 +72,7 @@ const LeaderBoard = () => {
       >
         <Paper elevation={0}>
           <Link to="/players" style={{ textDecoration: "none", color: 'black' }}>
-            <h1 style={{ color: "white" }}>Leaderboard</h1>
+            <h1 style={{ color: "white", marginBottom:"1.5em" }}>Leaderboard</h1>
           </Link>
           <Box
             sx={{
@@ -100,7 +102,7 @@ const LeaderBoard = () => {
                     sx={{
                       width: 56,
                       height: 56,
-                      background: player.backgroundColor,
+                      background: getRandomColor(),
                       padding: 1,
                     }}
                   >

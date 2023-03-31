@@ -11,7 +11,7 @@ const GameBoard = () => {
   const { group_id } = useParams();
   const [games, setGames] = useState([]);
 
-  const { setGames: setContextGames } = useContext(Context);
+  const { setGames: setContextGames, matches} = useContext(Context);
 
   function generateNewArray(gameData) {
     let gamesObj = {};
@@ -74,10 +74,11 @@ const GameBoard = () => {
       sx={{
         textAlign: "center",
         "& > :not(style)": {
-          m: 1,
-          width: isMobile ? 335 : 905,
+          m: 1.5,
+          width: 'fit-content',
           height: isMobile ? 1000 : 350,
-          p:1
+          p:1,
+          border: '1px solid red'
         },
       }}
     >
@@ -91,6 +92,7 @@ const GameBoard = () => {
           display: "flex",
           justifyContent: "center",
           textAlign: "center",
+          border: '1px solid blue'
         }}
         elevation={0}
       >
@@ -105,7 +107,7 @@ const GameBoard = () => {
           </div>
           <div className="box-container">
             {/* Game container */}
-            {Array.isArray(games) && games.slice(0, 4).map((game) => {
+            {matches.length > 0 && Array.isArray(games) && games.slice(0, 4).map((game) => {
                 return (
                   <React.Fragment key={game.id}>
                     <Paper
