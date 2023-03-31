@@ -183,7 +183,7 @@ const getAllGamesByGroupId = function (group_id, db) {
 };
 
 const getGameStats  = function (group_id, db) {
-  const queryString = `select games.name as game,
+  const queryString = `select games.name as game, games.id as game_id, games.description as description,
   players.name as player,
   count(CASE WHEN matches_players.is_winner THEN 1 END) as wins,
      (select count(*)) - count(CASE WHEN matches_players.is_winner THEN 1 END) as losses
@@ -193,7 +193,7 @@ const getGameStats  = function (group_id, db) {
  join matches_players on matches.id = matches_players.match_id
  join players on matches_players.player_id = players.id
  where groups.id = $1
- group by game, player
+ group by game, player, games.id , description
  order by wins desc
  ;`
   const values = [group_id];

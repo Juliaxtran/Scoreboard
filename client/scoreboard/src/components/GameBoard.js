@@ -13,12 +13,57 @@ const GameBoard = () => {
 
   const { setGames: setContextGames, matches} = useContext(Context);
 
+  // function getWinnersAndLosers(games) {
+  //   const results = {};
+  //   games.forEach((game) => {
+  //     const { game: gameName, player, wins, losses } = game;
+  //     if (!results[gameName]) {
+  //       results[gameName] = {
+  //         players: {},
+  //         highestWins: 0,
+  //         highestLosses: 0,
+  //       };
+  //     }
+  //     const gameResults = results[gameName];
+  //     if (!gameResults.players[player]) {
+  //       gameResults.players[player] = {
+  //         wins: 0,
+  //         losses: 0,
+  //       };
+  //     }
+  //     const playerResults = gameResults.players[player];
+  //     playerResults.wins += parseInt(wins);
+  //     playerResults.losses += parseInt(losses);
+  //     if (playerResults.wins > gameResults.highestWins) {
+  //       gameResults.highestWins = playerResults.wins;
+  //     }
+  //     if (playerResults.losses > gameResults.highestLosses) {
+  //       gameResults.highestLosses = playerResults.losses;
+  //     }
+  //   });
+  //   return Object.entries(results).map(([game, gameResults]) => {
+  //     const winners = [];
+  //     const losers = [];
+  //     Object.entries(gameResults.players).forEach(([player, playerResults]) => {
+  //       if (playerResults.wins === gameResults.highestWins) {
+  //         winners.push(player);
+  //       }
+  //       if (playerResults.losses === gameResults.highestLosses) {
+  //         losers.push(player);
+  //       }
+  //     });
+  //     return { game, winners, losers };
+  //   });
+  // }
+
   function getWinnersAndLosers(games) {
     const results = {};
     games.forEach((game) => {
-      const { game: gameName, player, wins, losses } = game;
+      const { game: gameName, game_id, description, player, wins, losses } = game;
       if (!results[gameName]) {
         results[gameName] = {
+          game_id,
+          description,
           players: {},
           highestWins: 0,
           highestLosses: 0,
@@ -52,9 +97,10 @@ const GameBoard = () => {
           losers.push(player);
         }
       });
-      return { game, winners, losers };
+      return { game, game_id: gameResults.game_id, description: gameResults.description, winners, losers };
     });
   }
+
 
   useEffect(() => {
     axios
@@ -63,6 +109,7 @@ const GameBoard = () => {
       })
       .then((res) => {
         let data = getWinnersAndLosers(res.data.games);
+        console.log(data);
         setGameStats(data);
       });
   }, [group_id, setContextGames]);
@@ -113,7 +160,7 @@ const GameBoard = () => {
             {/* Game container */}
             {matches.length > 0 && Array.isArray(gameStats) && gameStats.slice(0, 4).map((game) => {
                 return (
-                  <React.Fragment key={game.id}>
+                  <React.Fragment key={game.game_id}>
                     <Paper
                       sx={{
                         display: "flex",
@@ -125,7 +172,7 @@ const GameBoard = () => {
                         px: 1,
 
                       }}
-                      key={game.id}
+                      key={game.game_id}
                     >
                       {/* Game Info  */}
                       <h1>{game.game}</h1>
@@ -133,7 +180,7 @@ const GameBoard = () => {
                       <h3>Description:</h3>
                       <p>{game.description}</p>
                       {/* TODO:Query or equation to calculate most wins and losses */}
-                      <h3>Most WINS</h3>
+                      <h3>Most Wins</h3>
                       <p>{game.winners.join(",")}</p>
                       <h3>Most Losses</h3>
                       <p>{game.losers.join(",")}</p>

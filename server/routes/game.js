@@ -83,6 +83,8 @@ module.exports = (db, dbQueries) => {
             });
     });
 
+    //  Win lose ratio for each game for each person in a group
+
     router.get("/stats/table/:groupId", (req, res) => {
         const { groupId  } = req.params;
         dbQueries
