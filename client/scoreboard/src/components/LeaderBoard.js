@@ -71,9 +71,7 @@ const LeaderBoard = () => {
         }}
       >
         <Paper elevation={0}>
-          <Link to="/players" style={{ textDecoration: "none", color: 'black' }}>
-            <h1 style={{ color: "white", marginBottom:"1.5em" }}>Leaderboard</h1>
-          </Link>
+          <h1 style={{ color: "white", marginBottom: "1.5em" }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
           <Box
             sx={{
               display: "flex",
@@ -91,7 +89,7 @@ const LeaderBoard = () => {
           >
 
 
-{/* This conditions renders the page a lot of times when its called */}
+            {/* This conditions renders the page a lot of times when its called */}
             {matches.length === 0 && Array.isArray(players) && players.slice(0, 4).map((player, index) => {
 
               return (
@@ -158,7 +156,11 @@ const LeaderBoard = () => {
               )
             })}
           </Box>
+          <Link to={`/players/${group_id}`} className='links'>
+            <h3>See more stats</h3>
+        </Link>
         </Paper>
+
       </Box>
     </>
   );
