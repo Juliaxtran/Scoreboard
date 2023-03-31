@@ -9,7 +9,7 @@ import { Context } from "../context/StateContext";
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
   const { group_id } = useParams();
-  const [games, setGames] = useState([]);
+  const [gameStats, setGameStats] = useState([]);
 
   const { setGames: setContextGames, matches} = useContext(Context);
 
@@ -63,8 +63,7 @@ const GameBoard = () => {
       })
       .then((res) => {
         let data = getWinnersAndLosers(res.data.games);
-        console.log("New games", data);
-        // setGames(data);
+        setGameStats(data);
       });
   }, [group_id, setContextGames]);
 
@@ -112,7 +111,7 @@ const GameBoard = () => {
           </div>
           <div className="box-container">
             {/* Game container */}
-            {matches.length > 0 && Array.isArray(games) && games.slice(0, 4).map((game) => {
+            {matches.length > 0 && Array.isArray(gameStats) && gameStats.slice(0, 4).map((game) => {
                 return (
                   <React.Fragment key={game.id}>
                     <Paper
@@ -129,15 +128,15 @@ const GameBoard = () => {
                       key={game.id}
                     >
                       {/* Game Info  */}
-                      <h1>{game.name}</h1>
+                      <h1>{game.game}</h1>
 
                       <h3>Description:</h3>
                       <p>{game.description}</p>
                       {/* TODO:Query or equation to calculate most wins and losses */}
                       <h3>Most WINS</h3>
-                      <p>{game.player_most_wins.join(",")}</p>
+                      <p>{game.winners.join(",")}</p>
                       <h3>Most Losses</h3>
-                      <p>{game.player_most_losses.join(",")}</p>
+                      <p>{game.losers.join(",")}</p>
                     </Paper>
                   </React.Fragment>
                 );
