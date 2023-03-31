@@ -60,7 +60,7 @@ const LeaderBoard = () => {
             p: 3,
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
-            height: "100vh",
+            height: "fit-content",
             maxHeight: 800,
             backgroundColor: "rgba( 0, 0, 0, 0.6 )",
             // backgroundImage: "url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png')",
@@ -71,7 +71,7 @@ const LeaderBoard = () => {
         }}
       >
         <Paper elevation={0}>
-          <h1 style={{ color: "white" }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
+          <h1 style={{ color: "white", marginBottom:'1em' }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
           <Box
             sx={{
               display: "flex",
