@@ -18,9 +18,9 @@ limit 1
 ;
 
 
--- most wins in a group for a specific game ---
-select games.name,
- players.name,
+-- most wins in a group for a specific game --- This seems like its the correct code
+select games.name as game,
+ players.name as player,
  count(CASE WHEN matches_players.is_winner THEN 1 END) as wins,
     (select count(*)) - count(CASE WHEN matches_players.is_winner THEN 1 END) as losses
 from games
@@ -29,10 +29,9 @@ join matches on games.id = matches.game_id
 join matches_players on matches.id = matches_players.match_id
 join players on matches_players.player_id = players.id
 where groups.id = 1
-and games.id = 2
-group by games.name, players.name
+
+group by game, player
 order by wins desc
-limit 1
 ;
 
 
@@ -84,7 +83,7 @@ FROM groups_matches gm
 JOIN matches m ON m.id = gm.match_id
 JOIN games g ON g.id = m.game_id
 WHERE gm.group_id = 1
-GROUP BY gm.group_id, g.id, m.id  -- added m.id to the GROUP BY clause
+GROUP BY gm.group_id, g.id, m.id
 ORDER BY gm.group_id, g.id;
 
 
@@ -124,7 +123,7 @@ SELECT g.id AS game_id, g.name AS name, g.description As description,
 FROM games g
 LEFT JOIN matches m ON m.game_id = g.id
 LEFT JOIN groups_matches gm ON gm.match_id = m.id
-WHERE gm.group_id = $1 OR gm.group_id IS NULL
+WHERE gm.group_id = 1
 GROUP BY g.id, g.name, m.id
 ORDER BY g.id;
 

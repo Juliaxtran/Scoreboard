@@ -120,7 +120,9 @@ FROM
 WHERE
   g.id = $1
 GROUP BY
-  mp.player_id, p.name;`
+  mp.player_id, p.name
+ORDER BY
+  win_ratio DESC;`
   const values = [group_id];
   return db
    .query(queryString, values)
@@ -181,34 +183,26 @@ const getAllGamesByGroupId = function (group_id, db) {
 };
 
 const getGameStats  = function (group_id, db) {
-  const queryString = `SELECT g.id AS game_id, g.name AS name, g.description As description,
-  COALESCE(
-    (SELECT p.name FROM matches_players mp
-     JOIN players p ON mp.player_id = p.id
-     WHERE mp.match_id = m.id AND mp.is_winner = TRUE
-     GROUP BY mp.player_id, p.name ORDER BY COUNT(*) DESC LIMIT 1),
-    'To Be Determined'
-  ) AS player_most_wins,
-  COALESCE(
-    (SELECT p.name FROM matches_players mp
-     JOIN players p ON mp.player_id = p.id
-     WHERE mp.match_id = m.id AND mp.is_winner = FALSE
-     GROUP BY mp.player_id, p.name ORDER BY COUNT(*) DESC LIMIT 1),
-    'To Be Determined'
-  ) AS player_most_losses
-FROM games g
-LEFT JOIN matches m ON m.game_id = g.id
-LEFT JOIN groups_matches gm ON gm.match_id = m.id
-WHERE gm.group_id = $1
-GROUP BY g.id, g.name, m.id
-ORDER BY g.id;`
+  const queryString = `select games.name as game,
+  players.name as player,
+  count(CASE WHEN matches_players.is_winner THEN 1 END) as wins,
+     (select count(*)) - count(CASE WHEN matches_players.is_winner THEN 1 END) as losses
+ from games
+ join groups on games.group_id = groups.id
+ join matches on games.id = matches.game_id
+ join matches_players on matches.id = matches_players.match_id
+ join players on matches_players.player_id = players.id
+ where groups.id = $1
+ group by game, player
+ order by wins desc
+ ;`
   const values = [group_id];
   return db
   .query(queryString, values)
   .then((result) => {
     if (result.rows.length === 0) {
       console.log("No games found");
-      return "No games found";
+      return [];
     } else {
       return result.rows;
     }

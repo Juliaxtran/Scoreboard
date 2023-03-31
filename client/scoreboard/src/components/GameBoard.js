@@ -13,42 +13,48 @@ const GameBoard = () => {
 
   const { setGames: setContextGames, matches} = useContext(Context);
 
-  function generateNewArray(gameData) {
-    let gamesObj = {};
-
-    for (let i = 0; i < gameData.length; i++) {
-      let game = gameData[i];
-      let gameId = game.game_id;
-
-      if (!gamesObj[gameId]) {
-        gamesObj[gameId] = {
-          id: gameId,
-          name: game.name,
-          description: game.description,
-          player_most_wins: [game.player_most_wins],
-          player_most_losses: [game.player_most_losses]
+  function getWinnersAndLosers(games) {
+    const results = {};
+    games.forEach((game) => {
+      const { game: gameName, player, wins, losses } = game;
+      if (!results[gameName]) {
+        results[gameName] = {
+          players: {},
+          highestWins: 0,
+          highestLosses: 0,
         };
-      } else {
-        if (!gamesObj[gameId].player_most_wins.includes(game.player_most_wins)) {
-          gamesObj[gameId].player_most_wins.push(game.player_most_wins);
-        }
-
-        if (!gamesObj[gameId].player_most_losses.includes(game.player_most_losses)) {
-          gamesObj[gameId].player_most_losses.push(game.player_most_losses);
-        }
       }
-    }
-
-    let newGamesArray = [];
-
-    for (let game in gamesObj) {
-      newGamesArray.push(gamesObj[game]);
-    }
-
-    return newGamesArray;
+      const gameResults = results[gameName];
+      if (!gameResults.players[player]) {
+        gameResults.players[player] = {
+          wins: 0,
+          losses: 0,
+        };
+      }
+      const playerResults = gameResults.players[player];
+      playerResults.wins += parseInt(wins);
+      playerResults.losses += parseInt(losses);
+      if (playerResults.wins > gameResults.highestWins) {
+        gameResults.highestWins = playerResults.wins;
+      }
+      if (playerResults.losses > gameResults.highestLosses) {
+        gameResults.highestLosses = playerResults.losses;
+      }
+    });
+    return Object.entries(results).map(([game, gameResults]) => {
+      const winners = [];
+      const losers = [];
+      Object.entries(gameResults.players).forEach(([player, playerResults]) => {
+        if (playerResults.wins === gameResults.highestWins) {
+          winners.push(player);
+        }
+        if (playerResults.losses === gameResults.highestLosses) {
+          losers.push(player);
+        }
+      });
+      return { game, winners, losers };
+    });
   }
-
-
 
   useEffect(() => {
     axios
@@ -56,8 +62,9 @@ const GameBoard = () => {
         withCredentials: true,
       })
       .then((res) => {
-       let data = generateNewArray(res.data.games);
-        setGames(data);
+        let data = getWinnersAndLosers(res.data.games);
+        console.log("New games", data);
+        // setGames(data);
       });
   }, [group_id, setContextGames]);
 

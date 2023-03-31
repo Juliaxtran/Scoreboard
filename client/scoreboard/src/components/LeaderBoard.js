@@ -60,7 +60,7 @@ const LeaderBoard = () => {
             p: 3,
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
-            height: "fit-content",
+            height: "100vh",
             maxHeight: 800,
             backgroundColor: "rgba( 0, 0, 0, 0.6 )",
             // backgroundImage: "url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png')",
@@ -71,7 +71,7 @@ const LeaderBoard = () => {
         }}
       >
         <Paper elevation={0}>
-          <h1 style={{ color: "white", marginBottom: "1.5em" }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
+          <h1 style={{ color: "white" }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
           <Box
             sx={{
               display: "flex",
@@ -90,7 +90,7 @@ const LeaderBoard = () => {
 
 
             {/* This conditions renders the page a lot of times when its called */}
-            {matches.length === 0 && Array.isArray(players) && players.slice(0, 4).map((player, index) => {
+            {matches.length === 0 && Array.isArray(players) && players.slice(0, 8).map((player, index) => {
 
               return (
                 <div className="leader-box-empty" key={player.id}>
@@ -98,8 +98,8 @@ const LeaderBoard = () => {
                   {/* Avatar icon */}
                   <Avatar
                     sx={{
-                      width: 56,
-                      height: 56,
+                      width: 45,
+                      height: 45,
                       background: getRandomColor(),
                       padding: 1,
                     }}
@@ -156,9 +156,12 @@ const LeaderBoard = () => {
               )
             })}
           </Box>
-          <Link to={`/players/${group_id}`} className='links'>
-            <h3>See more stats</h3>
-        </Link>
+          {
+            matches.length > 0 && <Link to={`/players/${group_id}`} className='links'>
+              <h3>See more stats</h3>
+            </Link>
+          }
+
         </Paper>
 
       </Box>
