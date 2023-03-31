@@ -15,9 +15,11 @@ const MatchBoard = () => {
   const { group_id } = useParams();
   const { setMatches, matches } = useContext(Context);
 
+
+
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
+      .get(`http://localhost:4000/matches/${group_id}`, { withCredentials: true })
       .then((res) => {
         setMatches(res.data.matches);
       });
@@ -50,7 +52,7 @@ const MatchBoard = () => {
           <div>
             <div>
               <Link
-                to="/matches"
+                to={`/matches/${group_id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <h1 style={{ textAlign: 'left', mt: 2 }}>Previous Matches</h1>

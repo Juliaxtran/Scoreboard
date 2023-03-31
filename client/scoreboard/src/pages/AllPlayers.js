@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { Button } from '@mui/material';
 import axios from 'axios';
 
 const AllPlayers = () => {
@@ -51,20 +52,6 @@ const AllPlayers = () => {
     return finalResult;
   }
 
-
-
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:4000/game/stats/table/${group_id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       const data = restructureData(res.data);
-  //       console.log(data);
-  //       setPlayerStats(data);
-  //     });
-  // }, []);
 
 
   useEffect(() => {
@@ -142,6 +129,9 @@ const AllPlayers = () => {
       </tbody>
     </table>
     </>
+    <Link to={`/dashboard/${group_id}`}>
+          <Button>Return to Dashboard</Button>
+      </Link>
 
 
     </>
