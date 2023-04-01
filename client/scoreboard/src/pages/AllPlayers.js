@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
 import { useParams, Link } from "react-router-dom";
 import { Button, Box } from '@mui/material';
@@ -9,7 +9,7 @@ import CustomTable from '../components/CustomTable';
 const AllPlayers = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [playerStats, setPlayerStats] = useState([]);
-  const [players, setPlayers] = useState([]);
+  const [ setPlayers] = useState([]);
 
 
   const { group_id } = useParams();

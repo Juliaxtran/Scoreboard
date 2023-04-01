@@ -1,9 +1,7 @@
 import React, { useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
 import AddButton from "../components/AddButton";
-import GameBoard from "../components/GameBoard";
 import LeaderBoard from "../components/LeaderBoard";
-import MatchBoard from "../components/MatchBoard";
 import MatchBoardTest from "../components/MatchBoardTest";
 import GameBoardTest from "../components/GameBoardTest";
 import NavBar from "../components/NavBar";

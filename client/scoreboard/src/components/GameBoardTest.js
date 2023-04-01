@@ -12,7 +12,7 @@ const GameBoard = () => {
   const [gameStats, setGameStats] = useState([]);
   const [games, setGames] = useState([]);
 
-  const { setGames: setContextGames, matches } = useContext(Context);
+  const {  matches } = useContext(Context);
 
   function getWinnersAndLosers(games) {
     const results = {};
