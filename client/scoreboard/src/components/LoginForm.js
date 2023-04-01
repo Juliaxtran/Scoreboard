@@ -43,7 +43,6 @@ export default function LoginForm({ setError, setIsSignUp }) {
       if (success) {
         setError("Login Successful");
         setTimeout(() => setError(null), 3000);
-        // sessionStorage.setItem('user', JSON.stringify(player)); // store user in sessionStorage
         navigate('/group');
       } else {
         setError("Login Failed")

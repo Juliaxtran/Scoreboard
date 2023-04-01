@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar';
 import { useParams, Link } from "react-router-dom";
-import { Button } from '@mui/material';
+import { Button , Box} from '@mui/material';
 import axios from 'axios';
 import { Context } from '../context/StateContext';
 import { useContext, useEffect, useState} from 'react';
@@ -42,13 +42,14 @@ const AllMatches = () => {
   return (
     <>
   <NavBar />
-  <h2>All Matches </h2>
-
+  <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>All Matches</h1>
+  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: 2 }}>
     <CustomTable data={matchData} headings={['Match', 'Game', 'Players', 'Winner(s)', 'Played On']}/>
 
           <Link to={`/dashboard/${group_id}`}>
           <Button>Return to Dashboard</Button>
     </Link>
+    </Box>
 
     </>
   )

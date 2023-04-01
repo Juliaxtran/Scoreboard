@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useMediaQuery } from '@mui/material';
+
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${ tableCellClasses.head }`]: {
@@ -32,8 +35,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const CustomTable = ({ data, headings }) => {
+  const isMobile = useMediaQuery("(max-width:420px)");
   return (
-    <TableContainer component={Paper} sx={{ width: 600 }}>
+    <TableContainer component={Paper} sx={{ width : isMobile ?  350 : 600 , height: 'fit-content' }}>
       <Table sx={{ minWidth: 500 }} aria-label="customized table">
         <TableHead>
           <TableRow>

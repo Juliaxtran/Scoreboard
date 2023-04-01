@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import NavBar from '../components/NavBar';
 import { useParams, Link } from "react-router-dom";
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import axios from 'axios';
 import CustomTable from '../components/CustomTable';
+
 
 const AllPlayers = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [playerStats, setPlayerStats] = useState([]);
+  const [players, setPlayers] = useState([]);
 
 
   const { group_id } = useParams();
@@ -26,7 +28,7 @@ const AllPlayers = () => {
       }
 
       if (!(gameName in result[name])) {
-        result[name][gameName] = {totalWins, totalLosses};
+        result[name][gameName] = { totalWins, totalLosses };
       } else {
         result[name][gameName].totalWins += totalWins;
         result[name][gameName].totalLosses += totalLosses;
@@ -38,7 +40,7 @@ const AllPlayers = () => {
       for (const [gameName, stats] of Object.entries(games)) {
         const totalMatches = stats.totalWins + stats.totalLosses;
         const winRate = totalMatches === 0 ? 0 : stats.totalWins / totalMatches;
-        const winRateRounded = '%' + Math.round(winRate * 100).toFixed(1)   ;
+        const winRateRounded = '%' + Math.round(winRate * 100).toFixed(1);
         finalResult.push({
           name,
           gameName,
@@ -65,6 +67,14 @@ const AllPlayers = () => {
     });
   }
 
+  const resturturePlayers = (data) => {
+    return data.map((player) => {
+      return {
+        name: player.name,
+        lastName: player.lastname,
+      };
+    });
+  }
 
 
   useEffect(() => {
@@ -74,29 +84,49 @@ const AllPlayers = () => {
       }),
       axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, {
         withCredentials: true,
+      }),
+      axios.get(`http://localhost:4000/group/players/${group_id}`, {
+        withCredentials: true,
       })
-    ]).then(axios.spread((statsResponse, leaderboardResponse) => {
+    ]).then(axios.spread((statsResponse, leaderboardResponse, playersResponse) => {
       const statsPerGame = restructureGameData(statsResponse.data);
-     const leaderboardData = restructureLeaderboard(leaderboardResponse.data.leaderboard);
+      const leaderboardData = restructureLeaderboard(leaderboardResponse.data.leaderboard);
+      const playerData = resturturePlayers(playersResponse.data.players);
       setPlayerStats(statsPerGame);
       setLeaderboard(leaderboardData);
-      console.log(leaderboard)
+      setPlayers(playerData);
+
     })).catch((error) => {
       console.log(error);
     });
   }, [group_id]);
 
-
+  // {fontFamily: 'Fugaz One, cursive'}
 
   return (
     <>
       <NavBar />
-      <h1>Win rates</h1>
-      <CustomTable data={leaderboard} headings={['Player', 'Total Matches', 'Total Wins', 'Win Rate']}/>
-      <CustomTable data={playerStats} headings={['Player', 'Game', 'Total Matches', 'Total Wins', 'Total Losses', 'Win Rate']}/>
-    <Link to={`/dashboard/${group_id}`}>
-          <Button>Return to Dashboard</Button>
+      <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>Player Statistics</h1>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '2em',
+
+      }} >
+
+<h3 style={{textAlign: 'start',fontFamily: 'Electrolize'}}>Total Win Rate</h3>
+        <CustomTable data={leaderboard} headings={['Player', 'Total Matches', 'Total Wins', 'Win Rate']} />
+        <h3 style={{textAlign: 'start',fontFamily: 'Electrolize'}}>Win Rate Per Game</h3>
+        <CustomTable data={playerStats} headings={['Player', 'Game', 'Total Matches', 'Total Wins', 'Total Losses', 'Win Rate']} />
+        <Link to={`/dashboard/${group_id}`}>
+        <Button sx={{marginBotton: '1em'}}>Return to Dashboard</Button>
       </Link>
+
+
+      </Box>
+
     </>
   )
 }

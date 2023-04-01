@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import {  useContext, useEffect , useState} from "react";
 import { Context } from "../context/StateContext";
 import NavBar from "../components/NavBar";
-import { Button } from "@mui/material";
+import { Button, Box} from "@mui/material";
 import CustomTable from "../components/CustomTable";
 
 const GameBoard = () => {
@@ -13,7 +13,8 @@ const GameBoard = () => {
   const { group_id } = useParams();
   const [gameStats, setGameStats] = useState([]);
 
-  const { setGames: setContextGames, matches} = useContext(Context);
+
+  const {setGames: setContextGames,matches} = useContext(Context);
 
 
   function getWinnersAndLosers(games) {
@@ -76,10 +77,20 @@ const GameBoard = () => {
   return (
     <>
     <NavBar />
+    <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>Game Statistics</h1>
+    <Box sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '2em',
+
+      }} >
      <CustomTable data={gameStats} headings={['Game', 'Description', 'Most Wins', 'Most Loses']}/>
   <Link to={`/dashboard/${group_id}`}>
           <Button>Return to Dashboard</Button>
       </Link>
+      </Box>
     </>
 
 
