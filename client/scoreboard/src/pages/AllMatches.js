@@ -4,20 +4,38 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import axios from 'axios';
 import { Context } from '../context/StateContext';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState} from 'react';
+
+import CustomTable from '../components/CustomTable';
 
 
 const AllMatches = () => {
 
   const { group_id } = useParams();
+  const [matchData, setMatchData] = useState([]);
+  const {setMatches} = useContext(Context);
 
-  const { setMatches, matches } = useContext(Context);
+  const transformData = (data) => {
+    return data.map((match, index) => {
+      const playedOn = new Date(match.played_on);
+      const formattedPlayedOn = playedOn.toISOString().slice(0, 10);
+
+      return {
+        index: index + 1,
+        gameName: match.game_name,
+        playerNames: match.player_names,
+        winners: match.winners,
+        playedOn: formattedPlayedOn
+      }
+    });
+  }
 
   useEffect(() => {
     axios
       .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
       .then((res) => {
-        setMatches(res.data.matches);
+        const matches = transformData(res.data.matches)
+        setMatchData(matches);
       });
   }, [group_id, setMatches]);
 
@@ -25,31 +43,13 @@ const AllMatches = () => {
     <>
   <NavBar />
   <h2>All Matches </h2>
-  <table>
-      <thead>
-        <tr>
-          <th>Match</th>
-          <th>Game Name</th>
-          <th>Player Names</th>
-          <th>Winner(s)</th>
-          <th>Played On</th>
-        </tr>
-      </thead>
-      <tbody>
-        {matches.map((match, index) => (
-          <tr key={match.match_id}>
-            <td>{index + 1}</td>
-            <td>{match.game_name}</td>
-            <td>{match.player_names}</td>
-            <td>{match.winners}</td>
-            <td> {new Date(match.played_on).toISOString().slice(0, 10)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    <Link to={`/dashboard/${group_id}`}>
+
+    <CustomTable data={matchData} headings={['Match', 'Game', 'Players', 'Winner(s)', 'Played On']}/>
+
+          <Link to={`/dashboard/${group_id}`}>
           <Button>Return to Dashboard</Button>
-      </Link>
+    </Link>
+
     </>
   )
 }

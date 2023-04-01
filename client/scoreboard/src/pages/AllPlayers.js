@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar';
 import { useParams, Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import axios from 'axios';
+import CustomTable from '../components/CustomTable';
 
 const AllPlayers = () => {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -11,7 +12,7 @@ const AllPlayers = () => {
 
   const { group_id } = useParams();
 
-  function restructureData(data) {
+  function restructureGameData(data) {
     const result = {};
     for (const game of data.games) {
       const name = game.name;
@@ -37,7 +38,7 @@ const AllPlayers = () => {
       for (const [gameName, stats] of Object.entries(games)) {
         const totalMatches = stats.totalWins + stats.totalLosses;
         const winRate = totalMatches === 0 ? 0 : stats.totalWins / totalMatches;
-        const winRateRounded = Math.round(winRate * 100).toFixed(1) ;
+        const winRateRounded = '%' + Math.round(winRate * 100).toFixed(1)   ;
         finalResult.push({
           name,
           gameName,
@@ -52,6 +53,18 @@ const AllPlayers = () => {
     return finalResult;
   }
 
+  const restructureLeaderboard = (data) => {
+    return data.map((player) => {
+      const formatedWinRate = '%' + parseFloat(player.win_ratio).toFixed(1);
+      return {
+        name: player.name,
+        totalWins: player.total_wins,
+        totalMatches: player.total_matches,
+        winRatio: formatedWinRate,
+      };
+    });
+  }
+
 
 
   useEffect(() => {
@@ -63,10 +76,11 @@ const AllPlayers = () => {
         withCredentials: true,
       })
     ]).then(axios.spread((statsResponse, leaderboardResponse) => {
-      const statsPerGame = restructureData(statsResponse.data);
-     const leaderboardData = leaderboardResponse.data.leaderboard;
+      const statsPerGame = restructureGameData(statsResponse.data);
+     const leaderboardData = restructureLeaderboard(leaderboardResponse.data.leaderboard);
       setPlayerStats(statsPerGame);
       setLeaderboard(leaderboardData);
+      console.log(leaderboard)
     })).catch((error) => {
       console.log(error);
     });
@@ -78,62 +92,11 @@ const AllPlayers = () => {
     <>
       <NavBar />
       <h1>Win rates</h1>
-      <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Matches</th>
-            <th>Wins</th>
-
-            <th>Win Ratio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaderboard.map((player) => (
-            <tr key={player.id}>
-              <td>{player.name}</td>
-              <td>{player.total_matches}</td>
-              <td>{player.total_wins}</td>
-              <td>%{Number(player.win_ratio).toFixed(1)}</td>
-
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-      <>
-      <h2>Stats Per Game </h2>
-      <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Game</th>
-          <th>Matches</th>
-          <th>Wins</th>
-          <th>Losses</th>
-          <th>WinRate</th>
-        </tr>
-      </thead>
-      <tbody>
-        {playerStats.map((player) => (
-          <tr key={player.name}>
-            <td>{player.name}</td>
-            <td>{player.gameName}</td>
-            <td>{player.totalMatches}</td>
-            <td>{player.totalWins}</td>
-            <td>{player.totalLosses}</td>
-            <td>%{player.winRateRounded}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    </>
+      <CustomTable data={leaderboard} headings={['Player', 'Total Matches', 'Total Wins', 'Win Rate']}/>
+      <CustomTable data={playerStats} headings={['Player', 'Game', 'Total Matches', 'Total Wins', 'Total Losses', 'Win Rate']}/>
     <Link to={`/dashboard/${group_id}`}>
           <Button>Return to Dashboard</Button>
       </Link>
-
-
     </>
   )
 }

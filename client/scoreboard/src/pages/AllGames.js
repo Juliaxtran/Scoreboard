@@ -6,6 +6,7 @@ import {  useContext, useEffect , useState} from "react";
 import { Context } from "../context/StateContext";
 import NavBar from "../components/NavBar";
 import { Button } from "@mui/material";
+import CustomTable from "../components/CustomTable";
 
 const GameBoard = () => {
 
@@ -13,6 +14,7 @@ const GameBoard = () => {
   const [gameStats, setGameStats] = useState([]);
 
   const { setGames: setContextGames, matches} = useContext(Context);
+
 
   function getWinnersAndLosers(games) {
     const results = {};
@@ -45,17 +47,15 @@ const GameBoard = () => {
       }
     });
     return Object.entries(results).map(([game, gameResults]) => {
-      const winners = [];
-      const losers = [];
-      Object.entries(gameResults.players).forEach(([player, playerResults]) => {
-        if (playerResults.wins === gameResults.highestWins) {
-          winners.push(player);
-        }
-        if (playerResults.losses === gameResults.highestLosses) {
-          losers.push(player);
-        }
-      });
-      return { game, game_id: gameResults.game_id, description: gameResults.description, winners, losers };
+      const winners = Object.entries(gameResults.players)
+        .filter(([player, playerResults]) => playerResults.wins === gameResults.highestWins)
+        .map(([player]) => player)
+        .join(", ");
+      const losers = Object.entries(gameResults.players)
+        .filter(([player, playerResults]) => playerResults.losses === gameResults.highestLosses)
+        .map(([player]) => player)
+        .join(", ");
+      return { game, description: gameResults.description, winners, losers };
     });
   }
 
@@ -76,26 +76,7 @@ const GameBoard = () => {
   return (
     <>
     <NavBar />
- <table>
-    <thead>
-      <tr>
-        <th>Game</th>
-        <th>Description</th>
-        <th>Most Wins</th>
-        <th>Most Loses</th>
-      </tr>
-    </thead>
-    <tbody>
-      {gameStats.map((game) => (
-        <tr key={game.game_id}>
-          <td>{game.game}</td>
-          <td>{game.description}</td>
-          <td>{game.winners.join(', ')}</td>
-          <td>{game.losers.join(', ')}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+     <CustomTable data={gameStats} headings={['Game', 'Description', 'Most Wins', 'Most Loses']}/>
   <Link to={`/dashboard/${group_id}`}>
           <Button>Return to Dashboard</Button>
       </Link>
