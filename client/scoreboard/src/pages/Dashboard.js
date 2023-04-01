@@ -5,7 +5,6 @@ import LeaderBoard from "../components/LeaderBoard";
 import MatchBoardTest from "../components/MatchBoardTest";
 import GameBoardTest from "../components/GameBoardTest";
 import NavBar from "../components/NavBar";
-import "./Dashboard.css";
 import {Context} from "../context/StateContext";
 import axios from "axios";
 import { Alert } from "@mui/material";
@@ -58,8 +57,9 @@ const Dashboard = () => {
       <AddButton className='addButtons' error={error} setError={setError}/>
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
+        <GameBoardTest />
          <MatchBoardTest />
-          <GameBoardTest />
+
           {/* <MatchBoard />
           <GameBoard /> */}
 

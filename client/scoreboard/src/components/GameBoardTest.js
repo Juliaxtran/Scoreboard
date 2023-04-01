@@ -123,7 +123,9 @@ const GameBoard = () => {
             </h1>
           </Link>
 
-          {matches.length === 0 && games.length === 0 && <h3 style={{ color: "white" }}>Add some Games to begin</h3>}
+          {matches.length === 0 && games.length === 0 && (
+               <h3 style={{ color: 'white' }}>Add a Game To Start</h3>
+          )}
           {matches.length === 0 && games.length > 0 && Array.isArray(games) && games.map((game) => {
             return (
               <Paper

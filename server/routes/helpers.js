@@ -172,7 +172,7 @@ const getAllGamesByGroupId = function (group_id, db) {
   .then((result) => {
     if (result.rows.length === 0) {
       console.log("No games found");
-      return "No games found";
+      return [];
     } else {
       return result.rows;
     }
