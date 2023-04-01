@@ -4,6 +4,7 @@ import AddButton from "../components/AddButton";
 import GameBoard from "../components/GameBoard";
 import LeaderBoard from "../components/LeaderBoard";
 import MatchBoard from "../components/MatchBoard";
+import MatchBoardTest from "../components/MatchBoardTest";
 import NavBar from "../components/NavBar";
 import "./Dashboard.css";
 import {Context} from "../context/StateContext";
@@ -58,10 +59,11 @@ const Dashboard = () => {
       <AddButton className='addButtons' error={error} setError={setError}/>
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
-        <div className="game-match">
-          <MatchBoard />
-          <GameBoard />
-        </div>
+         <MatchBoardTest />
+         <MatchBoardTest />
+          {/* <MatchBoard />
+          <GameBoard /> */}
+
       </div>
     </div>
   );
