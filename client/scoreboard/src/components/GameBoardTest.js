@@ -61,23 +61,6 @@ const GameBoard = () => {
 
 
 
-  // useEffect(() => {
-  //   axios.all([
-  //     axios.get(`http://localhost:4000/game/all/${group_id}`),
-  //     axios.get(`http://localhost:4000/group/players/${group_id}`),
-  //     axios.get(`http://localhost:4000/match/${group_id}`)
-  //   ]).then(axios.spread((gamesResponse, playersResponse, matchResponse) => {
-  //     const newGames = gamesResponse.data.games;
-  //     const newPlayers = playersResponse.data.players;
-  //     const newMatches = matchResponse.data.matches;
-  //     setGames(newGames);
-  //     setPlayers(newPlayers);
-  //     setMatches(newMatches);
-
-  //   })).catch((error) => {
-  //     console.log(error);
-  //   });
-  // },[]);
 
   useEffect (() => {
     axios.all([
@@ -85,7 +68,7 @@ const GameBoard = () => {
       axios.get(`http://localhost:4000/game/stats/${group_id}`)
     ]).then(axios.spread((gamesResponse, statsResponse) => {
       const newGames = gamesResponse.data.games;
-      const newStats = statsResponse.data.games;
+      const newStats = getWinnersAndLosers(statsResponse.data.games);
       setGames(newGames);
       setGameStats(newStats);
     })).catch((error) => {
@@ -94,17 +77,7 @@ const GameBoard = () => {
   },[]);
 
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:4000/game/stats/${group_id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       let data = getWinnersAndLosers(res.data.games);
-  //       console.log(data);
-  //       setGameStats(data);
-  //     });
-  // }, [group_id, setContextGames]);
+
 
 
   return (
