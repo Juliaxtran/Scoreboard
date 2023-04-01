@@ -1,13 +1,10 @@
+
 import React, { useContext, useEffect } from "react";
-import { Paper, Box, useMediaQuery } from "@mui/material";
-import { Link } from "react-router-dom";
-// import ModeEditIcon from "@mui/icons-material/ModeEdit";
-// import IconButton from "@mui/material/IconButton";
-// import ClearIcon from "@mui/icons-material/Clear";
-import "../App.css";
 import axios from "axios";
+import { Paper, Box, useMediaQuery } from "@mui/material";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../context/StateContext";
-import { useParams } from "react-router-dom";
+import "../App.css";
 
 
 const MatchBoardTest = () => {
@@ -25,18 +22,6 @@ const MatchBoardTest = () => {
         setMatches(res.data.matches);
       });
   }, [group_id, setMatches]);
-
-
-
-
-  function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
 
 
 
@@ -76,8 +61,8 @@ const MatchBoardTest = () => {
       >
         <Paper elevation={0}>
 
-          <Link to={`/matches/${group_id}`} style={{ textDecoration: "none", color: 'black' }}>
-            <h1 style={{ color: "white", marginBottom: "1.5em"}}>
+          <Link className='dashboard-heading' to={`/matches/${group_id}`} style={{ textDecoration: "none", color: 'black' }}>
+            <h1 className='dashboard-heading'style={{ color: "white", marginBottom: "1em"}}>
               Matches
             </h1>
           </Link>

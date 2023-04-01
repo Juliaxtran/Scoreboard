@@ -9,6 +9,9 @@ import trophy2 from '../assets/trophy22.png';
 import trophy3 from '../assets/trophy33.png';
 import trophy4 from '../assets/trophy44.png';
 import './Leaderboard.css'
+import "../App.css";
+
+
 
 const LeaderBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
@@ -72,7 +75,7 @@ const LeaderBoard = () => {
       >
         <Paper elevation={0}>
         <Link to={`/players/${group_id}`} style={{ textDecoration: "none", color: 'black' }}>
-          <h1 style={{ color: "white", marginBottom:'1em' }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
+          <h1 className='dashboard-heading' style={{ color: "white", marginBottom:'1em' }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
           </Link>
           <Box
             sx={{

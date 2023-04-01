@@ -5,6 +5,7 @@ import GameBoard from "../components/GameBoard";
 import LeaderBoard from "../components/LeaderBoard";
 import MatchBoard from "../components/MatchBoard";
 import MatchBoardTest from "../components/MatchBoardTest";
+import GameBoardTest from "../components/GameBoardTest";
 import NavBar from "../components/NavBar";
 import "./Dashboard.css";
 import {Context} from "../context/StateContext";
@@ -60,7 +61,7 @@ const Dashboard = () => {
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
          <MatchBoardTest />
-         <MatchBoardTest />
+          <GameBoardTest />
           {/* <MatchBoard />
           <GameBoard /> */}
 

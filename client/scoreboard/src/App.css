@@ -9,6 +9,7 @@ body {
   text-align: center;
 }
 
+
 /* Scoreboard.js => localhost:300/test */
 .forms {
   display: flex;
@@ -28,6 +29,7 @@ body {
   flex-direction: column;
   gap: .5em;
 }
+
 
 /* Desktop Responsive */
 
