@@ -64,12 +64,24 @@ const LeaderBoard = () => {
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
             height: "fit-content",
-            maxHeight: 800,
+            maxHeight: 600,
+            overflowY: "scroll",
             backgroundColor: "rgba( 0, 0, 0, 0.6 )",
             // backgroundImage: "url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png')",
             boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             backdropFilter: "blur( 8.5px )",
             borderRadius: "10px",
+            "&::-webkit-scrollbar": {
+              width: "10px",
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "rgba(255, 255, 255, 0.1)",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "black",
+              borderRadius: "20px",
+              border: "3px solid rgba(0, 0, 0, 0)",
+            },
           },
         }}
       >

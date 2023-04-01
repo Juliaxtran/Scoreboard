@@ -10,6 +10,7 @@ const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
   const { group_id } = useParams();
   const [gameStats, setGameStats] = useState([]);
+  const [games, setGames] = useState([]);
 
   const { setGames: setContextGames, matches } = useContext(Context);
 
@@ -59,17 +60,51 @@ const GameBoard = () => {
   }
 
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:4000/game/stats/${group_id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        let data = getWinnersAndLosers(res.data.games);
-        console.log(data);
-        setGameStats(data);
-      });
-  }, [group_id, setContextGames]);
+
+  // useEffect(() => {
+  //   axios.all([
+  //     axios.get(`http://localhost:4000/game/all/${group_id}`),
+  //     axios.get(`http://localhost:4000/group/players/${group_id}`),
+  //     axios.get(`http://localhost:4000/match/${group_id}`)
+  //   ]).then(axios.spread((gamesResponse, playersResponse, matchResponse) => {
+  //     const newGames = gamesResponse.data.games;
+  //     const newPlayers = playersResponse.data.players;
+  //     const newMatches = matchResponse.data.matches;
+  //     setGames(newGames);
+  //     setPlayers(newPlayers);
+  //     setMatches(newMatches);
+
+  //   })).catch((error) => {
+  //     console.log(error);
+  //   });
+  // },[]);
+
+  useEffect (() => {
+    axios.all([
+      axios.get(`http://localhost:4000/game/all/${group_id}`),
+      axios.get(`http://localhost:4000/game/stats/${group_id}`)
+    ]).then(axios.spread((gamesResponse, statsResponse) => {
+      const newGames = gamesResponse.data.games;
+      const newStats = statsResponse.data.games;
+      setGames(newGames);
+      setGameStats(newStats);
+    })).catch((error) => {
+      console.log(error);
+    });
+  },[]);
+
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:4000/game/stats/${group_id}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       let data = getWinnersAndLosers(res.data.games);
+  //       console.log(data);
+  //       setGameStats(data);
+  //     });
+  // }, [group_id, setContextGames]);
 
 
   return (
@@ -86,6 +121,7 @@ const GameBoard = () => {
             p: 3,
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
+            height: 'fit-content',
             maxHeight: "600px",
             overflowY: "scroll",
             backgroundColor: "rgba( 0, 0, 0, 0.6 )",
@@ -113,6 +149,31 @@ const GameBoard = () => {
               Games
             </h1>
           </Link>
+
+          {matches.length === 0 && games.length === 0 && <h3 style={{ color: "white" }}>Add some Games to begin</h3>}
+          {matches.length === 0 && games.length > 0 && Array.isArray(games) && games.map((game) => {
+            return (
+              <Paper
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  height: '100px',
+                  width: isMobile ? 310 : 350,
+                  margin: '0 auto',
+                  mb: '1em',
+                  p: 2,
+                }}
+                key={game.game_id}
+              >
+                <h1>{game.name}</h1>
+                <h3>Description:</h3>
+                <p>{game.description}</p>
+              </Paper>
+            );
+          })
+          }
 
 
           {Array.isArray(gameStats) && gameStats.map((game) => {

@@ -4,6 +4,7 @@ import axios from "axios";
 import { Paper, Box, useMediaQuery } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../context/StateContext";
+import matchImg from "../assets/matches.png";
 import "../App.css";
 
 
@@ -39,6 +40,7 @@ const MatchBoardTest = () => {
             p: 3,
             mt: isMobile ? 35 : 0,
             width: isMobile ? 335 : 400,
+            height: 'fit-content',
             maxHeight: "600px",
             overflowY: "scroll",
             backgroundColor: "rgba( 0, 0, 0, 0.6 )",
@@ -66,7 +68,21 @@ const MatchBoardTest = () => {
               Matches
             </h1>
           </Link>
-
+           {/* This conditions renders the page a lot of times when its called */}
+           {matches.length === 0 &&
+           <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+            width: '100%',
+            gap: '1em',
+           }}>
+           <h3 style={{ color: 'white' }}>No Matches Played Yet</h3>
+           <img src={matchImg} alt="matches" style={{ width: '300px', height: '300px', borderRadius:'5px' }} />
+           </Box>
+           }
 
           {Array.isArray(matches) && matches.map((match) => {
             return (
