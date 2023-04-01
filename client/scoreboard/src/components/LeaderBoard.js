@@ -71,7 +71,9 @@ const LeaderBoard = () => {
         }}
       >
         <Paper elevation={0}>
+        <Link to={`/players/${group_id}`} style={{ textDecoration: "none", color: 'black' }}>
           <h1 style={{ color: "white", marginBottom:'1em' }}>{matches.length === 0 ? 'Players' : 'Leaderboard'}</h1>
+          </Link>
           <Box
             sx={{
               display: "flex",

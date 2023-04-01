@@ -110,6 +110,11 @@ const MatchBoardTest = () => {
               </Paper>
             );
           })}
+      {
+            matches.length > 0 && <Link to={`/matches/${group_id}`} className='links'>
+              <h3>See more stats</h3>
+            </Link>
+          }
 
         </Paper>
       </Box>
