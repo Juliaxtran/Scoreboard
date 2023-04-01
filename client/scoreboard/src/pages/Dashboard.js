@@ -16,6 +16,8 @@ const Dashboard = () => {
   const { setGames, setPlayers, setMatches} = useContext(Context);
   const { group_id } = useParams();
 
+
+
   useEffect(() => {
     axios.all([
       axios.get(`http://localhost:4000/game/all/${group_id}`),
@@ -40,7 +42,12 @@ const Dashboard = () => {
 
 
   return (
-    <div className="dashboard">
+    <div className="dashboard" style={{
+      height: "100vh",
+      width: "100%",
+      background: `linear-gradient(to bottom, #434343, #000000)`,
+
+    }} >
       <NavBar />
       {error && (
        <Alert
