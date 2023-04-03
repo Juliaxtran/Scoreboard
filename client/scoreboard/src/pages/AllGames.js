@@ -75,7 +75,13 @@ const GameBoard = () => {
 
 
   return (
-    <>
+    <Box
+    className="gameStatsPage"
+    sx={{
+      height: '100vh',
+      background: 'linear-gradient(to top, #8e9eab, #eef2f3)',
+    }}>
+
     <NavBar />
     <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>Game Statistics</h1>
     <Box sx={{
@@ -91,7 +97,7 @@ const GameBoard = () => {
           <Button>Return to Dashboard</Button>
       </Link>
       </Box>
-    </>
+    </Box>
 
 
   )

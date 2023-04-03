@@ -40,7 +40,11 @@ const AllMatches = () => {
   }, [group_id, setMatches]);
 
   return (
-    <>
+    <Box className='matchesStatsPage'
+    sx={{
+      height: '100vh',
+      background: 'linear-gradient(to top, #8e9eab, #eef2f3)',
+    }}>
   <NavBar />
   <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>All Matches</h1>
   <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: 2 }}>
@@ -51,7 +55,7 @@ const AllMatches = () => {
     </Link>
     </Box>
 
-    </>
+    </Box>
   )
 }
 

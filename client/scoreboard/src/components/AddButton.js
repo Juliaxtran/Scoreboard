@@ -15,8 +15,8 @@ const AddButton = ({ setError }) => {
           display: "flex",
           justifyContent: "center",
           mt: 2
-
-        }}> <NewPlayerForm setError={setError} />
+        }}>
+        <NewPlayerForm setError={setError} />
         <NewGameForm setError={setError} />
         <NewMatchForm setError={setError} />
       </Box>

@@ -46,9 +46,6 @@ const Dashboard = () => {
       height: "100vh",
       width: "100%",
       background: `linear-gradient(to bottom, #3a6186, #89253e)`
-      ,
-
-
     }} >
       <NavBar />
       {error && (
@@ -67,11 +64,7 @@ const Dashboard = () => {
       <div className="leaderboard-game-match" style={{ marginLeft: 20}}>
         <LeaderBoard />
         <GameBoardTest />
-         <MatchBoardTest />
-
-          {/* <MatchBoard />
-          <GameBoard /> */}
-
+       <MatchBoardTest />
       </div>
     </div>
   );

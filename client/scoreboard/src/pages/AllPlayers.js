@@ -9,7 +9,7 @@ import CustomTable from '../components/CustomTable';
 const AllPlayers = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [playerStats, setPlayerStats] = useState([]);
-  const [ setPlayers] = useState([]);
+  const [setPlayers] = useState([]);
 
 
   const { group_id } = useParams();
@@ -104,30 +104,33 @@ const AllPlayers = () => {
   // {fontFamily: 'Fugaz One, cursive'}
 
   return (
-    <>
+    <Box className='playerStatsPage'
+    sx={{
+      background: 'linear-gradient(to top, #8e9eab, #eef2f3)',
+      height: '100vh'
+    }}>
       <NavBar />
-      <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>Player Statistics</h1>
+      <h1 style={{ textAlign: 'center', fontFamily: 'Electrolize', margin: '1em' }}>Player Statistics</h1>
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         gap: '2em',
-
       }} >
 
-<h3 style={{textAlign: 'start',fontFamily: 'Electrolize'}}>Total Win Rate</h3>
+        <h3 style={{ textAlign: 'start', fontFamily: 'Electrolize' }}>Total Win Rate</h3>
         <CustomTable data={leaderboard} headings={['Player', 'Total Matches', 'Total Wins', 'Win Rate']} />
-        <h3 style={{textAlign: 'start',fontFamily: 'Electrolize'}}>Win Rate Per Game</h3>
+        <h3 style={{ textAlign: 'start', fontFamily: 'Electrolize' }}>Win Rate Per Game</h3>
         <CustomTable data={playerStats} headings={['Player', 'Game', 'Total Matches', 'Total Wins', 'Total Losses', 'Win Rate']} />
         <Link to={`/dashboard/${group_id}`}>
-        <Button sx={{marginBotton: '1em'}}>Return to Dashboard</Button>
-      </Link>
+          <Button sx={{ marginBotton: '1em' }}>Return to Dashboard</Button>
+        </Link>
 
 
       </Box>
 
-    </>
+    </Box>
   )
 }
 
