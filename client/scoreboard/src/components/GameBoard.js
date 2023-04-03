@@ -3,15 +3,16 @@ import { Paper, Box, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import {  useContext, useEffect , useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../context/StateContext";
 
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
   const { group_id } = useParams();
   const [gameStats, setGameStats] = useState([]);
+  const [games, setGames] = useState([]);
 
-  const { setGames: setContextGames, matches} = useContext(Context);
+  const {  matches } = useContext(Context);
 
   function getWinnersAndLosers(games) {
     const results = {};
@@ -59,96 +60,136 @@ const GameBoard = () => {
   }
 
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:4000/game/stats/${group_id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        let data = getWinnersAndLosers(res.data.games);
-        console.log(data);
-        setGameStats(data);
-      });
-  }, [group_id, setContextGames]);
 
 
-
+  useEffect (() => {
+    axios.all([
+      axios.get(`http://localhost:4000/game/all/${group_id}`),
+      axios.get(`http://localhost:4000/game/stats/${group_id}`)
+    ]).then(axios.spread((gamesResponse, statsResponse) => {
+      const newGames = gamesResponse.data.games;
+      const newStats = getWinnersAndLosers(statsResponse.data.games);
+      setGames(newGames);
+      setGameStats(newStats);
+    })).catch((error) => {
+      console.log(error);
+    });
+  },[]);
 
 
 
 
 
   return (
-    // Gameboard Container/Box
-    <Box
-      sx={{
-        textAlign: "center",
-        "& > :not(style)": {
-          m: 1.5,
-          width: 'fit-content',
-          height: isMobile ? 1000 : 350,
-          p:1,
-        },
-      }}
-    >
-      <Paper
-        sx={{
-          backgroundColor: "#cdcdcdf5",
-          "& > :not(style)": {
-            m: 1,
-            width: 850,
-          },
-          display: "flex",
-          justifyContent: "center",
-          textAlign: "center",
-        }}
-        elevation={0}
-      >
-        <div>
-          <div>
-            <Link
-              to={`/games/${group_id}/`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <h1 style={{ textAlign: 'left', mt: 2 }}>Games</h1>
+    <>
+      {/* Game Board Container/Box */}
+      <Box
+  sx={{
+    display: "flex",
+    flexWrap: "wrap",
+    textAlign: "center",
+    justifyContent: "center",
+    "& > :not(style)": {
+      m: 1,
+      p: 3,
+      mt: isMobile ? 0 : 0,
+      width: isMobile ? 335 : 400,
+      height: 'fit-content',
+      maxHeight: "600px",
+      overflowY: "scroll",
+      overflowX: "hidden", // Add this line
+      backgroundColor: "rgba( 40, 40, 40, 0.6 )",
+      boxShadow: "rgba(255, 255, 255, 0.35) 0px 5px 15px",
+      backdropFilter: "blur( 8.5px )",
+      borderRadius: "10px",
+      "&::-webkit-scrollbar": {
+        width: "10px",
+      },
+      "&::-webkit-scrollbar-track": {
+        background: "rgba(255, 255, 255, 0.1)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "black",
+        borderRadius: "20px",
+        border: "3px solid rgba(0, 0, 0, 0)",
+      },
+    },
+  }}
+>
+        <Paper elevation={0}>
+
+          <Link className='dashboard-heading' to={`/games/${group_id}`} style={{ textDecoration: "none", color: 'black' }}>
+            <h1 className='dashboard-heading' style={{ color: "white", marginBottom: "1em" }}>
+              Games
+            </h1>
+          </Link>
+
+          {matches.length === 0 && games.length === 0 && (
+               <h3 style={{ color: 'white' }}>Add a Game To Start</h3>
+          )}
+          {matches.length === 0 && games.length > 0 && Array.isArray(games) && games.map((game) => {
+            return (
+              <Paper
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  height: '100px',
+                  width: isMobile ? 310 : 350,
+                  margin: '0 auto',
+                  mb: '1em',
+                  p: 2,
+                }}
+                key={game.game_id}
+              >
+                <h1>{game.name}</h1>
+                <h3>Description:</h3>
+                <p>{game.description}</p>
+              </Paper>
+            );
+          })
+          }
+
+
+          {Array.isArray(gameStats) && gameStats.map((game) => {
+            return (
+              <Paper
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  height: '150px',
+                  width: isMobile ? 310 : 350,
+                  margin: '0 auto',
+                  mb: '1em',
+                  p: 1,
+                }}
+                key={game.game_id}
+              >
+                <h1>{game.game}</h1>
+
+                <h3>Description:</h3>
+                <p>{game.description}</p>
+                <h3>Most Wins</h3>
+                <p>{game.winners.join(",")}</p>
+                <h3>Most Losses</h3>
+                <p>{game.losers.join(",")}</p>
+
+              </Paper>
+            );
+          })}
+          {
+            matches.length > 0 && <Link to={`/games/${group_id}`} className='links'>
+              <h3>See more stats</h3>
             </Link>
-          </div>
-          <div className="box-container">
-            {/* Game container */}
-            {matches.length > 0 && Array.isArray(gameStats) && gameStats.slice(0, 4).map((game) => {
-                return (
-                  <React.Fragment key={game.game_id}>
-                    <Paper
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        flexDirection: "column",
-                        height: 250,
-                        width: isMobile ? 310 : 350,
-                        mr: 2,
-                        px: 1,
+          }
 
-                      }}
-                      key={game.game_id}
-                    >
-                      {/* Game Info  */}
-                      <h1>{game.game}</h1>
+        </Paper>
+      </Box>
+    </>
 
-                      <h3>Description:</h3>
-                      <p>{game.description}</p>
-                      {/* TODO:Query or equation to calculate most wins and losses */}
-                      <h3>Most Wins</h3>
-                      <p>{game.winners.join(",")}</p>
-                      <h3>Most Losses</h3>
-                      <p>{game.losers.join(",")}</p>
-                    </Paper>
-                  </React.Fragment>
-                );
-              })}
-          </div>
-        </div>
-      </Paper>
-    </Box>
   );
 };
 

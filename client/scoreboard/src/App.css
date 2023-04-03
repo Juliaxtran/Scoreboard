@@ -87,8 +87,8 @@ body {
   /* Leaderboard component */
   .leaderboard-game-match {
     display: block;
-    margin-left: 13px;
-    margin-top: -15em;
+    margin-right: 1em;
+    margin-top: -17em;
   }
 
   .leaderboard-button {
@@ -99,15 +99,6 @@ body {
     z-index: 1;
   }
 
-  .add-buttons{
-flex-direction: column;
-text-align: center;
-  }
-
-  /* Match Component */
-  .box-container {
-    display: block;
-  }
 
 
 }

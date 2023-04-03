@@ -2,20 +2,23 @@ import React from "react";
 import NewMatchForm from "./NewMatchForm";
 import NewGameForm from "./NewGameForm";
 import NewPlayerForm from "./NewPlayerForm";
-import { Box } from "@mui/material";
+import { Box , useMediaQuery} from "@mui/material";
+
 
 
 
 const AddButton = ({ setError }) => {
-
+const isMobile = useMediaQuery("(max-width:450px)");
 
   return (
     <div className="add-buttons">
       <Box
         sx={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? 'center': null,
           justifyContent: "center",
-          mt: 2
+          mt: isMobile ? 0 : 2,
         }}>
         <NewPlayerForm setError={setError} />
         <NewGameForm setError={setError} />
