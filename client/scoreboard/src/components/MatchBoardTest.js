@@ -43,8 +43,8 @@ const MatchBoardTest = () => {
             height: 'fit-content',
             maxHeight: "600px",
             overflowY: "scroll",
-            backgroundColor: "rgba( 0, 0, 0, 0.6 )",
-            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+            backgroundColor: "rgba( 40, 40, 40, 0.6 )",
+            boxShadow: "rgba(255, 255, 255, 0.35) 0px 5px 15px",
             backdropFilter: "blur( 8.5px )",
             borderRadius: "10px",
             "&::-webkit-scrollbar": {

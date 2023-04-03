@@ -66,7 +66,7 @@ const LeaderBoard = () => {
             height: "fit-content",
             maxHeight: 600,
             overflowY: "scroll",
-            backgroundColor: "rgba( 255, 255, 255, 0.6 )",
+            backgroundColor: "rgba( 40, 40, 40, 0.6 )",
 
             boxShadow: "rgba(255, 255, 255, 0.35) 0px 5px 15px",
             backdropFilter: "blur( 8.5px )",

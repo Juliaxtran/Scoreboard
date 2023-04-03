@@ -45,7 +45,9 @@ const Dashboard = () => {
     <div className="dashboard" style={{
       height: "100vh",
       width: "100%",
-      background: `linear-gradient(to bottom, #434343, #000000)`,
+      background: `linear-gradient(to bottom, #3a6186, #89253e)`
+      ,
+
 
     }} >
       <NavBar />
