@@ -78,8 +78,10 @@ const GameBoard = () => {
     <Box
     className="gameStatsPage"
     sx={{
-      height: '100vh',
       background: 'linear-gradient(to top, #8e9eab, #eef2f3)',
+      paddingBottom: '2em',
+      height: '100%',
+      minHeight: '100vh',
     }}>
 
     <NavBar />

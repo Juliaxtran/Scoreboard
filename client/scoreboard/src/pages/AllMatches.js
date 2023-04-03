@@ -42,8 +42,10 @@ const AllMatches = () => {
   return (
     <Box className='matchesStatsPage'
     sx={{
-      height: '100vh',
       background: 'linear-gradient(to top, #8e9eab, #eef2f3)',
+      paddingBottom: '2em',
+      height: '100%',
+      minHeight: '100vh',
     }}>
   <NavBar />
   <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>All Matches</h1>
