@@ -7,7 +7,8 @@ import GameBoard from "../components/GameBoard";
 import NavBar from "../components/NavBar";
 import { Context } from "../context/StateContext";
 import axios from "axios";
-import { Alert, useMediaQuery } from "@mui/material";
+import { Alert } from "@mui/material";
+
 
 
 
@@ -16,7 +17,7 @@ const Dashboard = () => {
   const [error, setError] = React.useState(null);
   const { setGames, setPlayers, setMatches } = useContext(Context);
   const { group_id } = useParams();
-  const isMobile = useMediaQuery("(max-width:450px)");
+
 
 
 
@@ -69,6 +70,7 @@ const Dashboard = () => {
         <LeaderBoard />
         <GameBoard />
         <MatchBoard />
+
       </div>
     </div>
   );
