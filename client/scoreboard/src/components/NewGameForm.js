@@ -7,6 +7,7 @@ import {
   DialogActions,
   DialogTitle,
   TextField,
+  useMediaQuery
 } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -23,7 +24,7 @@ const NewGameForm = ({setError}) => {
 const { group_id } = useParams();
 const [name, setName] = React.useState("");
 const [description, setDescription] = React.useState("");
-
+const isMobile = useMediaQuery("(max-width:450px)");
 
 
 
@@ -57,9 +58,9 @@ const [description, setDescription] = React.useState("");
     <>
     <form onSubmit={handleSubmit}>
       <Button
-        size="large"
+       size={isMobile ? "small" : "large"}
         variant="contained"
-        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2  }}
+        sx={{ bgcolor: "#edbe02", ml: 1, mb: 2  }}
         color="warning"
         onClick={handleClickOpen}
       >

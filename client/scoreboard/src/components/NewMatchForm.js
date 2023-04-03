@@ -7,6 +7,7 @@ import {
   TextField,
   DialogTitle,
   DialogContent,
+  useMediaQuery,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
@@ -24,6 +25,7 @@ const NewMatchForm = ({setError}) => {
   const [game_id, setGame_id] = useState(null);
   const [date, setDate] = useState(null);
   const [selectedPlayerIds, setSelectedPlayerIds] = useState([]);
+  const isMobile = useMediaQuery("(max-width:450px)");
 
 
 
@@ -76,7 +78,6 @@ const NewMatchForm = ({setError}) => {
     console.log("gameId", game_id);
     console.log("Winner", winner);
 
-
     const playerData = selectedPlayerIds.map(id => ({
       id,
       is_winner: winner.includes(id)
@@ -117,9 +118,9 @@ const NewMatchForm = ({setError}) => {
       <form>
         {/* 'Add New Match' Button Component  */}
         <Button
-          size="large"
+         size={isMobile ? "small" : "large"}
           variant="contained"
-          sx={{ bgcolor: "#edbe02", mr: 2, mb: 2 }}
+          sx={{ bgcolor: "#edbe02", ml: 1, mr: 1,  mb: 2 }}
           color="warning"
           onClick={handleClickOpen}
         >

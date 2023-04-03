@@ -7,7 +7,8 @@ import {
   DialogTitle,
   DialogContent,
   Typography,
-  Tooltip
+  Tooltip,
+  useMediaQuery,
 } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
 import IconButton from '@mui/material/IconButton';
@@ -23,7 +24,7 @@ const NewPlayerForm = ({setError}) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+ const isMobile = useMediaQuery("(max-width:450px)");
 
 const { group_id } = useParams();
 
@@ -53,9 +54,9 @@ const handleSubmit = (e) => {
     <form onSubmit={handleSubmit}>
       {/* Button Component */}
       <Button
-        size="large"
+        size={isMobile ? "small" : "large"}
         variant="contained"
-        sx={{ bgcolor: "#edbe02", mr: 2, mb: 2  }}
+        sx={{ bgcolor: "#edbe02", ml: 1, mb: 2  }}
         color="warning"
         onClick={handleClickOpen}
       >
