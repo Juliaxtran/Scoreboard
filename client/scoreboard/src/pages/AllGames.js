@@ -95,9 +95,26 @@ const GameBoard = () => {
 
       }} >
      <CustomTable data={gameStats} headings={['Game', 'Description', 'Most Wins', 'Most Loses']}/>
-  <Link to={`/dashboard/${group_id}`}>
-          <Button>Return to Dashboard</Button>
-      </Link>
+     <Link to={`/dashboard/${group_id}`} sx={{ textDecoration: 'none' }}>
+  <Button
+    variant="contained"
+    sx={{
+      marginBotton: '1em',
+      bgcolor: "#edbe02",
+      ml: 1,
+      mb: 2,
+      mt: 2,
+      color: "warning",
+      textDecoration: 'none',
+      '&:hover': {
+        bgcolor:
+        "#f28720",
+      }
+    }}
+  >
+    Return to Dashboard
+  </Button>
+</Link>
       </Box>
     </Box>
 

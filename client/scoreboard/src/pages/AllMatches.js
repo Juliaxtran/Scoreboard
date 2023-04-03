@@ -51,10 +51,28 @@ const AllMatches = () => {
   <h1 style={{textAlign: 'center', fontFamily: 'Electrolize', margin: '1em'}}>All Matches</h1>
   <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: 2 }}>
     <CustomTable data={matchData} headings={['Match', 'Game', 'Players', 'Winner(s)', 'Played On']}/>
+    <Link to={`/dashboard/${group_id}`} sx={{ textDecoration: 'none' }}>
+  <Button
+    variant="contained"
+    sx={{
+      marginBotton: '1em',
+      bgcolor: "#edbe02",
+      ml: 1,
+      mb: 2,
+      mt: 2,  
+      color: "warning",
+      textDecoration: 'none',
+      '&:hover': {
+        bgcolor:
+        "#f28720",
+      }
+    }}
+  >
+    Return to Dashboard
+  </Button>
+</Link>
 
-          <Link to={`/dashboard/${group_id}`}>
-          <Button>Return to Dashboard</Button>
-    </Link>
+
     </Box>
 
     </Box>
