@@ -24,7 +24,6 @@ const NewGameForm = ({setError}) => {
 const { group_id } = useParams();
 const [name, setName] = React.useState("");
 const [description, setDescription] = React.useState("");
-const isMobile = useMediaQuery("(max-width:450px)");
 
 
 
@@ -58,7 +57,7 @@ const isMobile = useMediaQuery("(max-width:450px)");
     <>
     <form onSubmit={handleSubmit}>
       <Button
-       size={isMobile ? "small" : "large"}
+       size="large"
         variant="contained"
         sx={{ bgcolor: "#edbe02", ml: 1, mb: 2  }}
         color="warning"

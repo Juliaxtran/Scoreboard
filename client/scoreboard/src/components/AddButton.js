@@ -15,7 +15,7 @@ const isMobile = useMediaQuery("(max-width:450px)");
       <Box
         sx={{
           display: "flex",
-          flexDirection: isMobile ? "column" : "row",
+          flexDirection: isMobile ? "column": "row",
           alignItems: isMobile ? 'center': null,
           justifyContent: "center",
           mt: isMobile ? 0 : 2,

@@ -118,7 +118,7 @@ const NewMatchForm = ({setError}) => {
       <form>
         {/* 'Add New Match' Button Component  */}
         <Button
-         size={isMobile ? "small" : "large"}
+         size="large"
          fullWidth = {isMobile ? true : false}
           variant="contained"
           sx={{ bgcolor: "#edbe02", ml: 1, mr: 1,  mb: 2 }}

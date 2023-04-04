@@ -55,11 +55,7 @@ body {
   width: 350;
 }
 
-.add-buttons{
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
+
 /* New Match Form  */
 .new-fields{
   display: flex;
@@ -87,17 +83,15 @@ body {
   /* Leaderboard component */
   .leaderboard-game-match {
     display: block;
-    margin-right: 1em;
-    margin-top: -17em;
+    margin-right: 0;
   }
 
-  .leaderboard-button {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-  }
+
+ /* top cant be < than 2em  */
+.add-buttons{
+  position: relative;
+  top: 2em 
+}
 
 
 

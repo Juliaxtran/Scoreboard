@@ -65,7 +65,7 @@ const Dashboard = () => {
           {error}
         </Alert>
       )}
-      <AddButton className='addButtons' error={error} setError={setError} />
+      <AddButton error={error} setError={setError} />
       <div className="leaderboard-game-match" style={{ marginLeft: 20 }}>
         <LeaderBoard />
         <GameBoard />
