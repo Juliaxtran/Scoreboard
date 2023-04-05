@@ -74,5 +74,47 @@ module.exports = (db, dbQueries) => {
   });
 
 
+// Delete a match for a group
+router.delete("/:groupId/:matchId", async (req, res) => {
+  const { groupId, matchId } = req.params;
+  try {
+    // Step 1: Delete player results
+    await dbQueries.deletePlayerResultsByMatchId(matchId, db);
+
+    // Step 2: Delete match from group
+    const groupMatch = await dbQueries.deleteGroupMatchById(groupId, matchId, db);
+    if (!groupMatch) {
+      res.status(404).send({
+        success: false,
+        message: "Match not found in group"
+      });
+      return;
+    }
+
+    // Step 3: Delete match
+    const match = await dbQueries.deleteMatchById(matchId, db);
+    if (!match) {
+      res.status(404).send({
+        success: false,
+        message: "Match not found"
+      });
+      return;
+    }
+
+    res.status(200).send({
+      success: true,
+      message: "Match deleted",
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+
   return router;
 };

@@ -324,9 +324,58 @@ const createMatch = function (game_id, date, db) {
     });
   };
 
+ // Delete player results for a match
+const deletePlayerResultsByMatchId = function (match_id, db) {
+  const queryString = `DELETE FROM matches_players WHERE match_id = $1;`;
+  const values = [match_id];
+  return db.query(queryString, values)
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("No player results found");
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return false;
+    });
+};
 
+// Delete a match
+const deleteMatchById = function (match_id, db) {
+  return db.query('DELETE FROM matches WHERE id = $1', [match_id])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("No matches found");
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return false;
+    });
+};
 
-
+// Delete a match from a group
+const deleteGroupMatchById = function (group_id, match_id, db) {
+  return db.query('DELETE FROM groups_matches WHERE group_id = $1 AND match_id = $2', [group_id, match_id])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("No group matches found");
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return false;
+    });
+};
 
 module.exports = {
   getUserByEmail,
@@ -342,5 +391,8 @@ module.exports = {
   getMatchesByGroupId,
   getLeaderBoardByGroupId,
   getGameStats,
-  gameStatsTable
+  gameStatsTable, 
+  deleteMatchById, 
+  deleteGroupMatchById, 
+  deletePlayerResultsByMatchId
 }
