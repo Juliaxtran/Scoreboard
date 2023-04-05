@@ -84,13 +84,15 @@ body {
   .leaderboard-game-match {
     display: block;
     margin-right: 0;
+    margin-top: -13em;
   }
 
 
  /* top cant be < than 2em  */
 .add-buttons{
   position: relative;
-  top: 2em 
+  top: 2em;
+  z-index: 100;
 }
 
 
