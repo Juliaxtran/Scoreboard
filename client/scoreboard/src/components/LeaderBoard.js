@@ -4,10 +4,10 @@ import { Box } from "@mui/system";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../context/StateContext";
-import trophy1 from '../assets/trophy11.png';
-import trophy2 from '../assets/trophy22.png';
-import trophy3 from '../assets/trophy33.png';
-import trophy4 from '../assets/trophy44.png';
+import trophy1 from '../assets/trophy1.png';
+import trophy2 from '../assets/trophy2.png';
+import trophy3 from '../assets/trophy3.png';
+import trophy4 from '../assets/trophy4.png';
 import './Leaderboard.css'
 import "../App.css";
 
