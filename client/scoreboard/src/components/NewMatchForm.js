@@ -73,24 +73,19 @@ const NewMatchForm = ({setError}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("date", date);
-    console.log("selectedPlayerIds", selectedPlayerIds);
-    console.log("gameId", game_id);
-    console.log("Winner", winner);
 
     const playerData = selectedPlayerIds.map(id => ({
       id,
       is_winner: winner.includes(id)
     }))
 
-    console.log(playerData)
 
     const payload = {
       game_id,
       date,
       players : playerData
     };
-    console.log("PlayLoad", payload);
+
     axios
       .post(`http://localhost:4000/match/${group_id}`, payload, {
         headers: {
@@ -98,7 +93,7 @@ const NewMatchForm = ({setError}) => {
         },
       })
       .then((res) => {
-        console.log(res);
+
         const success = res.status === 200;
         if (success) {
           setError('Success');
@@ -109,7 +104,6 @@ const NewMatchForm = ({setError}) => {
       })
       .catch((error) => {
         setError('Match not created, please try again');
-        console.error(error);
       });
   };
 
