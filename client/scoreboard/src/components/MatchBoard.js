@@ -5,7 +5,10 @@ import { Paper, Box, useMediaQuery } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../context/StateContext";
 import matchImg from "../assets/matches.png";
+import ClearIcon from '@mui/icons-material/Clear';
+import IconButton from '@mui/material/IconButton';
 import "../App.css";
+import DeleteMatchButton from "./DeleteMatchButton";
 
 
 const MatchBoard = () => {
@@ -18,7 +21,7 @@ const MatchBoard = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/matches/${group_id}`, { withCredentials: true })
+      .get(`/${group_id}`, { withCredentials: true })
       .then((res) => {
         setMatches(res.data.matches);
       });
@@ -92,7 +95,7 @@ const MatchBoard = () => {
                   justifyContent: "center",
                   alignItems: "center",
                   flexDirection: "column",
-                  height: '150px',
+                  height: '200px',
                   width: isMobile ? 310 : 350,
                   margin: '0 auto',
                   mb: '1em',
@@ -100,6 +103,8 @@ const MatchBoard = () => {
                 }}
                 key={match.id}
               >
+            
+                <DeleteMatchButton match={match}/>
                 <h1>{match.game_name}</h1>
                 <h3>Winner(s): </h3>
                 <h4 style={{ color: 'green' }}> <strong>{match.winners}</strong> </h4>
