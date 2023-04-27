@@ -5,6 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../context/StateContext";
+import DeleteGameButton from "./DeleteGameButton";
 
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
@@ -168,6 +169,8 @@ const GameBoard = () => {
                 }}
                 key={game.game_id}
               >
+
+                <DeleteGameButton game={game}/>
                 <h1>{game.game}</h1>
 
                 <h3>Description:</h3>

@@ -69,7 +69,7 @@ const Dashboard = () => {
       <div className="leaderboard-game-match" style={{ marginLeft: 20 }}>
         <LeaderBoard />
         <GameBoard />
-        <MatchBoard />
+        <MatchBoard error={error} setError={setError}/>
 
       </div>
     </div>

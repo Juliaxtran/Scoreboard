@@ -9,9 +9,10 @@ import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 import "../App.css";
 import DeleteMatchButton from "./DeleteMatchButton";
+import UpdateMatchButton from "./UpdateMatchButton";
 
 
-const MatchBoard = () => {
+const MatchBoard = ({error, setError}) => {
   const isMobile = useMediaQuery("(max-width:450px)");
 
   const { group_id } = useParams();
@@ -105,6 +106,7 @@ const MatchBoard = () => {
               >
             
                 <DeleteMatchButton match={match}/>
+                {/* <UpdateMatchButton match={match} setError={setError}/> */}
                 <h1>{match.game_name}</h1>
                 <h3>Winner(s): </h3>
                 <h4 style={{ color: 'green' }}> <strong>{match.winners}</strong> </h4>

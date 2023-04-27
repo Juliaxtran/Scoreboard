@@ -325,22 +325,23 @@ const createMatch = function (game_id, date, db) {
   };
 
  // Delete player results for a match
-const deletePlayerResultsByMatchId = function (match_id, db) {
-  const queryString = `DELETE FROM matches_players WHERE match_id = $1;`;
-  const values = [match_id];
-  return db.query(queryString, values)
-    .then((result) => {
-      if (result.rowCount === 0) {
-        console.log("No player results found");
-        return false;
-      } else {
-        return true;
-      }
-    })
-    .catch((err) => {
-      console.log(err.message);
+ const deletePlayerResultsByMatchId = async (matchId, db) => {
+  try {
+    const queryString = `DELETE FROM matches_players WHERE match_id = $1;`;
+    const values = [matchId];
+    const result = await db.query(queryString, values);
+
+    if (result.rowCount === 0) {
+      console.log("No player results found");
       return false;
-    });
+    } else {
+      console.log(`Deleted player results for match ${matchId}`);
+      return true;
+    }
+  } catch (err) {
+    console.log(err.message);
+    return false;
+  }
 };
 
 // Delete a match
@@ -377,6 +378,75 @@ const deleteGroupMatchById = function (group_id, match_id, db) {
     });
 };
 
+//Delete game using group id
+
+const deleteGameFromGroup = function (group_id, game_id, db) {
+  return db.query('DELETE FROM games WHERE group_id = $1 AND id = $2', [group_id, game_id])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("No games found");
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return false;
+    });
+};
+
+const deleteMatchByGameId = async (gameId, db) => {
+  try {
+    // Step 1: Get the match by gameId
+    const match = await dbQueries.getMatchByGameId(gameId, db);
+    if (!match) {
+      console.log(`Match not found for game ${gameId}`);
+      return false;
+    }
+
+    const matchId = match[0].id;
+
+    // Step 2: Delete any associated records in the matches_players table
+    await dbQueries.deletePlayerResultsByMatchId(matchId, db);
+
+    // Step 3: Delete the match from the matches table
+    const queryString = `DELETE FROM matches WHERE game_id = $1;`;
+    const values = [gameId];
+    const result = await db.query(queryString, values);
+
+    if (result.rowCount === 0) {
+      console.log(`Match not found for game ${gameId}`);
+      return false;
+    } else {
+      console.log(`Deleted match for game ${gameId}`);
+      return true;
+    }
+  } catch (err) {
+    console.log(err.message);
+    return false;
+  }
+};
+
+const getMatchByGameId = function (game_id, db) {
+  const queryString = `SELECT * FROM matches WHERE game_id = $1;`;
+  const values = [game_id];
+  return db
+    .query(queryString, values)
+    .then((result) => {
+      if (result.rows.length === 0) {
+        console.log("No matches found");
+        return [];
+      } else {
+        return result.rows;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+
 module.exports = {
   getUserByEmail,
   getGroupByPlayerId,
@@ -394,5 +464,8 @@ module.exports = {
   gameStatsTable, 
   deleteMatchById, 
   deleteGroupMatchById, 
-  deletePlayerResultsByMatchId
+  deletePlayerResultsByMatchId, 
+  deleteGameFromGroup, 
+  deleteMatchByGameId, 
+  getMatchByGameId 
 }
