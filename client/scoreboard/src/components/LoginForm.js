@@ -35,7 +35,7 @@ export default function LoginForm({ setError, setIsSignUp }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    axios.post("http://localhost:4000/player/login", formData, { withCredentials: true }).then((res) => {
+    axios.post("/player/login", formData, { withCredentials: true }).then((res) => {
       const player = res.data.player;
       setUser(player);
       setLoading(false);

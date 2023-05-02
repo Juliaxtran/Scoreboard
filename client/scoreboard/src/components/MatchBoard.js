@@ -18,7 +18,7 @@ const MatchBoard = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/matches/${group_id}`, { withCredentials: true })
+      .get(`/matches/${group_id}`, { withCredentials: true })
       .then((res) => {
         setMatches(res.data.matches);
       });

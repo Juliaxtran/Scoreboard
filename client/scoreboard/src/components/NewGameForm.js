@@ -34,7 +34,7 @@ const [description, setDescription] = React.useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:4000/game/add/${group_id}`, { name, description})
+      .post(`/game/add/${group_id}`, { name, description})
       .then((res) => {
         const success = res.status === 200;
         if (success) {

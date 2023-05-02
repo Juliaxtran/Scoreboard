@@ -33,7 +33,7 @@ const { group_id } = useParams();
 const handleSubmit = (e) => {
   e.preventDefault();
   axios
-    .post(`http://localhost:4000/group/add/${group_id}`, { email})
+    .post(`/group/add/${group_id}`, { email})
     .then((res) => {
       const success = res.status === 200;
       if (success) {

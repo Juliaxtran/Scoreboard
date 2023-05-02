@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
   const logOut = (e) => {
     e.preventDefault();
     axios.post (
-      "http://localhost:4000/player/logout", {withCredentials: true}
+      "/player/logout", {withCredentials: true}
     ).then((res) => {
       console.log(res);
       setUser(null);

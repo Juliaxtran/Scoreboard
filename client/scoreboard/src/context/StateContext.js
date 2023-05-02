@@ -18,7 +18,7 @@ const StateContext = ({ children }) => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/profile', { withCredentials: true })
+    axios.get('/api/profile', { withCredentials: true })
       .then(response => {
         setUser(response.data);
       })

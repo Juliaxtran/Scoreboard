@@ -22,7 +22,7 @@ const LeaderBoard = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, { withCredentials: true })
+    axios.get(`/group/leaderboard/${group_id}`, { withCredentials: true })
       .then(res => {
         const leaderboard = res.data.leaderboard.map(player => {
           return {

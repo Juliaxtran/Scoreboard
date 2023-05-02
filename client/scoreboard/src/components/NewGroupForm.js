@@ -26,7 +26,7 @@ const NewGroupForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:4000/group/create", { name, owner_id })
+      .post("/group/create", { name, owner_id })
       .then((res) => {
         const success = res.status === 200;
         if (success) {

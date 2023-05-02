@@ -35,7 +35,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
     e.preventDefault();
     console.log(formData);
     axios
-      .post("http://localhost:4000/player/signup", formData, {withCredentials: true })
+      .post("/player/signup", formData, {withCredentials: true })
       .then((res) => {
         console.log(res.data);
         const player = res.data.player;
