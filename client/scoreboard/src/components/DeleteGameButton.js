@@ -13,11 +13,11 @@ const DeleteGameButton = ({game}) => {
     const handleClickOpen = () => setOpen(true);
   
     const { group_id } = useParams();
-    const { setGames, games } = useContext(Context);
+    const { setGames, games, matches } = useContext(Context);
 
     
     const handleDeleteGame = (gameId) => {
-        axios.delete(`http://localhost:4000/game/${group_id}/${gameId}`)
+        axios.delete(`http://localhost:4000/game/${group_id}/${gameId}/matches`)
           .then((res) => {
             if (res.status === 200) {
               const updatedGames = games.filter((game) => game.game_id !== gameId);
@@ -30,6 +30,21 @@ const DeleteGameButton = ({game}) => {
    
       };
     
+const handleDeleteGameWithMatch = (gameId) => {
+  axios.delete(`http://localhost:4000/game/${group_id}/${gameId}/nomatches`)
+  .then((res) => {
+    if (res.status === 200) {
+      const updatedGames = games.filter((game) => game.game_id !== gameId);
+      console.log(updatedGames, 'updated games')
+      setGames(updatedGames);
+      handleClose();
+      console.log(gameId)
+    }
+  })
+  .catch((err) => console.log(err));
+
+};
+
       console.log(game, 'list game')
   return (
     <>
@@ -54,9 +69,12 @@ const DeleteGameButton = ({game}) => {
         <Button onClick={handleClose} autoFocus>
           Cancel
         </Button>
-        <Button onClick={() =>  handleDeleteGame(game.game_id)} color="error" variant="contained" type="submit">
+       {/* if the game has matches or no match  */}
+        {matches.length === 0 ? <Button onClick={() =>  handleDeleteGame(game.game_id)} color="error" variant="contained" type="submit">
+          Delete w/o match 
+        </Button>:  <Button onClick={() => handleDeleteGameWithMatch(game.game_id)} color="error" variant="contained" type="submit">
           Delete
-        </Button>
+        </Button>}
       </DialogActions>
     </Dialog>
   </>

@@ -144,6 +144,8 @@ const GameBoard = () => {
                 }}
                 key={game.game_id}
               >
+                {/* no matches */}
+              {matches.length === 0 && <DeleteGameButton game={game}/>}
                 <h1>{game.name}</h1>
                 <h3>Description:</h3>
                 <p>{game.description}</p>
@@ -169,7 +171,7 @@ const GameBoard = () => {
                 }}
                 key={game.game_id}
               >
-
+{/* with matches */}
                 <DeleteGameButton game={game}/>
                 <h1>{game.game}</h1>
 

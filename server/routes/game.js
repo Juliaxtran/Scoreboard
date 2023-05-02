@@ -32,109 +32,6 @@ module.exports = (db, dbQueries) => {
 
 
 
-//another route to delete game from group where you also delete the match
-router.delete("/:group_id/:game_id", async (req, res) => {
-    const { group_id, game_id } = req.params;
-    try {
-
-        const match = await dbQueries.getMatchByGameId(game_id, db);
-            if (!match) {
-                res.status(404).send({
-                    success: false,
-                    message: "Match not found for game"
-                });    
-    
-                return;
-            }            
-            const match_id = match[0].id; 
-          console.log(match_id)
-        
-  
-//delete match from group based on game_id
-       const matchGame =  dbQueries.deleteMatchByGameId(game_id, db);  
-       if (!matchGame) {
-        res.status(404).send({
-            success: false,
-            message: "Match not deleted  for game"
-        });    
-
-        return;
-    }  
-
-            await dbQueries.deleteGameFromGroup(group_id, game_id, db);
- 
-
-
-            res.status(200).send({
-                success: true,
-                message: "Game deleted",
-            });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send({
-            success: false,
-            message: "Server Error",
-        });
-    }
-});
-
-// Delete a match for a group
-// router.delete("/:group_id/:game_id", async (req, res) => {
-//     const { group_id, game_id } = req.params;
-//     try {
-
-
-//     // Step 1: Get match_id for game_id
-//     const match = await dbQueries.getMatchByGameId(game_id, db);
-//     if (!match) {
-//         res.status(404).send({
-//             success: false,
-//             message: "Match not found for game"
-//         });
-//         return;
-//     }
-//     const match_id = match[0].id;
-// console.log('match',match[0].id)
-//     // Step 2: Delete player results
-//      await   dbQueries.deletePlayerResultsByMatchId(match_id, db);
-
-//      // Step 2: Delete match from group based on gameID
-//     const deleteGameMatch = await dbQueries.deleteMatchByGameId(game_id, db);
-  
-//      if (!deleteGameMatch) {
-//         res.status(404).send({
-//           success: false,
-//           message: "Match not found in group"
-//         });
-//         return;
-//       }
-  
-
-//       // Step 3: Delete match from group based on gameID
-//       const gameMatch = await dbQueries.deleteGameFromGroup(group_id, game_id, db);
-//       if (!gameMatch) {
-//         res.status(404).send({
-//           success: false,
-//           message: "Game not found in Match and Group"
-//         });
-//         return;
-//       }
-  
-     
-//       res.status(200).send({
-//         success: true,
-//         message: "Game deleted",
-//       });
-  
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send({
-//         success: false,
-//         message: "Server Error",
-//       });
-//     }
-//   });
-  
 
 
 
@@ -217,6 +114,138 @@ router.delete("/:group_id/:game_id", async (req, res) => {
             });
     });
 
+
+//another route to delete game from group where you also delete the match
+// router.delete("/:group_id/:game_id", async (req, res) => {
+//     const { group_id, game_id } = req.params;
+// let match_ids =[];
+
+//     try {
+    
+//         const matches = await dbQueries.getMatchesByGameId(game_id, db);
+//         if(matches){
+//             match_ids = matches.map(match => match.id);
+//         }
+    
+
+//         const groupMatchesDeleted = await dbQueries.deleteGroupMatchesByIds(group_id, match_ids, db);
+        
+//         if (!groupMatchesDeleted) {
+//             res.status(404).send({
+//                 success: false,
+//                 message: "Matches not deleted for game"
+//             });
+//         }
+//         console.log(matches)
+// console.log('match_id',match_ids)
+// console.log('game_id',game_id)
+
+
+// const playerMatch =  await dbQueries.deletePlayerResultsByMatchId(match_ids, db);
+// if (!playerMatch) {
+//     res.status(404).send({
+//         success: false,
+//         message: "Player match not deleted for game"
+//     });
+// }
+
+// const game = await dbQueries.deleteGameFromGroup(group_id, game_id, db);
+// if (!game) {
+//     res.status(404).send({
+//         success: false,
+//         message: "Game not deleted for group"
+//     });
+// }
+
+ 
+//       res.status(200).send({
+//         success: true,
+//         message: "Match deleted",
+//       });
+  
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send({
+//         success: false,
+//         message: "Server Error",
+//       });
+//     }
+//   });
+  
+
+router.delete("group_id/game_id/nomatches", async (req, res) => {
+    const { group_id, game_id } = req.params;
+    try {
+        const game = await dbQueries.deleteGameFromGroup(group_id, game_id, db);
+        if (!game) {
+            res.status(404).send({
+                success: false,
+                message: "Game not deleted for group"
+            });
+        }
+        console.log(game)
+        res.status(200).send({
+            success: true,
+            message: "Game deleted",
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            success: false,
+            message: "Server Error",
+        });
+    }
+});
+
+
+
+
+
+
+
+// router.delete("/:group_id/:game_id", async (req, res) => {
+//     const { group_id, game_id } = req.params;
+//     try {
+
+//         const match = await dbQueries.getMatchByGameId(game_id, db);
+//             if (!match) {
+//                 res.status(404).send({
+//                     success: false,
+//                     message: "Match not found for game"
+//                 });    
+    
+//                 return;
+//             }            
+//             const match_id = match[0].id; 
+//           console.log(match_id)
+        
+  
+// //delete match from group based on game_id
+//        const matchGame =  await dbQueries.deleteMatchByGameId(game_id, db);  
+//        if (!matchGame) {
+//         res.status(404).send({
+//             success: false,
+//             message: "Match not deleted  for game"
+//         });    
+
+//         return;
+//     }  
+//             await dbQueries.deleteGameFromGroup(group_id, game_id, db);
+ 
+
+
+//             res.status(200).send({
+//                 success: true,
+//                 message: "Game deleted",
+//             });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send({
+//             success: false,
+//             message: "Server Error",
+//         });
+//     }
+// });
 
 
   return router;

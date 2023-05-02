@@ -325,17 +325,17 @@ const createMatch = function (game_id, date, db) {
   };
 
  // Delete player results for a match
- const deletePlayerResultsByMatchId = async (matchId, db) => {
+ const deletePlayerResultsByMatchId = async (match_ids, db) => {
   try {
-    const queryString = `DELETE FROM matches_players WHERE match_id = $1;`;
-    const values = [matchId];
+    const queryString = `DELETE FROM matches_players WHERE match_id = ANY($1);`;
+    const values = [match_ids];
     const result = await db.query(queryString, values);
-
+console.log(result)
     if (result.rowCount === 0) {
       console.log("No player results found");
       return false;
     } else {
-      console.log(`Deleted player results for match ${matchId}`);
+      console.log(`Deleted player results for matches ${matchIds}`);
       return true;
     }
   } catch (err) {
@@ -362,20 +362,27 @@ const deleteMatchById = function (match_id, db) {
 };
 
 // Delete a match from a group
-const deleteGroupMatchById = function (group_id, match_id, db) {
-  return db.query('DELETE FROM groups_matches WHERE group_id = $1 AND match_id = $2', [group_id, match_id])
-    .then((result) => {
-      if (result.rowCount === 0) {
-        console.log("No group matches found");
+const deleteGroupMatchesByIds = function (group_id, match_ids, db) {
+  const promises = match_ids.map(match_id => {
+    return db.query('DELETE FROM groups_matches WHERE group_id = $1 AND match_id = $2', [group_id, match_id])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          console.log(`No group match found for match_id: ${match_id}`);
+          return false;
+        } else {
+          return true;
+        }
+      })
+      .catch((err) => {
+        console.log(`Error deleting group match for match_id: ${match_id}`);
+        console.log(err.message);
         return false;
-      } else {
-        return true;
-      }
-    })
-    .catch((err) => {
-      console.log(err.message);
-      return false;
-    });
+      });
+  });
+
+  return Promise.all(promises).then((results) => {
+    return results.every((result) => result === true);
+  });
 };
 
 //Delete game using group id
@@ -428,7 +435,7 @@ const deleteMatchByGameId = async (gameId, db) => {
   }
 };
 
-const getMatchByGameId = function (game_id, db) {
+const getMatchesByGameId = function (game_id, db) {
   const queryString = `SELECT * FROM matches WHERE game_id = $1;`;
   const values = [game_id];
   return db
@@ -463,9 +470,10 @@ module.exports = {
   getGameStats,
   gameStatsTable, 
   deleteMatchById, 
-  deleteGroupMatchById, 
+  deleteGroupMatchesByIds, 
   deletePlayerResultsByMatchId, 
   deleteGameFromGroup, 
   deleteMatchByGameId, 
-  getMatchByGameId 
+  getMatchesByGameId, 
+  deletePlayerResultsByMatchId 
 }
