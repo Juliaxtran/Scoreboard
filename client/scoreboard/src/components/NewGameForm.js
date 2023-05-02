@@ -7,7 +7,6 @@ import {
   DialogActions,
   DialogTitle,
   TextField,
-  useMediaQuery
 } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router-dom";

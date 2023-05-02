@@ -105,7 +105,6 @@ const GameBoard = () => {
       mb: 2,
       mt: 2,
       color: "warning",
-      textDecoration: 'none',
       '&:hover': {
         bgcolor:
         "#f28720",
