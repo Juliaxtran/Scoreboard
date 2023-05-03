@@ -4,7 +4,7 @@ const { Pool } = require('pg');
 const {DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT} = process.env;
 
 
-const isLocal = process.env.DB_HOST === 'localhost';
+const isLocal = DB_HOST === 'localhost';
 
 let config; 
 if (isLocal) {

@@ -11,13 +11,15 @@ require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
+const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 9000;
 
 app.use(bodyParser.json());
 
 //CORS for all routes
+
 app.use(cors({
   origin: "http://localhost:3000",
   credentials: true,
@@ -44,6 +46,15 @@ app.use("/match", matchRoutes(db, dbQueries));
 
 app.get("/", (req, res) => {
   res.send("Server is running");
+});
+
+
+// Serve static files from the build folder
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Handle all other requests by returning the React app, so that the client-side routing works
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.get("/api/profile", (req, res) => {
