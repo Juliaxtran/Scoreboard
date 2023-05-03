@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //CORS for all routes
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://scoreboard-ju0h.onrender.com'],
+  origin: 'http://localhost:3000',
   credentials: true,
 methods:['GET','POST','PUT','DELETE', 'HEAD']
 }));
