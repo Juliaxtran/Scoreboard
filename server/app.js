@@ -47,7 +47,7 @@ app.use("/match", matchRoutes(db, dbQueries));
 
 
 // Serve static files from the build folder
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '../client/scoreboard/build')));
 
 // Handle all other requests by returning the React app, so that the client-side routing works
 app.get('*', (req, res) => {
