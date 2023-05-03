@@ -20,7 +20,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>} />
-          <Route path="/group" element={<Group />} />
+          <Route path="/group/player" element={<Group />} />
           <Route path="/test" element={<ScoreBoard />} />
           <Route path="/dashboard/:group_id" element={<Dashboard  />} />
           <Route path="/players/:group_id" element={<AllPlayers/>} />

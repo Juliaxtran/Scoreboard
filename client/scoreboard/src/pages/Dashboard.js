@@ -23,9 +23,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios.all([
-      axios.get(`http://localhost:4000/game/all/${group_id}`),
-      axios.get(`http://localhost:4000/group/players/${group_id}`),
-      axios.get(`http://localhost:4000/match/${group_id}`)
+      axios.get(`/game/all/${group_id}`),
+      axios.get(`/group/players/${group_id}`),
+      axios.get(`/match/${group_id}`)
     ]).then(axios.spread((gamesResponse, playersResponse, matchResponse) => {
       const newGames = gamesResponse.data.games;
       const newPlayers = playersResponse.data.players;
