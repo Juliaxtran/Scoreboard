@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //CORS for all routes
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: '*',
   credentials: true,
 methods:['GET','POST','PUT','DELETE', 'HEAD']
 }));
@@ -52,6 +52,11 @@ app.use(express.static(path.join(__dirname, '../client/scoreboard/build')));
 // Handle all other requests by returning the React app, so that the client-side routing works
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/scoreboard/build', 'index.html'));
+
+});
+
+app.get("/", (req, res) => {
+  res.send('Hello from the server');
 });
 
 app.get("/api/profile", (req, res) => {
