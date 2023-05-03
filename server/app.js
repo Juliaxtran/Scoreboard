@@ -44,9 +44,6 @@ app.use("/group", groupRoutes(db, dbQueries));
 app.use("/game", gameRoutes(db, dbQueries));
 app.use("/match", matchRoutes(db, dbQueries));
 
-app.get("/", (req, res) => {
-  res.send("Server is running");
-});
 
 
 // Serve static files from the build folder
