@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, '../client/scoreboard/build')));
 
 // Handle all other requests by returning the React app, so that the client-side routing works
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/scoreboard/build', 'index.html'));
 });
 
 app.get("/api/profile", (req, res) => {
