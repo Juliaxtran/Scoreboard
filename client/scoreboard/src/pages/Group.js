@@ -22,7 +22,7 @@ function Group() {
     if (user) {
 
       axios
-        .get(`/group/aplayer`, { withCredentials: true })
+        .get(`/group`, { withCredentials: true })
         .then((res) => {
           const groupData = res.data.group;
           if (groupData === 'No group found') {

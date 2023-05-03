@@ -131,7 +131,7 @@ function ResponsiveAppBar() {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                <Link to="/group" style={{ textDecoration: "none", color: 'black' }}>
+                <Link to="/group/player" style={{ textDecoration: "none", color: 'black' }}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">Groups</Typography>
                   </MenuItem>
@@ -150,7 +150,7 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: "none", md: "flex" } }}
               className="nav-bar-page"
             >
-              <Link to="/group" style={{ textDecoration: "none" }}>
+              <Link to="group/player" style={{ textDecoration: "none" }}>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block", fontFamily: 'Fugaz One, cursive' , fontSize: '1rem'}}

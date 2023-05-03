@@ -43,7 +43,7 @@ export default function LoginForm({ setError, setIsSignUp }) {
       if (success) {
         setError("Login Successful");
         setTimeout(() => setError(null), 3000);
-        navigate('/group');
+        navigate('/group/player');
       } else {
         setError("Login Failed")
       }
