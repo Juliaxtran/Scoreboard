@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 //CORS for all routes
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: ['http://localhost:3000', 'https://scoreboard-ju0h.onrender.com'],
   credentials: true,
 methods:['GET','POST','PUT','DELETE', 'HEAD']
 }));
