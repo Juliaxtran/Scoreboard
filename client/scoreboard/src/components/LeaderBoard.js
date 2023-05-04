@@ -135,7 +135,7 @@ const LeaderBoard = () => {
                 );
               })}
 
-            {matches.length > 0 &&
+            {matches && matches.length > 0 &&
               Array.isArray(leaderboard) &&
               leaderboard.slice(0, 6).map((player, index) => {
                 let trophyImage;
@@ -183,7 +183,7 @@ const LeaderBoard = () => {
                 );
               })}
           </Box>
-          {matches.length > 0 && (
+          {matches && matches.length > 0 && (
             <Link to={`/players/${group_id}`} className="links">
               <h3>See more stats</h3>
             </Link>
