@@ -32,7 +32,7 @@ const AllMatches = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/match/${group_id}`, { withCredentials: true })
+      .get(`/match/${group_id}`, { withCredentials: true })
       .then((res) => {
         const matches = transformData(res.data.matches)
         setMatchData(matches);

@@ -35,7 +35,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
     e.preventDefault();
     console.log(formData);
     axios
-      .post("http://localhost:4000/player/signup", formData, {withCredentials: true })
+      .post("/player/signup", formData, {withCredentials: true })
       .then((res) => {
         console.log(res.data);
         const player = res.data.player;
@@ -44,7 +44,7 @@ const RegisterForm = ({ setError, setIsSignUp}) => {
         if (success) {
           setError("Registration Successful");
           setTimeout(() => setError(null), 3000);
-          navigate("/group");
+          navigate("group/player");
         } else {
           setError("Registration Failed");
         }

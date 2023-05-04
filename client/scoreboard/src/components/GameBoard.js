@@ -64,8 +64,8 @@ const GameBoard = () => {
 
   useEffect (() => {
     axios.all([
-      axios.get(`http://localhost:4000/game/all/${group_id}`),
-      axios.get(`http://localhost:4000/game/stats/${group_id}`)
+      axios.get(`/game/all/${group_id}`),
+      axios.get(`/game/stats/${group_id}`)
     ]).then(axios.spread((gamesResponse, statsResponse) => {
       const newGames = gamesResponse.data.games;
       const newStats = getWinnersAndLosers(statsResponse.data.games);

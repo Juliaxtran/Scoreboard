@@ -87,7 +87,7 @@ const NewMatchForm = ({setError}) => {
     };
 
     axios
-      .post(`http://localhost:4000/match/${group_id}`, payload, {
+      .post(`/match/${group_id}`, payload, {
         headers: {
           "Content-Type": "application/json",
         },

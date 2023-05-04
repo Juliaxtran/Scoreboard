@@ -11,15 +11,17 @@ require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
+const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 9000;
 
 app.use(bodyParser.json());
-
+app.use(bodyParser.urlencoded({ extended: false }));
 //CORS for all routes
+
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: '*',
   credentials: true,
 methods:['GET','POST','PUT','DELETE', 'HEAD']
 }));
@@ -42,8 +44,19 @@ app.use("/group", groupRoutes(db, dbQueries));
 app.use("/game", gameRoutes(db, dbQueries));
 app.use("/match", matchRoutes(db, dbQueries));
 
+
+
+// Serve static files from the build folder
+app.use(express.static(path.join(__dirname, '../client/scoreboard/build')));
+
+// Handle all other requests by returning the React app, so that the client-side routing works
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/scoreboard/build', 'index.html'));
+
+});
+
 app.get("/", (req, res) => {
-  res.send("Server is running");
+  res.send('Hello from the server');
 });
 
 app.get("/api/profile", (req, res) => {

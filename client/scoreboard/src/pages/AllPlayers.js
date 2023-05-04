@@ -79,13 +79,13 @@ const AllPlayers = () => {
 
   useEffect(() => {
     axios.all([
-      axios.get(`http://localhost:4000/game/stats/table/${group_id}`, {
+      axios.get(`/game/stats/table/${group_id}`, {
         withCredentials: true,
       }),
-      axios.get(`http://localhost:4000/group/leaderboard/${group_id}`, {
+      axios.get(`/group/leaderboard/${group_id}`, {
         withCredentials: true,
       }),
-      axios.get(`http://localhost:4000/group/players/${group_id}`, {
+      axios.get(`/group/players/${group_id}`, {
         withCredentials: true,
       })
     ]).then(axios.spread((statsResponse, leaderboardResponse, playersResponse) => {

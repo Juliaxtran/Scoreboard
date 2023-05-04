@@ -63,7 +63,7 @@ const GameBoard = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/game/stats/${group_id}`, {
+      .get(`/game/stats/${group_id}`, {
         withCredentials: true,
       })
       .then((res) => {
