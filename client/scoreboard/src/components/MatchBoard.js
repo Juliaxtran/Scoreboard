@@ -69,7 +69,7 @@ const MatchBoard = () => {
             </h1>
           </Link>
            {/* This conditions renders the page a lot of times when its called */}
-           {matches.length === 0 &&
+           {matches && matches.length === 0 &&
            <Box sx={{
             display: 'flex',
             flexDirection: 'column',
