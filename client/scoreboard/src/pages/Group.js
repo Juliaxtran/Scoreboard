@@ -63,7 +63,7 @@ function Group() {
       <div className='groupInfo'>
         <div className='groupCopy'>
           <div className='groupCopy-text'>
-            <h2>Hello {user.name} {user.lastname}</h2>
+          { user && <h2>Hello {user.name} {user.lastname}</h2>} 
             <p> To start please choose a group or create a new group</p>
           </div>
           <NewGroupForm />
@@ -72,7 +72,7 @@ function Group() {
 
         <div className='groups'>
           <h2>Groups</h2>
-          {groups.length === 0 ? (
+          {groups && groups.length === 0 ? (
             <p>No groups found. Please create a group</p>
           ) : (
             <>
