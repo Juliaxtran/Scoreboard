@@ -68,8 +68,7 @@ function ResponsiveAppBar() {
           </Typography>
         </Link>
         {/* Navbar tile homepage */}
-        {
-          user  && user !== undefined && !isMobile ? (
+        { user  && user.name !== undefined && !isMobile ? (
 
             <Typography
             variant="h6"
@@ -100,7 +99,7 @@ function ResponsiveAppBar() {
 
         }
 
-        {user  && user !== undefined ? (
+        {user  && user.name !== undefined ?  (
           /* Mobile Responsive with Menu Icon  */
           <>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
