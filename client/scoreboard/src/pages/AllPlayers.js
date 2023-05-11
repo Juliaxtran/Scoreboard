@@ -122,9 +122,9 @@ const AllPlayers = () => {
       }} >
 
         <h3 style={{ textAlign: 'start', fontFamily: 'Electrolize' }}>Total Win Rate</h3>
-        <CustomTable data={leaderboard} headings={['Player', 'Total Matches', 'Total Wins', 'Win Rate']} />
+        <CustomTable data={leaderboard} headings={['Player', 'Total Wins', 'Total Matches', 'Win Rate']} />
         <h3 style={{ textAlign: 'start', fontFamily: 'Electrolize' }}>Win Rate Per Game</h3>
-        <CustomTable data={playerStats} headings={['Player', 'Game', 'Total Matches', 'Total Wins', 'Total Losses', 'Win Rate']} />
+        <CustomTable data={playerStats} headings={['Player', 'Game', 'Total Wins', 'Total Losses', 'Total Matches', 'Win Rate']} />
         <Link to={`/dashboard/${group_id}`} sx={{ textDecoration: 'none' }}>
   <Button
     variant="contained"
