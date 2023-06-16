@@ -60,17 +60,22 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/profile", (req, res) => {
+
   if (req.session.player) {
     const player_id = req.session.player.id;
     const command = "SELECT * from players where id = $1; ";
     values = [player_id];
     db.query(command, values).then((data) => {
-      return res.json(data.rows[0]);
-    });
+      console.log('whue ', req)
+      return res.json(data.rows[0]); 
+    });  
+   
   } else {
-    return res.status(400).send("No user info");
+    return res.status(400).send("No user info"); 
+   
   }
 });
+
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
