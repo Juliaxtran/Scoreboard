@@ -325,23 +325,22 @@ const createMatch = function (game_id, date, db) {
   };
 
  // Delete player results for a match
- const deletePlayerResultsByMatchId = async (match_ids, db) => {
-  try {
-    const queryString = `DELETE FROM matches_players WHERE match_id = ANY($1);`;
-    const values = [match_ids];
-    const result = await db.query(queryString, values);
-console.log(result)
-    if (result.rowCount === 0) {
-      console.log("No player results found");
+const deletePlayerResultsByMatchId = function (match_id, db) {
+  const queryString = `DELETE FROM matches_players WHERE match_id = $1;`;
+  const values = [match_id];
+  return db.query(queryString, values)
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("No player results found");
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
       return false;
-    } else {
-      console.log(`Deleted player results for matches ${matchIds}`);
-      return true;
-    }
-  } catch (err) {
-    console.log(err.message);
-    return false;
-  }
+    });
 };
 
 // Delete a match
@@ -362,28 +361,44 @@ const deleteMatchById = function (match_id, db) {
 };
 
 // Delete a match from a group
-const deleteGroupMatchesByIds = function (group_id, match_ids, db) {
-  const promises = match_ids.map(match_id => {
-    return db.query('DELETE FROM groups_matches WHERE group_id = $1 AND match_id = $2', [group_id, match_id])
-      .then((result) => {
-        if (result.rowCount === 0) {
-          console.log(`No group match found for match_id: ${match_id}`);
-          return false;
-        } else {
-          return true;
-        }
-      })
-      .catch((err) => {
-        console.log(`Error deleting group match for match_id: ${match_id}`);
-        console.log(err.message);
+const deleteGroupMatchById = function (group_id, match_id, db) {
+  return db.query('DELETE FROM groups_matches WHERE group_id = $1 AND match_id = $2', [group_id, match_id])
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("No group matches found");
         return false;
-      });
-  });
-
-  return Promise.all(promises).then((results) => {
-    return results.every((result) => result === true);
-  });
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return false;
+    });
 };
+
+// const deleteGroupMatchesByIds = function (group_id, match_ids, db) {
+//   const promises = match_ids.map(match_id => {
+//     return db.query('DELETE FROM groups_matches WHERE group_id = $1 AND match_id = $2', [group_id, match_id])
+//       .then((result) => {
+//         if (result.rowCount === 0) {
+//           console.log(`No group match found for match_id: ${match_id}`);
+//           return false;
+//         } else {
+//           return true;
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(`Error deleting group match for match_id: ${match_id}`);
+//         console.log(err.message);
+//         return false;
+//       });
+//   });
+
+//   return Promise.all(promises).then((results) => {
+//     return results.every((result) => result === true);
+//   });
+// };
 
 //Delete game using group id
 
@@ -466,11 +481,12 @@ module.exports = {
   addGroupMatch,
   addMatchPlayers,
   getMatchesByGroupId,
+  deleteGroupMatchById,
   getLeaderBoardByGroupId,
   getGameStats,
   gameStatsTable, 
   deleteMatchById, 
-  deleteGroupMatchesByIds, 
+   
   deletePlayerResultsByMatchId, 
   deleteGameFromGroup, 
   deleteMatchByGameId, 
