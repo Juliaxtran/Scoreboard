@@ -79,7 +79,7 @@ function ResponsiveAppBar() {
               textAlign: "center",
             }}
           >
-            {group_id  ? `${groupName}` : `${user?.name} ${user?.lastname}`}
+            {user && group_id  ? `${groupName}` : `${user?.name} ${user?.lastname}12`}
           </Typography>
           ) : (
             <Typography

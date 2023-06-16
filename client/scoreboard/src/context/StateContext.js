@@ -21,6 +21,7 @@ const StateContext = ({ children }) => {
     axios.get('/api/profile', { withCredentials: true })
       .then(response => {
         setUser(response.data);
+        console.log('i got data',response.data);
       })
       .catch(error => {
         console.error(error);
