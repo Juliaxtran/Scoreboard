@@ -37,6 +37,7 @@ function ResponsiveAppBar() {
 
 
 
+
   const logOut = (e) => {
     e.preventDefault();
     axios.post (
@@ -67,8 +68,7 @@ function ResponsiveAppBar() {
           </Typography>
         </Link>
         {/* Navbar tile homepage */}
-        {
-          user && !isMobile ? (
+        { user  && user.name !== undefined && !isMobile ? (
 
             <Typography
             variant="h6"
@@ -99,7 +99,7 @@ function ResponsiveAppBar() {
 
         }
 
-        {user ? (
+        {user  && user.name !== undefined ?  (
           /* Mobile Responsive with Menu Icon  */
           <>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
