@@ -41,7 +41,7 @@ const Dashboard = () => {
 
   setTimeout(() => {
     setError(null);
-  }, 5000);
+  }, 10000);
 
 
   return (

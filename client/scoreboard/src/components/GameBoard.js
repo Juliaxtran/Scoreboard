@@ -13,12 +13,28 @@ const GameBoard = () => {
   const [gameStats, setGameStats] = useState([]);
   const [games, setGames] = useState([]);
 
-  const {  matches } = useContext(Context);
+  const { matches } = useContext(Context);
+
+  // Function to filter the games array based on game name not present in gameStats
+  const filterGames = () => {
+    const filteredGames = games.filter((game) =>
+      !gameStats.some((stat) => game.name === stat.game)
+    );
+    return filteredGames;
+  };
+
 
   function getWinnersAndLosers(games) {
     const results = {};
     games.forEach((game) => {
-      const { game: gameName, game_id, description, player, wins, losses } = game;
+      const {
+        game: gameName,
+        game_id,
+        description,
+        player,
+        wins,
+        losses,
+      } = game;
       if (!results[gameName]) {
         results[gameName] = {
           game_id,
@@ -56,145 +72,162 @@ const GameBoard = () => {
           losers.push(player);
         }
       });
-      return { game, game_id: gameResults.game_id, description: gameResults.description, winners, losers };
+      return {
+        game,
+        game_id: gameResults.game_id,
+        description: gameResults.description,
+        winners,
+        losers,
+      };
     });
   }
 
+  useEffect(() => {
+    axios
+      .all([
+        axios.get(`http://localhost:4000/game/all/${group_id}`),
+        axios.get(`http://localhost:4000/game/stats/${group_id}`),
+      ])
+      .then(
+        axios.spread((gamesResponse, statsResponse) => {
+          const newGames = gamesResponse.data.games;
+          const newStats = getWinnersAndLosers(statsResponse.data.games);
+          setGames(newGames);
+          setGameStats(newStats);
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    const filteredGames = filterGames();
+    setGames(filteredGames);
+  }, [gameStats]);
 
 
-
-  useEffect (() => {
-    axios.all([
-      axios.get(`http://localhost:4000/game/all/${group_id}`),
-      axios.get(`http://localhost:4000/game/stats/${group_id}`)
-    ]).then(axios.spread((gamesResponse, statsResponse) => {
-      const newGames = gamesResponse.data.games;
-      const newStats = getWinnersAndLosers(statsResponse.data.games);
-      setGames(newGames);
-      setGameStats(newStats);
-    })).catch((error) => {
-      console.log(error);
-    });
-  },[]);
-
-
-
-
-
+  console.log("games", games);
+  console.log("gameStats", gameStats);
   return (
     <>
       {/* Game Board Container/Box */}
       <Box
-  sx={{
-    display: "flex",
-    flexWrap: "wrap",
-    textAlign: "center",
-    justifyContent: "center",
-    "& > :not(style)": {
-      m: 1,
-      p: 3,
-      mt: isMobile ? 0 : 0,
-      width: isMobile ? 335 : 400,
-      height: 'fit-content',
-      maxHeight: "600px",
-      overflowY: "scroll",
-      overflowX: "hidden", // Add this line
-      backgroundColor: "rgba( 40, 40, 40, 0.6 )",
-      boxShadow: "rgba(255, 255, 255, 0.35) 0px 5px 15px",
-      backdropFilter: "blur( 8.5px )",
-      borderRadius: "10px",
-      "&::-webkit-scrollbar": {
-        width: "10px",
-      },
-      "&::-webkit-scrollbar-track": {
-        background: "rgba(255, 255, 255, 0.1)",
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "black",
-        borderRadius: "20px",
-        border: "3px solid rgba(0, 0, 0, 0)",
-      },
-    },
-  }}
->
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          textAlign: "center",
+          justifyContent: "center",
+          "& > :not(style)": {
+            m: 1,
+            p: 3,
+            mt: isMobile ? 0 : 0,
+            width: isMobile ? 335 : 400,
+            height: "fit-content",
+            maxHeight: "600px",
+            overflowY: "scroll",
+            overflowX: "hidden", // Add this line
+            backgroundColor: "rgba( 40, 40, 40, 0.6 )",
+            boxShadow: "rgba(255, 255, 255, 0.35) 0px 5px 15px",
+            backdropFilter: "blur( 8.5px )",
+            borderRadius: "10px",
+            "&::-webkit-scrollbar": {
+              width: "10px",
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "rgba(255, 255, 255, 0.1)",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "black",
+              borderRadius: "20px",
+              border: "3px solid rgba(0, 0, 0, 0)",
+            },
+          },
+        }}
+      >
         <Paper elevation={0}>
-
-          <Link className='dashboard-heading' to={`/games/${group_id}`} style={{ textDecoration: "none", color: 'black' }}>
-            <h1 className='dashboard-heading' style={{ color: "white", marginBottom: "1em" }}>
+          <Link
+            className="dashboard-heading"
+            to={`/games/${group_id}`}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <h1
+              className="dashboard-heading"
+              style={{ color: "white", marginBottom: "1em" }}
+            >
               Games
             </h1>
           </Link>
-
+          {console.log(games.id, "sd", gameStats.game_id)}
           {matches.length === 0 && games.length === 0 && (
-               <h3 style={{ color: 'white' }}>Add a Game To Start</h3>
+            <h3 style={{ color: "white" }}>Add a Game To Start</h3>
           )}
-          {matches.length === 0 && games.length > 0 && Array.isArray(games) && games.map((game) => {
-            return (
-              <Paper
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  height: '100px',
-                  width: isMobile ? 310 : 350,
-                  margin: '0 auto',
-                  mb: '1em',
-                  p: 2,
-                }}
-                key={game.game_id}
-              >
-                {/* no matches */}
-              {matches.length === 0 && <DeleteGameButton game={game}/>}
-                <h1>{game.name}</h1>
-                <h3>Description:</h3>
-                <p>{game.description}</p>
-              </Paper>
-            );
-          })
-          }
+          {matches &&
+            Array.isArray(games) &&
+            games.map((game) => {
+              return (
+                <Paper
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    height: "100px",
+                    width: isMobile ? 310 : 350,
+                    margin: "0 auto",
+                    mb: "1em",
+                    p: 2,
+                  }}
+                  key={game.game_id}
+                >
+                  {/* no matches */}
+                  {matches.length === 0 && <DeleteGameButton game={game} gameStats={gameStats} setGameStats={setGameStats}/>}
+                  <h1>{game.name}</h1>
+                  <h3>Description:</h3>
+                  <p>{game.description}</p>
+                </Paper>
+              );
+            })}
 
+          {matches.length !== 0 &&
+            Array.isArray(gameStats) &&
+            gameStats.map((game) => {
+              return (
+                <Paper
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    height: "150px",
+                    width: isMobile ? 310 : 350,
+                    margin: "0 auto",
+                    mb: "1em",
+                    p: 1,
+                  }}
+                  key={game.game_id}
+                >
+                  {/* with matches */}
+                  <DeleteGameButton game={game} />
+                  <h1>{game.game}</h1>
 
-          {Array.isArray(gameStats) && gameStats.map((game) => {
-            return (
-              <Paper
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  height: '150px',
-                  width: isMobile ? 310 : 350,
-                  margin: '0 auto',
-                  mb: '1em',
-                  p: 1,
-                }}
-                key={game.game_id}
-              >
-{/* with matches */}
-                <DeleteGameButton game={game}/>
-                <h1>{game.game}</h1>
-
-                <h3>Description:</h3>
-                <p>{game.description}</p>
-                <h3>Most Wins</h3>
-                <p>{game.winners.join(",")}</p>
-                <h3>Most Losses</h3>
-                <p>{game.losers.join(",")}</p>
-
-              </Paper>
-            );
-          })}
-          {
-            matches.length > 0 && <Link to={`/games/${group_id}`} className='links'>
+                  <h3>Description:</h3>
+                  <p>{game.description}</p>
+                  <h3>Most Wins</h3>
+                  <p>{game.winners.join(",")}</p>
+                  <h3>Most Losses</h3>
+                  <p>{game.losers.join(",")}</p>
+                </Paper>
+              );
+            })}
+          {matches.length > 0 && (
+            <Link to={`/games/${group_id}`} className="links">
               <h3>See more stats</h3>
             </Link>
-          }
-
+          )}
         </Paper>
       </Box>
     </>
-
   );
 };
 

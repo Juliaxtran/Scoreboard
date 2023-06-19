@@ -468,6 +468,17 @@ const getMatchesByGameId = function (game_id, db) {
     });
 };
 
+//Get matches for a game  
+const getMatchesForGame = async (gameId, db) => {
+  try {
+    const query = 'SELECT * FROM matches WHERE game_id = $1';
+    const values = [gameId];
+    const result = await db.query(query, values);
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
+};
 
 module.exports = {
   getUserByEmail,
@@ -491,5 +502,6 @@ module.exports = {
   deleteGameFromGroup, 
   deleteMatchByGameId, 
   getMatchesByGameId, 
-  deletePlayerResultsByMatchId 
+  deletePlayerResultsByMatchId, 
+  getMatchesForGame
 }

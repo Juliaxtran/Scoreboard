@@ -172,31 +172,39 @@ module.exports = (db, dbQueries) => {
 //     }
 //   });
   
-
-router.delete("group_id/game_id/nomatches", async (req, res) => {
+//Delete a game when there are no matches for that game
+router.delete("/:group_id/:game_id/nomatches", async (req, res) => {
     const { group_id, game_id } = req.params;
     try {
-        const game = await dbQueries.deleteGameFromGroup(group_id, game_id, db);
-        if (!game) {
-            res.status(404).send({
-                success: false,
-                message: "Game not deleted for group"
-            });
-        }
-        console.log(game)
-        res.status(200).send({
-            success: true,
-            message: "Game deleted",
+      const matches = await dbQueries.getMatchesForGame(game_id, db);
+      if (matches.length > 0) {
+        return res.status(400).send({
+          success: false,
+          message: "Cannot delete game with associated matches.Please Delete the match first"
         });
+      }
+  
+      const game = await dbQueries.deleteGameFromGroup(group_id, game_id, db);
+      if (!game) {
+        return res.status(404).send({
+          success: false,
+          message: "Game not deleted for group"
+        });
+      }
+  
+      console.log(game);
+      return res.status(200).send({
+        success: true,
+        message: "Game deleted"
+      });
     } catch (error) {
-        console.error(error);
-        res.status(500).send({
-            success: false,
-            message: "Server Error",
-        });
+      console.error(error);
+      return res.status(500).send({
+        success: false,
+        message: "Server Error"
+      });
     }
-});
-
+  });
 
 
 
