@@ -29,11 +29,12 @@ const DeleteGameButton = ({ game, gameStats, setGameStats }) => {
       .delete(`http://localhost:4000/game/${group_id}/${gameId}/nomatches`)
       .then((res) => {
         if (res.status === 200) {
-         const updatedGames = games.filter((game) => game.id !== gameId);
+          const updatedGames = games.filter((game) => game.id !== gameId);
           setGames(updatedGames);
           handleClose();
-          setError("Success"); 
-            window.location.reload();
+          setError("Success");
+          console.log(gameId, "isdfis");
+          window.location.reload();
         }
       })
       .catch((err) => {
@@ -47,7 +48,6 @@ const DeleteGameButton = ({ game, gameStats, setGameStats }) => {
       });
   };
 
-  
   return (
     <>
       <IconButton sx={{ ml: 35 }} onClick={handleClickOpen}>

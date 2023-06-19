@@ -15,15 +15,6 @@ const GameBoard = () => {
 
   const { matches } = useContext(Context);
 
-  // Function to filter the games array based on game name not present in gameStats
-  const filterGames = () => {
-    const filteredGames = games.filter((game) =>
-      !gameStats.some((stat) => game.name === stat.game)
-    );
-    return filteredGames;
-  };
-
-
   function getWinnersAndLosers(games) {
     const results = {};
     games.forEach((game) => {
@@ -101,14 +92,11 @@ const GameBoard = () => {
       });
   }, []);
 
-  useEffect(() => {
-    const filteredGames = filterGames();
-    setGames(filteredGames);
-  }, [gameStats]);
+  // Update the games array whenever gameStats or games change
+  const filteredGames = games.filter(
+    (game) => !gameStats.some((stat) => game.name === stat.game)
+  );
 
-
-  console.log("games", games);
-  console.log("gameStats", gameStats);
   return (
     <>
       {/* Game Board Container/Box */}
@@ -164,7 +152,7 @@ const GameBoard = () => {
           )}
           {matches &&
             Array.isArray(games) &&
-            games.map((game) => {
+            filteredGames.map((game) => {
               return (
                 <Paper
                   sx={{
@@ -181,7 +169,7 @@ const GameBoard = () => {
                   key={game.game_id}
                 >
                   {/* no matches */}
-                  {matches.length === 0 && <DeleteGameButton game={game} gameStats={gameStats} setGameStats={setGameStats}/>}
+                  {matches.length === 0 && <DeleteGameButton game={game} />}
                   <h1>{game.name}</h1>
                   <h3>Description:</h3>
                   <p>{game.description}</p>
