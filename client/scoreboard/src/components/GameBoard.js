@@ -97,6 +97,8 @@ const GameBoard = () => {
     (game) => !gameStats.some((stat) => game.name === stat.game)
   );
 
+  console.log(filteredGames, "filteredGames");
+console.log(gameStats, "gameStats")
   return (
     <>
       {/* Game Board Container/Box */}
@@ -153,6 +155,8 @@ const GameBoard = () => {
           {matches &&
             Array.isArray(games) &&
             filteredGames.map((game) => {
+              // const hasMatches = gameStats.some((stat) => game.game_id === stat.game_id);
+
               return (
                 <Paper
                   sx={{
@@ -169,7 +173,7 @@ const GameBoard = () => {
                   key={game.game_id}
                 >
                   {/* no matches */}
-                  {matches.length === 0 && <DeleteGameButton game={game} />}
+                  {filteredGames && <DeleteGameButton game={game} filteredGames={filteredGames} />}
                   <h1>{game.name}</h1>
                   <h3>Description:</h3>
                   <p>{game.description}</p>
@@ -196,7 +200,9 @@ const GameBoard = () => {
                   key={game.game_id}
                 >
                   {/* with matches */}
-                  <DeleteGameButton game={game} />
+                  {matches.length !== 0 && (
+                    <DeleteGameButton game={game} matches={matches} />
+                  )}
                   <h1>{game.game}</h1>
 
                   <h3>Description:</h3>

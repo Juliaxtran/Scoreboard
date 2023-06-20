@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import { Context } from "../context/StateContext";
 import { Alert } from "@mui/material";
 
-const DeleteGameButton = ({ game, gameStats, setGameStats }) => {
+const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
 
@@ -47,6 +47,7 @@ const DeleteGameButton = ({ game, gameStats, setGameStats }) => {
         }
       });
   };
+
 
   return (
     <>
@@ -88,17 +89,9 @@ const DeleteGameButton = ({ game, gameStats, setGameStats }) => {
           <Button onClick={handleClose} autoFocus>
             Cancel
           </Button>
-          {/* if the game has matches or no match  */}
-          {matches.length === 0 ? (
-            <Button
-              onClick={() => handleDeleteGame(game.id)}
-              color="error"
-              variant="contained"
-              type="submit"
-            >
-              Delete w/o match
-            </Button>
-          ) : (
+       {/* Render the appropriate button */}
+       {!filteredGames ? (
+        // Game associated with matches
             <Button
               onClick={() => handleDeleteGame(game.game_id)}
               color="error"
@@ -107,7 +100,19 @@ const DeleteGameButton = ({ game, gameStats, setGameStats }) => {
             >
               Delete
             </Button>
+          ) : (
+            // Game not associated with matches
+            <Button
+              onClick={() => handleDeleteGame(game.id)}
+              color="error"
+              variant="contained"
+              type="submit"
+            >
+              Delete w/o match
+            </Button>
           )}
+           {console.log(filteredGames, "filteredGames")}
+          
         </DialogActions>
       </Dialog>
     </>
