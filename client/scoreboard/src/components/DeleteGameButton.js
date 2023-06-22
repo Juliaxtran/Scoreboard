@@ -30,7 +30,7 @@ const DeleteGameButton = ({ game, filteredGames, error, setError }) => {
       .then((res) => {
         if (res.status === 200) {
           const updatedGames = games.filter((game) => game.id !== gameId);
-          setError("Successfully deleted game.");
+          setError("Successfully deleted game. ");
           setGames(updatedGames);
           window.location.reload();
           handleClose();
