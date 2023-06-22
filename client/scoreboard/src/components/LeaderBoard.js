@@ -10,6 +10,7 @@ import trophy3 from '../assets/trophy33.png';
 import trophy4 from '../assets/trophy44.png';
 import './Leaderboard.css'
 import "../App.css";
+import DeletePlayerButton from "./DeletePlayerButton";
 
 
 
@@ -17,6 +18,7 @@ const LeaderBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
   const { group_id } = useParams();
   const [leaderboard, setLeaderboard] = useState([])
+  const [error, setError] = useState(null);
   const { players, setPlayers, matches } = useContext(Context);
 
 
@@ -124,7 +126,9 @@ const LeaderBoard = () => {
                     {player.name[0]}{player.lastname[0]}
                   </Avatar>
                   {/* Profile Info */}
-                  <div className="leader-info">
+             
+                  <div className="leader-info">     
+                  <DeletePlayerButton error={error} setError={setError} player={player}/>
                     <h2 style={{ fontWeight: 'bold' }}>{player.name}</h2>
                   </div>
                 </div>
