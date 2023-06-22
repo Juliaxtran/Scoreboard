@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Context } from '../context/StateContext';
 
-const DeleteMatchButton = ({match}) => {
+const DeleteMatchButton = ({match, setError, error}) => {
 
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -21,6 +21,7 @@ const DeleteMatchButton = ({match}) => {
         if (res.status === 200) {
           const updatedMatches = matches.filter((match) => match.match_id !== matchId);
           setMatches(updatedMatches);
+          setError("Match Deleted!! \nThe game associated with the match is not deleted. \nPlease refresh the page to retrieve the game.");
           handleClose();
         }
       })

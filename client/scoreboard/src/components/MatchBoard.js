@@ -10,10 +10,13 @@ import IconButton from '@mui/material/IconButton';
 import "../App.css";
 import DeleteMatchButton from "./DeleteMatchButton";
 import UpdateMatchButton from "./UpdateMatchButton";
+import { Alert } from "@mui/material";
+import { useState } from "react";
 
-
-const MatchBoard = ({error, setError}) => {
+const MatchBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
+  const [error, setError] = useState(null);
+
 
   const { group_id } = useParams();
   const { setMatches, matches } = useContext(Context);
@@ -32,6 +35,26 @@ const MatchBoard = ({error, setError}) => {
 
   return (
     <>
+{ error && (
+          <Alert
+            severity={
+              error === "Match Deleted!! \nThe game associated with the match is not deleted. \nPlease refresh the page to retrieve the game." ? "success" : "error"
+            }
+            style={{
+              position: "fixed",
+              top: "80px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 1000,
+              whiteSpace: "pre-line",
+              textAlign: "center",
+            }}
+           onClose={() => setError(null)}
+          >
+            {error}
+          </Alert>
+        )}
+
 <Box
   sx={{
     display: "flex",
@@ -105,7 +128,7 @@ const MatchBoard = ({error, setError}) => {
                 key={match.id}
               >
             
-                <DeleteMatchButton match={match}/>
+                <DeleteMatchButton match={match} error={error} setError={setError}/>
                 {/* <UpdateMatchButton match={match} setError={setError}/> */}
                 <h1>{match.game_name}</h1>
                 <h3>Winner(s): </h3>
