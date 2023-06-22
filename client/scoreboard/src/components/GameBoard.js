@@ -6,13 +6,14 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../context/StateContext";
 import DeleteGameButton from "./DeleteGameButton";
+import { Alert } from "@mui/material";
 
 const GameBoard = () => {
   const isMobile = useMediaQuery("(max-width:450px)");
   const { group_id } = useParams();
   const [gameStats, setGameStats] = useState([]);
   const [games, setGames] = useState([]);
-
+  const [error, setError] = useState(null);
   const { matches } = useContext(Context);
 
   function getWinnersAndLosers(games) {
@@ -101,6 +102,26 @@ const GameBoard = () => {
 console.log(gameStats, "gameStats")
   return (
     <>
+{gameStats && filteredGames && error && (
+          <Alert
+            severity={
+              error === "Successfully deleted game." ? "success" : "error"
+            }
+            style={{
+              position: "fixed",
+              top: "80px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 1000,
+              whiteSpace: "pre-line",
+              textAlign: "center",
+            }}
+           
+          >
+            {error}
+          </Alert>
+        )}
+
       {/* Game Board Container/Box */}
       <Box
         sx={{
@@ -173,7 +194,7 @@ console.log(gameStats, "gameStats")
                   key={game.game_id}
                 >
                   {/* no matches */}
-                  {filteredGames && <DeleteGameButton game={game} filteredGames={filteredGames} />}
+                  {filteredGames && <DeleteGameButton game={game} filteredGames={filteredGames} error={error} setError={setError} />}
                   <h1>{game.name}</h1>
                   <h3>Description:</h3>
                   <p>{game.description}</p>
@@ -201,7 +222,7 @@ console.log(gameStats, "gameStats")
                 >
                   {/* with matches */}
                   {matches.length !== 0 && (
-                    <DeleteGameButton game={game} matches={matches} />
+                    <DeleteGameButton game={game} matches={matches} error={error} setError={setError} />
                   )}
                   <h1>{game.game}</h1>
 

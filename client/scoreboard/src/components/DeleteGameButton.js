@@ -14,9 +14,9 @@ import { useParams } from "react-router-dom";
 import { Context } from "../context/StateContext";
 import { Alert } from "@mui/material";
 
-const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
+const DeleteGameButton = ({ game, filteredGames, error, setError }) => {
   const [open, setOpen] = useState(false);
-  const [error, setError] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleClose = () => setOpen(false);
   const handleClickOpen = () => setOpen(true);
@@ -30,11 +30,11 @@ const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
       .then((res) => {
         if (res.status === 200) {
           const updatedGames = games.filter((game) => game.id !== gameId);
+          setError("Successfully deleted game.");
           setGames(updatedGames);
-          handleClose();
-          setError("Success");
-          console.log(gameId, "isdfis");
           window.location.reload();
+          handleClose();
+          setShowAlert(true);
         }
       })
       .catch((err) => {
@@ -46,9 +46,7 @@ const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
           console.log(err);
         }
       });
-  };
-
-
+  };  
   return (
     <>
       <IconButton sx={{ ml: 35 }} onClick={handleClickOpen}>
@@ -61,22 +59,7 @@ const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        {error && (
-          <Alert
-            severity={error === "Success" ? "success" : "error"}
-            style={{
-              position: "fixed",
-              top: "80px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 1000,
-              whiteSpace: "pre-line",
-              textAlign: "center",
-            }}
-          >
-            {error}
-          </Alert>
-        )}
+      
         <DialogTitle id="alert-dialog-title">
           {"Are you sure you want to delete this game ?"}
         </DialogTitle>
@@ -89,9 +72,9 @@ const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
           <Button onClick={handleClose} autoFocus>
             Cancel
           </Button>
-       {/* Render the appropriate button */}
-       {!filteredGames ? (
-        // Game associated with matches
+          {/* Render the appropriate button */}
+          {!filteredGames ? (
+            // Game associated with matches
             <Button
               onClick={() => handleDeleteGame(game.game_id)}
               color="error"
@@ -111,8 +94,7 @@ const DeleteGameButton = ({ game, gameStats, setGameStats, filteredGames }) => {
               Delete w/o match
             </Button>
           )}
-           {console.log(filteredGames, "filteredGames")}
-          
+          {console.log(filteredGames, "filteredGames")}
         </DialogActions>
       </Dialog>
     </>

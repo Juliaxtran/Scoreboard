@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import AddButton from "../components/AddButton";
 import LeaderBoard from "../components/LeaderBoard";
@@ -14,10 +14,10 @@ import { Alert } from "@mui/material";
 
 const Dashboard = () => {
 
-  const [error, setError] = React.useState(null);
-  const { setGames, setPlayers, setMatches } = useContext(Context);
+  const [error, setError] = useState(null);
+  const { setGames, setPlayers, setMatches, games } = useContext(Context);
   const { group_id } = useParams();
-
+  const [open, setOpen] = useState(true);
 
 
 
@@ -41,7 +41,7 @@ const Dashboard = () => {
 
   setTimeout(() => {
     setError(null);
-  }, 10000);
+  }, 5000);
 
 
   return (
@@ -65,10 +65,14 @@ const Dashboard = () => {
           {error}
         </Alert>
       )}
+
+
+
+
       <AddButton error={error} setError={setError} />
       <div className="leaderboard-game-match" style={{ marginLeft: 20 }}>
         <LeaderBoard />
-        <GameBoard />
+        <GameBoard/>
         <MatchBoard error={error} setError={setError}/>
 
       </div>
