@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import { Context } from "../context/StateContext";
 import { Alert } from "@mui/material";
 
-const DeleteGameButton = ({ game, filteredGames, error, setError }) => {
+const DeleteGameButton = ({ game, filteredGames, error, setError, gameStats }) => {
   const [open, setOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -40,7 +40,7 @@ const DeleteGameButton = ({ game, filteredGames, error, setError }) => {
       .catch((err) => {
         if (err.response && err.response.status === 400) {
           setError(
-            "Cannot delete game with associated matches.\nPlease delete the matches first associated with the game and try again."
+            `Cannot delete the selected game with associated matches.\nPlease delete the matches first associated with the game and try again.`
           );
         } else {
           console.log(err);
@@ -94,7 +94,7 @@ const DeleteGameButton = ({ game, filteredGames, error, setError }) => {
               Delete w/o match
             </Button>
           )}
-          {console.log(filteredGames, "filteredGames")}
+          {console.log(games, "filteredGames")}
         </DialogActions>
       </Dialog>
     </>
