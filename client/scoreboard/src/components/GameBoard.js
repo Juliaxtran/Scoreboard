@@ -116,7 +116,7 @@ console.log(gameStats, "gameStats")
               whiteSpace: "pre-line",
               textAlign: "center",
             }}
-           
+           onClose={() => setError(null)}
           >
             {error}
           </Alert>
