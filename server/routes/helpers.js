@@ -20,6 +20,56 @@ const getUserByEmail = function (email, db) {
     });
 }
 
+
+//Player Queries
+
+const checkPlayerMatches = function (player_id, db) {
+  const queryString = `SELECT COUNT(mp.is_winner) FILTER (WHERE mp.is_winner) AS total_wins,
+  COUNT(mp.is_winner) AS total_matches,
+  COUNT(mp.is_winner) FILTER (WHERE mp.is_winner) * 100.0 / COUNT(mp.is_winner) AS win_ratio
+  FROM
+  Players p
+  JOIN Matches_Players mp ON p.id = mp.player_id
+  WHERE
+  p.id = $1
+  GROUP BY
+  p.id;`
+  const values = [player_id];
+  return db
+    .query(queryString, values)
+    .then((result) => {
+      if (result.rows.length === 0) {
+        console.log("No matches found");
+        return [];
+      } else {
+        return result.rows;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+const deletePlayerFromGroup = function (group_id, player_id, db) {
+  const queryString = `DELETE FROM groups_players WHERE group_id = $1 AND player_id = $2;`;
+  const values = [group_id, player_id];
+  return db
+    .query(queryString, values)
+    .then((result) => {
+      if (result.rowCount === 0) {
+        console.log("Player not deleted");
+        return false;
+      } else {
+        return true;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+      return false;
+    });
+};
+
+
 // Group Queries
 
 const getGroupByPlayerId = function (player_id, db) {
@@ -503,5 +553,7 @@ module.exports = {
   deleteMatchByGameId, 
   getMatchesByGameId, 
   deletePlayerResultsByMatchId, 
-  getMatchesForGame
+  getMatchesForGame, 
+  checkPlayerMatches, 
+  deletePlayerFromGroup
 }

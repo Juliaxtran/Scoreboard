@@ -120,7 +120,49 @@ module.exports = (db, dbQueries) => {
     });
   });
   
+//Delete player when there no matches for that player for a group
+router.delete("/delete/:group_id/:player_id", (req, res) => {
+  const { group_id, player_id } = req.params;
 
+  // Check if the player is associated with any matches
+  dbQueries.checkPlayerMatches(player_id, db)
+    .then((matches) => {
+      if (matches.length > 0) {
+        // Player is associated with matches, return an error message
+        res.status(400).send({
+          success: false,
+          message: "Cannot delete player. Player is associated with matches.",
+        });
+      } else {
+        // Player is not associated with any matches, proceed with deletion
+        dbQueries
+          .deletePlayerFromGroup(group_id, player_id, db)
+          .then((player) => {
+            if (player) {
+              res.status(200).send({
+                success: true,
+                message: "Player deleted",
+                player: player,
+              });
+            } else {
+              res.status(400).send({
+                success: false,
+                message: "Player not deleted",
+                player: player,
+              });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+      
 
   return router;
 };
